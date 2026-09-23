@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calculator, AlertTriangle, TrendingUp, DollarSign, Share2, Check } from 'lucide-react';
+import { Calculator, AlertTriangle, TrendingUp, Share2, Check, Info } from 'lucide-react';
 
 export default function RentenLueckeCalculator() {
   const [gehalt, setGehalt] = useState<number>(3200);
@@ -8,7 +8,7 @@ export default function RentenLueckeCalculator() {
   const [copied, setCopied] = useState<boolean>(false);
 
   const rentenluecke = Math.max(0, wunschEinkommen - gesetzlicheRente);
-  // Rentenlücke hochgerechnet auf 25 Jahre Ruhestand (ohne Inflation)
+  // Rentenlücke hochgerechnet auf 25 Jahre Ruhestand
   const kapitalBedarf = rentenluecke * 12 * 25;
 
   const handleShare = () => {
@@ -27,7 +27,7 @@ export default function RentenLueckeCalculator() {
             <Calculator className="w-6 h-6 text-amber-600" />
             <h3 className="text-xl font-bold text-slate-900">Interaktiver Rentenlücken-Rechner 2026</h3>
           </div>
-          <p className="text-xs text-slate-500 mt-1">Berechne deine monatliche Versorgungslücke und das erforderliche Kapitalsolltarget.</p>
+          <p className="text-xs text-slate-500 mt-1">Modellrechnung zur Orientierung bezüglich deiner monatlichen Versorgungslücke.</p>
         </div>
         <button
           onClick={handleShare}
@@ -38,7 +38,7 @@ export default function RentenLueckeCalculator() {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <div>
           <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">
             Aktuelles Nettoeinkommen (€)
@@ -80,7 +80,7 @@ export default function RentenLueckeCalculator() {
       </div>
 
       {/* Ergebnis Panel */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-6 bg-slate-900 text-white rounded-xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-6 bg-slate-900 text-white rounded-xl mb-4">
         <div className="flex items-start gap-4">
           <div className="p-3 bg-amber-500/20 text-amber-400 rounded-lg shrink-0">
             <AlertTriangle className="w-6 h-6" />
@@ -91,7 +91,7 @@ export default function RentenLueckeCalculator() {
               {rentenluecke.toLocaleString('de-DE')} € <span className="text-xs font-normal text-slate-300">/ Monat</span>
             </div>
             <p className="text-xs text-slate-400 mt-1">
-              Betrag, der monatlich im Ruhestand zur Deckung deiner Lebenshaltungskosten fehlt.
+              Differenz zwischen Wunscheinkommen und gesetzlicher Rente.
             </p>
           </div>
         </div>
@@ -101,15 +101,22 @@ export default function RentenLueckeCalculator() {
             <TrendingUp className="w-6 h-6" />
           </div>
           <div>
-            <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold">Erforderliches Kapital (25 Jahre)</span>
+            <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold">Geschätzter Kapitalbedarf (25 Jahre)</span>
             <div className="text-3xl font-extrabold text-white mt-1">
               {kapitalBedarf.toLocaleString('de-DE')} €
             </div>
             <p className="text-xs text-slate-400 mt-1">
-              Benötigtes Vermögenspolster zu Beginn des Ruhestands (ohne Zinseszins & Inflation).
+              Gesamtsumme der Lücken über 25 Rentenjahre.
             </p>
           </div>
         </div>
+      </div>
+
+      <div className="flex items-start gap-2 text-xs text-slate-500 bg-slate-50 p-3 rounded-lg border border-slate-200/60">
+        <Info className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
+        <span>
+          <strong>* Hinweis zur Berechnung:</strong> Vereinfachte Modellrechnung ohne Inflation, Rendite, Steuern, künftige Rentenanpassungen und bereits vorhandenes Vorsorgevermögen.
+        </span>
       </div>
     </div>
   );

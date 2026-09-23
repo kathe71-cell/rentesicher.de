@@ -3,16 +3,21 @@ import AffiliateWidget from '../components/AffiliateWidget';
 import SourceFootnote from '../components/SourceFootnote';
 import SchemaMarkup from '../components/SchemaMarkup';
 import AdSense from '../components/AdSense';
+import { Info, CheckCircle2, AlertTriangle } from 'lucide-react';
 
 export default function RiesterRente() {
   const faqs = [
     {
-      question: "Lohnt sich die Riester-Rente 2026 noch?",
-      answer: "Die Riester-Rente ist insbesondere für Familien mit mehreren Kindern und für Geringverdiener durch hohe staatliche Zulagen (Grundzulage 175 €, Kinderzulage bis zu 300 € pro Kind) hochattraktiv. Für Gutverdiener bietet sie zudem attraktive Sonderausgabenabzüge."
+      question: "Wer ist für die Riester-Förderung 2026 unmittelbar zulagenberechtigt?",
+      answer: "Unmittelbar zulagenberechtigt sind versicherungspflichtige Arbeitnehmer, Auszubildende, Pflichtversicherte in der gesetzlichen Rentenversicherung, Beamtinnen und Beamte sowie Bezieher von Lohnersatzleistungen (z. B. Krankengeld, Elterngeld)."
     },
     {
-      question: "Wie hoch ist die maximale Riester-Förderung?",
-      answer: "Der Höchstbetrag für den Sonderausgabenabzug liegt bei 2.100 € pro Jahr inklusive aller staatlichen Zulagen."
+      question: "Wie hoch ist der Mindesteigenbeitrag bei der Riester-Rente?",
+      answer: "Um die volle staatliche Zulagenförderung zu erhalten, müssen Sparer 4 % ihres sozialversicherungspflichtigen Vorjahreseinkommens (abzüglich der zustehenden Zulagen) als Eigenbeitrag in den Vertrag einzahlen – mindestens jedoch den Sockelbeitrag von 60 € pro Jahr."
+    },
+    {
+      question: "Werden künftige Reformen (z. B. Altersvorsorgedepot) rückwirkend auf bestehende Riester-Verträge angewendet?",
+      answer: "Bestehende Riester-Verträge genießen Besitzstandsschutz. Geplante Reformen zur Einführung eines staatlich geförderten Altersvorsorgedepots befinden sich in der Gesetzgebungsberatung und stellen kein geltendes Recht für Bestandsverträge dar."
     }
   ];
 
@@ -27,52 +32,90 @@ export default function RiesterRente() {
 
       <div className="mb-8">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
-          Riester-Rente 2026: Staatliche Förderung & Vor- und Nachteile
+          Riester-Rente 2026: Zulagen, Steuerabzug & Förderbedingungen
         </h1>
         <p className="text-slate-600 text-base leading-relaxed">
-          Lohnt sich der Riester-Vertrag noch? Erfahre alles über Zulagen, Steuererleichterungen und vergleiche geprüfte Riester-Angebote.
+          Umfassende Darstellung der gesetzlichen Bestimmungen der Riester-Förderung nach § 79 ff. EStG, Berechnung des Mindesteigenbeitrags und sachliche Gegenüberstellung von Vor- und Nachteilen.
         </p>
+      </div>
+
+      {/* Status Notice Box */}
+      <div className="p-4 bg-blue-50 border border-blue-200 text-blue-950 rounded-xl mb-8 text-xs sm:text-sm flex items-start gap-3">
+        <Info className="w-5 h-5 text-blue-700 shrink-0 mt-0.5" />
+        <div>
+          <strong>Differenzierung geltendes Recht vs. Reformvorschläge:</strong> Die nachfolgenden Zulagenwerte entsprechen der im EStG verankerten Rechtslage 2026. Vorschläge für künftige Reformen (z. B. ein rentenunabhängiges Altersvorsorgedepot ab 2027) sind noch nicht beschlossen.
+        </div>
       </div>
 
       <AffiliateWidget type="riester" title="Riester-Förderung & Tarife anfordern" />
 
       <AdSense />
 
-      <section className="prose prose-slate max-w-none my-10">
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">Die staatlichen Riester-Zulagen im Überblick</h2>
-        <div className="overflow-x-auto my-6">
+      <section className="prose prose-slate max-w-none my-10 space-y-6">
+        <h2 className="text-2xl font-bold text-slate-900">
+          Die staatlichen Riester-Zulagen im Detail (Rechtsstand 2026)
+        </h2>
+        <p className="text-slate-700">
+          Die staatliche Riester-Förderung beruht auf zwei Säulen: direkten staatlichen Zulagen und einem zusätzlichen Sonderausgabenabzug bei der Einkommensteuererklärung (§ 10a EStG).
+        </p>
+
+        <div className="overflow-x-auto my-6 not-prose">
           <table className="w-full text-left text-sm text-slate-700 border-collapse border border-slate-200">
             <thead>
               <tr className="bg-slate-100 text-slate-900 border-b border-slate-200">
-                <th className="p-3 border-r border-slate-200">Zulagenart</th>
-                <th className="p-3 border-r border-slate-200">Höhe pro Jahr</th>
-                <th className="p-3">Voraussetzung</th>
+                <th className="p-3 border-r border-slate-200">Förderkomponente</th>
+                <th className="p-3 border-r border-slate-200">Höhe (pro Jahr)</th>
+                <th className="p-3">Voraussetzung & Rechtsgrundlage</th>
               </tr>
             </thead>
             <tbody>
               <tr className="border-b border-slate-200">
                 <td className="p-3 font-semibold border-r border-slate-200">Grundzulage</td>
-                <td className="p-3 font-bold text-emerald-600 border-r border-slate-200">175,00 €</td>
-                <td className="p-3">Mindesteigenbeitrag 4% des Vorjahresbrutto (mind. 60 €)</td>
+                <td className="p-3 font-bold text-emerald-700 border-r border-slate-200">175,00 €</td>
+                <td className="p-3">Zahlung von 4 % des Vorjahresbrutto (mind. 60 € Sockelbeitrag) (§ 84 EStG)</td>
               </tr>
               <tr className="border-b border-slate-200 bg-slate-50/50">
                 <td className="p-3 font-semibold border-r border-slate-200">Kinderzulage (ab 2008 geb.)</td>
-                <td className="p-3 font-bold text-emerald-600 border-r border-slate-200">300,00 €</td>
-                <td className="p-3">Anspruch auf Kindergeld</td>
+                <td className="p-3 font-bold text-emerald-700 border-r border-slate-200">300,00 €</td>
+                <td className="p-3">Kindergeldanspruch im jeweiligen Beitragsjahr (§ 85 EStG)</td>
               </tr>
               <tr className="border-b border-slate-200">
                 <td className="p-3 font-semibold border-r border-slate-200">Kinderzulage (vor 2008 geb.)</td>
-                <td className="p-3 font-bold text-emerald-600 border-r border-slate-200">185,00 €</td>
-                <td className="p-3">Anspruch auf Kindergeld</td>
+                <td className="p-3 font-bold text-emerald-700 border-r border-slate-200">185,00 €</td>
+                <td className="p-3">Kindergeldanspruch im jeweiligen Beitragsjahr (§ 85 EStG)</td>
               </tr>
               <tr className="bg-slate-50/50">
-                <td className="p-3 font-semibold border-r border-slate-200">Berufseinsteiger-Bonus</td>
-                <td className="p-3 font-bold text-emerald-600 border-r border-slate-200">200,00 €</td>
-                <td className="p-3">Einmalig unter 25 Jahren</td>
+                <td className="p-3 font-semibold border-r border-slate-200">Berufseinsteigerbonus</td>
+                <td className="p-3 font-bold text-emerald-700 border-r border-slate-200">200,00 €</td>
+                <td className="p-3">Einmalig für Zulagenberechtigte unter 25 Jahren (§ 84 Abs. 2 EStG)</td>
               </tr>
             </tbody>
           </table>
         </div>
+
+        <h2 className="text-2xl font-bold text-slate-900">
+          Sonderausgabenabzug und Günstigerprüfung (§ 10a EStG)
+        </h2>
+        <p className="text-slate-700">
+          Beiträge zur Riester-Rente können bis zu einem Höchstbetrag von <strong>2.100 Euro pro Kalenderjahr</strong> (Eigenbeiträge plus Zulagen) als Sonderausgaben in der Einkommensteuererklärung geltend gemacht werden. Das Finanzamt führt automatisch eine Günstigerprüfung durch: Ist der Steuervorteil höher als die bereits erhaltenen Zulagen, wird die Differenz dem Steuerpflichtigen erstattet.
+        </p>
+
+        <h2 className="text-2xl font-bold text-slate-900">
+          Berechnung des Mindesteigenbeitrags
+        </h2>
+        <p className="text-slate-700">
+          Um den vollen Anspruch auf die Zulagen zu sichern, muss der berechnete Mindesteigenbeitrag erbracht werden. Formel:
+        </p>
+        <div className="p-4 bg-slate-900 text-white rounded-xl font-mono text-xs sm:text-sm my-4">
+          Mindesteigenbeitrag = (4 % des sozialversicherungspflichtigen Vorjahreseinkommens) – (Zustehende Zulagen)
+        </div>
+
+        <h2 className="text-2xl font-bold text-slate-900">
+          Nachgelagerte Besteuerung im Ruhestand (§ 22 Nr. 5 EStG)
+        </h2>
+        <p className="text-slate-700">
+          Riester-Rentenleistungen unterliegen in der Auszahlungsphase der vollen nachgelagerten Besteuerung. Das bedeutet, dass die erhaltene Monatsrente mit dem individuellen Einkommensteuersatz im Alter versteuert werden muss.
+        </p>
       </section>
 
       <SourceFootnote />

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { Calculator, Award, Info, Share2, Check } from 'lucide-react';
+import { Calculator, Share2, Check, Info, ExternalLink } from 'lucide-react';
 
 export default function RentenBerechnungCalculator() {
-  const [entgeltpunkte, setEntgeltpunkte] = useState<number>(45); // Standard Eckrentner: 45 EP
-  const [rentenwert, setRentenwert] = useState<number>(42.52); // Rentenwert 2026: 42,52 €
-  const [zugangsfaktor, setZugangsfaktor] = useState<number>(1.0); // 1.0 für regulären Eintritt
+  const [entgeltpunkte, setEntgeltpunkte] = useState<number>(45);
+  const [rentenwert, setRentenwert] = useState<number>(42.52);
+  const [zugangsfaktor, setZugangsfaktor] = useState<number>(1.0);
   const [copied, setCopied] = useState<boolean>(false);
 
   const bruttoRente = entgeltpunkte * zugangsfaktor * rentenwert;
-  // Abzüge: Krankenversicherung der Rentner (7.3% + 0.8% Zusatz) + Pflegeversicherung (3.4%) = ~11.5%
-  const abzuege = bruttoRente * 0.115;
+  // Abzüge: Krankenversicherung der Rentner (7.3% + ca. 1.7% Zusatzbeitrag) + Pflegeversicherung (3.4% bis 4.0%) = ~12.4%
+  const abzuege = bruttoRente * 0.124;
   const nettoRenteEst = bruttoRente - abzuege;
 
   const handleShare = () => {
@@ -29,7 +29,7 @@ export default function RentenBerechnungCalculator() {
             <h3 className="text-xl font-bold text-slate-900">Gesetzlicher Rentenrechner 2026</h3>
           </div>
           <p className="text-xs text-slate-500 mt-1">
-            Berechnung nach der offiziellen Rentenformel: <em>Rente = EP × ZF × RW × RAF</em>
+            Formel nach § 64 SGB VI: <em>Rente = EP × ZF × RW × RAF</em>
           </p>
         </div>
         <button
@@ -41,7 +41,7 @@ export default function RentenBerechnungCalculator() {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <div>
           <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2">
             Gesammelte Entgeltpunkte (EP)
@@ -67,7 +67,9 @@ export default function RentenBerechnungCalculator() {
             onChange={(e) => setRentenwert(Number(e.target.value))}
             className="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 focus:border-blue-600 text-slate-900 font-semibold"
           />
-          <span className="text-[11px] text-slate-400 mt-1 block">Amtlich ab 1. Juli 2026: 42,52 €</span>
+          <span className="text-[11px] text-slate-400 mt-1 block">
+            Amtlich ab 1. Juli 2026: 42,52 € (<a href="https://www.deutsche-rentenversicherung.de" target="_blank" rel="noopener noreferrer" className="underline hover:text-blue-700">DRV Quelle</a>)
+          </span>
         </div>
 
         <div>
@@ -89,30 +91,37 @@ export default function RentenBerechnungCalculator() {
       </div>
 
       {/* Result Card */}
-      <div className="p-6 bg-slate-900 text-white rounded-xl grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="p-6 bg-slate-900 text-white rounded-xl grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
         <div>
           <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold block mb-1">Brutto-Monatsrente</span>
           <div className="text-3xl font-extrabold text-white">
             {bruttoRente.toFixed(2).replace('.', ',')} €
           </div>
-          <span className="text-xs text-slate-400 mt-1 block">Vor Abzügen für KV/PV</span>
+          <span className="text-xs text-slate-400 mt-1 block">Vor KV/PV & Steuern</span>
         </div>
 
         <div>
-          <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold block mb-1">Geschätzte Abzüge (KV/PV ~11,5%)</span>
+          <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold block mb-1">Pauschale Abzüge (KV/PV ~12.4%)</span>
           <div className="text-3xl font-extrabold text-amber-400">
             - {abzuege.toFixed(2).replace('.', ',')} €
           </div>
-          <span className="text-xs text-slate-400 mt-1 block">Kranken- & Pflegeversicherung</span>
+          <span className="text-xs text-slate-400 mt-1 block">KVdR + Pflegeversicherung</span>
         </div>
 
         <div>
-          <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold block mb-1">Geschätzte Netto-Rente</span>
+          <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold block mb-1">Geschätzte Rente nach KV/PV</span>
           <div className="text-3xl font-extrabold text-emerald-400">
             {nettoRenteEst.toFixed(2).replace('.', ',')} €
           </div>
           <span className="text-xs text-slate-400 mt-1 block">Vor individueller Einkommensteuer</span>
         </div>
+      </div>
+
+      <div className="flex items-start gap-2 text-xs text-slate-500 bg-slate-50 p-3 rounded-lg border border-slate-200/60">
+        <Info className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
+        <span>
+          <strong>* Hinweis zu Steuern & Abzügen:</strong> Die Auszahlung versteht sich vor individueller Einkommensteuer. Die KV/PV-Beitragssätze variieren je nach Krankenkasse und Pflege-Zusatzbeitrag.
+        </span>
       </div>
     </div>
   );

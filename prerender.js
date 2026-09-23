@@ -12,67 +12,67 @@ const routesToPrerender = [
   {
     url: '/',
     title: 'rentesicher.de – Rentensicherheit & Altersvorsorge 2026',
-    description: 'Unabhängiges Fachportal zur Rentensicherheit: Rentenkommission 2026, Rentenwert 42,52 €, 3-Säulen-Altersvorsorge & 3 interaktive Rechner.'
+    description: 'Unabhängiges Fachportal zur Rentensicherheit: Rentenkommission 2026, Gesetzlicher Rentenwert 42,52 €, Drei-Säulen-Altersvorsorge & 3 Rechner.'
   },
   {
     url: '/rentenkommission',
-    title: 'Rentenkommission 2026: Die 33 Empfehlungen im Überblick',
-    description: 'Verständliche Analyse aller 33 Empfehlungen der Rentenkommission 2026, Haltelinie 48 % und Rechtsstatus im Vergleich.'
+    title: 'Rentenkommission 2026: Die 33 Empfehlungen & Rechtsstatus',
+    description: 'Fachliche Übersicht der 33 Empfehlungen der Rentenkommission, Haltelinie 48 % und Unterscheidung von bereits geltendem Recht.'
   },
   {
     url: '/rentenluecke',
-    title: 'Rentenlücke berechnen 2026: Interaktiver Online-Rechner',
-    description: 'Berechne deine monatliche Versorgungslücke im Alter auf Basis deines Gehalts, deiner erwarteten Rente und Inflation.'
+    title: 'Rentenlücke berechnen 2026: Interaktive Modellrechnung',
+    description: 'Berechne eine erste Orientierung für deine monatliche Versorgungslücke auf Basis von Nettoeinkommen und gesetzlicher Renteninformation.'
   },
   {
     url: '/private-rente',
-    title: 'Private Rentenversicherung Vergleich 2026 & Steuervorteile',
-    description: 'Private Vorsorge als 3. Säule: Halbeinkünfteverfahren, lebenslange Rentenauszahlung und geprüfte Vergleichstarife.'
+    title: 'Private Rentenversicherung 2026: Steuerliche Regelungen & Modelle',
+    description: 'Fachliche Erläuterung zur privaten Rentenversicherung: Ertragsanteilsbesteuerung nach § 22 EStG vs. Unterschiedsbetrag nach § 20 EStG.'
   },
   {
     url: '/riester-rente',
-    title: 'Riester-Rente 2026: Staatliche Förderung & Zulagen-Rechner',
-    description: 'Lohnt sich Riester noch? Grundzulage 175 €, Kinderzulage 300 € und steuerlicher Sonderausgabenabzug.'
+    title: 'Riester-Rente 2026: Zulagen, Steuerabzug & Förderbedingungen',
+    description: 'Rechtsstand 2026 der Riester-Förderung: Grundzulage 175 €, Kinderzulage 300 €, Mindesteigenbeitrag 4 % und Sonderausgabenabzug.'
   },
   {
     url: '/betriebliche-altersvorsorge',
-    title: 'Betriebliche Altersvorsorge (bAV): Arbeitgeberzuschuss 15 %',
-    description: 'Entgeltumwandlung & bAV: Rechtsanspruch, 15 % gesetzlicher Arbeitgeberzuschuss und Abgabenersparnis.'
+    title: 'Betriebliche Altersvorsorge (bAV): Arbeitgeberzuschuss & Durchführungswege',
+    description: 'Entgeltumwandlung nach § 1a BetrAVG: Voraussetzungen des 15 % Arbeitgeberzuschusses, Sozialversicherungseinsparung & Abzüge.'
   },
   {
     url: '/etf-rente',
-    title: 'ETF-Sparplan für Rente: Rendite, Kosten & ETF statt Riester',
-    description: 'ETF-Altersvorsorge mit MSCI World: 7 % historische Rendite p.a., minimalste Kosten und volle Flexibilität.'
+    title: 'ETF-Sparplan für die Altersvorsorge: Möglichkeiten, Kosten & Risiken',
+    description: 'Neutraler Überblick über Aktien-ETFs zur Altersvorsorge: TER-Kosten, Verlust- & Sequenzrisiko sowie historische MSCI-Indexdaten.'
   },
   {
     url: '/rentenalter',
     title: 'Renteneintrittsalter 2026: Wann kann ich in Rente gehen?',
-    description: 'Interaktiver Eintritts-Rechner: Reguläres Alter 67, Rente mit 63 und Bedingungen für 45 Beitragsjahre.'
+    description: 'Rechner für dein gesetzliches Eintrittsalter: Regelaltersgrenze 67, Rente mit 63 und Bedingungen für langjährig Versicherte.'
   },
   {
     url: '/rentenberechnung',
     title: 'Gesetzliche Rentenberechnung: Rentenformel & Rentenwert 42,52 €',
-    description: 'Wie wird die Rente berechnet? Entgeltpunkte, Zugangsfaktor, Rentenwert 2026 und Brutto-Netto-Rechner.'
+    description: 'Offizielle Rentenformel nach § 64 SGB VI: Entgeltpunkte, Zugangsfaktor, Rentenwert 2026 und Auswertung vor Einkommensteuer.'
   },
   {
     url: '/rentenanpassung',
     title: 'Rentenanpassung 2026: +4,24 % Erhöhung des Rentenwerts',
-    description: 'Alle Fakten zur Rentenerhöhung 2026 auf 42,52 € je Entgeltpunkt und historischer Rentenwert-Vergleich.'
+    description: 'Fakten zur Rentenwertbestimmungsverordnung 2026 auf 42,52 € je Entgeltpunkt und historischer Rentenwert-Vergleich.'
   },
   {
     url: '/rente-mit-63',
     title: 'Rente mit 63: Voraussetzungen, Abschläge & 45 Beitragsjahre',
-    description: 'Wer darf noch mit 63 in Rente? Unterschiede für langjährig und besonders langjährig Versicherte.'
+    description: 'Bedingungen für Altersrenten vor der Regelaltersgrenze nach § 36 & § 236b SGB VI im Überblick.'
   },
   {
     url: '/grundrente',
     title: 'Grundrente 2026: Anspruch, 33 Jahre Grundrentenzeiten & Prüfung',
-    description: 'Grundrentenzuschlag für langjährige Beitragszahler mit unterdurchschnittlichem Einkommen im Detail.'
+    description: 'Informationen zum Grundrentenzuschlag für langjährige Beitragszahler mit unterdurchschnittlichem Einkommen.'
   },
   {
     url: '/witwenrente',
     title: 'Witwenrente 2026: Große & Kleine Hinterbliebenenrente',
-    description: 'Anspruchsvoraussetzungen, Freibeträge bei eigenem Einkommen und Berechnung der Witwenrente.'
+    description: 'Anspruchsvoraussetzungen, Freibeträge bei eigenem Einkommen und Berechnung der Witwenrente nach SGB VI.'
   },
   {
     url: '/erwerbsminderungsrente',
@@ -82,7 +82,7 @@ const routesToPrerender = [
   {
     url: '/rentenpunkte',
     title: 'Entgeltpunkte (Rentenpunkte) 2026: Berechnen & Gegenwert',
-    description: 'Wie viel ist 1 Rentenpunkt 2026 wert? (42,52 €) – Punkte für Ausgleich, Erziehung und Durchschnittsgehalt.'
+    description: 'Wie viel ist 1 Rentenpunkt 2026 wert? (42,52 €) – Punkte für Durchschnittseinkommen, Erziehung und Pflege.'
   },
   {
     url: '/rentenbescheid',
@@ -92,17 +92,17 @@ const routesToPrerender = [
   {
     url: '/rentensteuer',
     title: 'Besteuerung von Renten 2026: Besteuerungsanteil & Freibetrag',
-    description: 'Wann müssen Rentner Steuern zahlen? Rentenfreibetrag, Nachgelagerte Besteuerung und Grundfreibetrag 2026.'
+    description: 'Besteuerungsanteil im Ruhestand nach dem Alterseinkünftegesetz und steuerlicher Grundfreibetrag 2026.'
   },
   {
     url: '/altersvorsorge',
     title: 'Altersvorsorge Vergleich 2026: Die 3 Säulen im Überblick',
-    description: 'Gegenüberstellung von Gesetzlicher Rente, bAV, Riester, Privater Rente und ETF-Sparplänen.'
+    description: 'Neutraler Vergleich von Gesetzlicher Rente, bAV, Riester, Privater Rentenversicherung und ETF-Sparplänen.'
   },
   {
     url: '/rentenrechner',
-    title: 'Interaktiver Rentenrechner-Hub 2026: Alle 3 Rechner kostenlos',
-    description: 'Berechne deine Rentenlücke, deine gesetzliche Monatsrente und dein individuelles Renteneintrittsalter.'
+    title: 'Interaktiver Rentenrechner-Hub 2026: Modellrechnungen',
+    description: 'Kostenlose Modellrechnungen für deine Rentenlücke, deine gesetzliche Monatsrente und dein gesetzliches Eintrittsalter.'
   },
   {
     url: '/impressum',
