@@ -14,7 +14,7 @@ export default function Header() {
     <header className="bg-slate-900 text-white sticky top-0 z-50 shadow-md border-b border-slate-800">
       {/* Top Banner strip with dynamic central values */}
       <div className="bg-amber-600 text-slate-950 text-xs py-1 px-4 font-bold text-center">
-        <span>* Aktueller Rentenwert: {CURRENT_VALUES.rentenwertFormatted} / EP • Rentenanpassung: {CURRENT_VALUES.rentenanpassungFormatted} • Unabhängiges Fachportal</span>
+        <span>* Aktueller Rentenwert: {CURRENT_VALUES.rentenwertFormatted} / EP • Rentenanpassung: {CURRENT_VALUES.rentenanpassungFormatted} • Unabhängiges Informationsportal</span>
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
@@ -28,7 +28,7 @@ export default function Header() {
               rentesicher<span className="text-amber-500">.de</span>
             </span>
             <span className="text-[10px] text-slate-400 font-medium tracking-wide">
-              Fachportal für Alterssicherung
+              Informationsportal für Alterssicherung
             </span>
           </div>
         </Link>

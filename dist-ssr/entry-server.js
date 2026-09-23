@@ -30,7 +30,7 @@ function Header() {
       CURRENT_VALUES.rentenwertFormatted,
       " / EP • Rentenanpassung: ",
       CURRENT_VALUES.rentenanpassungFormatted,
-      " • Unabhängiges Fachportal"
+      " • Unabhängiges Informationsportal"
     ] }) }),
     /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between", children: [
       /* @__PURE__ */ jsxs(Link, { to: "/", className: "flex items-center gap-2.5 group", children: [
@@ -40,7 +40,7 @@ function Header() {
             "rentesicher",
             /* @__PURE__ */ jsx("span", { className: "text-amber-500", children: ".de" })
           ] }),
-          /* @__PURE__ */ jsx("span", { className: "text-[10px] text-slate-400 font-medium tracking-wide", children: "Fachportal für Alterssicherung" })
+          /* @__PURE__ */ jsx("span", { className: "text-[10px] text-slate-400 font-medium tracking-wide", children: "Informationsportal für Alterssicherung" })
         ] })
       ] }),
       /* @__PURE__ */ jsxs("nav", { className: "hidden lg:flex items-center gap-1 text-sm font-medium", children: [
@@ -552,7 +552,7 @@ function Home() {
     },
     {
       question: "Was bedeuten die Empfehlungen der Rentenkommission?",
-      answer: "Die Kommission 'Verlässlicher Generationenvertrag' hat wissenschaftliche Empfehlungen zur Stabilisierung des Rentenniveaus bei 48 % erarbeitet. Diese Empfehlungen sind Handlungsvorschläge und entfalten erst dann rechtliche Wirkung, wenn sie vom Gesetzgeber beschlossen werden."
+      answer: "Die Rentenkommission hat 33 Empfehlungen zur Weiterentwicklung der Alterssicherung vorgelegt. Diese Empfehlungen stellen wissenschaftliche und politische Handlungsvorschläge dar und sind nicht automatisch geltendes Recht."
     },
     {
       question: "Wie hoch ist der aktuelle Rentenwert?",
@@ -571,7 +571,7 @@ function Home() {
         /* @__PURE__ */ jsx("br", {}),
         /* @__PURE__ */ jsx("span", { className: "text-blue-900", children: "Gesetzliche Rente, Formeln & Orientierung" })
       ] }),
-      /* @__PURE__ */ jsx("p", { className: "text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed", children: "Unabhängiges Fachportal zur gesetzlichen Rentenentwicklung, den Empfehlungen der Rentenkommission und Berechnungsmöglichkeiten für die private und betriebliche Vorsorge." })
+      /* @__PURE__ */ jsx("p", { className: "text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed", children: "Unabhängiges Informationsportal zur gesetzlichen Rentenentwicklung, den Empfehlungen der Rentenkommission und Berechnungsmöglichkeiten für die private und betriebliche Vorsorge." })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "p-5 sm:p-6 bg-slate-900 text-white rounded-2xl shadow-lg mb-10 border-l-4 border-amber-500", children: [
       /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider mb-2", children: [

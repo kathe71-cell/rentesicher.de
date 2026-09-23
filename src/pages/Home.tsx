@@ -17,7 +17,7 @@ export default function Home() {
     },
     {
       question: "Was bedeuten die Empfehlungen der Rentenkommission?",
-      answer: "Die Kommission 'Verlässlicher Generationenvertrag' hat wissenschaftliche Empfehlungen zur Stabilisierung des Rentenniveaus bei 48 % erarbeitet. Diese Empfehlungen sind Handlungsvorschläge und entfalten erst dann rechtliche Wirkung, wenn sie vom Gesetzgeber beschlossen werden."
+      answer: "Die Rentenkommission hat 33 Empfehlungen zur Weiterentwicklung der Alterssicherung vorgelegt. Diese Empfehlungen stellen wissenschaftliche und politische Handlungsvorschläge dar und sind nicht automatisch geltendes Recht."
     },
     {
       question: "Wie hoch ist der aktuelle Rentenwert?",
@@ -43,7 +43,7 @@ export default function Home() {
           <span className="text-blue-900">Gesetzliche Rente, Formeln & Orientierung</span>
         </h1>
         <p className="text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed">
-          Unabhängiges Fachportal zur gesetzlichen Rentenentwicklung, den Empfehlungen der Rentenkommission und Berechnungsmöglichkeiten für die private und betriebliche Vorsorge.
+          Unabhängiges Informationsportal zur gesetzlichen Rentenentwicklung, den Empfehlungen der Rentenkommission und Berechnungsmöglichkeiten für die private und betriebliche Vorsorge.
         </p>
       </section>
 

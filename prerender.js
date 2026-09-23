@@ -12,7 +12,7 @@ const routesToPrerender = [
   {
     url: '/',
     title: 'rentesicher.de – Rentensicherheit & Altersvorsorge',
-    description: 'Unabhängiges Fachportal für Alterssicherung: Gesetzliche Rentenberechnung, Drei-Säulen-Altersvorsorge & 3 interaktive Rechner.'
+    description: 'Unabhängiges Informationsportal für Alterssicherung: Gesetzliche Rentenberechnung, Drei-Säulen-Altersvorsorge & 3 interaktive Rechner.'
   },
   {
     url: '/rentenkommission',
