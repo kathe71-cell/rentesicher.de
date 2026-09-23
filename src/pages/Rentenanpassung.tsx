@@ -1,19 +1,20 @@
 import React from 'react';
 import SourceFootnote from '../components/SourceFootnote';
 import SchemaMarkup from '../components/SchemaMarkup';
-import AdSense from '../components/AdSense';
+import LastUpdated from '../components/LastUpdated';
+import { CURRENT_VALUES } from '../data/current-values';
 
 export default function Rentenanpassung() {
   const faqs = [
     {
-      question: "Wie hoch ist die Rentenanpassung 2026?",
-      answer: "Die Rentenerhöhung beträgt zum 1. Juli 2026 bundeseinheitlich +4,24 %. Der Rentenwert steigt damit von 40,79 € auf 42,52 € je Entgeltpunkt."
+      question: "Wie wird die jährliche Rentenanpassung berechnet?",
+      answer: "Die Rentenanpassung erfolgt jährlich zum 1. Juli per Verordnung der Bundesregierung auf Basis der bundesweiten Lohnentwicklung und des Nachhaltigkeitsfaktors."
     }
   ];
 
   const breadcrumbs = [
     { name: "Startseite", item: "/" },
-    { name: "Rentenanpassung 2026", item: "/rentenanpassung" }
+    { name: "Rentenanpassung", item: "/rentenanpassung" }
   ];
 
   return (
@@ -21,25 +22,31 @@ export default function Rentenanpassung() {
       <SchemaMarkup faqItems={faqs} breadcrumbs={breadcrumbs} />
 
       <div className="mb-8">
+        <div className="mb-3">
+          <LastUpdated />
+        </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
-          Rentenanpassung 2026: +4,24 % Erhöhung des Rentenwerts
+          Rentenanpassung: Aktuelle Erhöhung & Entwicklung
         </h1>
         <p className="text-slate-600 text-base leading-relaxed">
-          Alle Hintergründe zur Rentenwertbestimmungsverordnung 2026, der Koppelung an die Lohnentwicklung und historischer Vergleich der Rentenanpassungen.
+          Alle Hintergründe zur jährlichen Rentenwertbestimmungsverordnung, der Koppelung an die Lohnentwicklung und historischer Vergleich der Rentenanpassungen.
         </p>
       </div>
 
-      <AdSense />
-
       <section className="prose prose-slate max-w-none my-8">
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">Historischer Vergleich der Rentenanpassungen</h2>
-        <div className="overflow-x-auto my-6">
+        <h2 className="text-2xl font-bold text-slate-900 mb-4">Aktueller Stand der Rentenanpassung</h2>
+        <div className="p-5 bg-amber-50 rounded-xl border border-amber-200 text-amber-950 font-semibold mb-6 text-sm">
+          Der aktuelle Rentenwert beträgt derzeit <strong>{CURRENT_VALUES.rentenwertFormatted}</strong> je Entgeltpunkt (Rentenanpassung: <strong>{CURRENT_VALUES.rentenanpassungFormatted}</strong>).
+        </div>
+
+        <h2 className="text-2xl font-bold text-slate-900 mb-4">Historische Entwicklung der Rentenanpassungen</h2>
+        <div className="overflow-x-auto my-6 not-prose">
           <table className="w-full text-left text-sm text-slate-700 border-collapse border border-slate-200">
             <thead>
               <tr className="bg-slate-100 text-slate-900 border-b border-slate-200">
                 <th className="p-3 border-r border-slate-200">Jahr</th>
                 <th className="p-3 border-r border-slate-200">Rentenanpassung</th>
-                <th className="p-3">Neuer Rentenwert / EP</th>
+                <th className="p-3">Rentenwert / EP</th>
               </tr>
             </thead>
             <tbody>

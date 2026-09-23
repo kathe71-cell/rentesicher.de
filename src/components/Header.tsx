@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Shield, Menu, X, ChevronDown, Calculator, BookOpen, Layers, Award } from 'lucide-react';
+import { Menu, X, ChevronDown, Calculator } from 'lucide-react';
+import { CURRENT_VALUES } from '../data/current-values';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -11,9 +12,9 @@ export default function Header() {
 
   return (
     <header className="bg-slate-900 text-white sticky top-0 z-50 shadow-md border-b border-slate-800">
-      {/* Top Banner strip */}
+      {/* Top Banner strip with dynamic central values */}
       <div className="bg-amber-600 text-slate-950 text-xs py-1 px-4 font-bold text-center">
-        <span>* Rentenwert 2026: 42,52 € / EP • Rentenanpassung: +4,24 % • Unabhängiges Fachportal</span>
+        <span>* Aktueller Rentenwert: {CURRENT_VALUES.rentenwertFormatted} / EP • Rentenanpassung: {CURRENT_VALUES.rentenanpassungFormatted} • Unabhängiges Fachportal</span>
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
@@ -27,7 +28,7 @@ export default function Header() {
               rentesicher<span className="text-amber-500">.de</span>
             </span>
             <span className="text-[10px] text-slate-400 font-medium tracking-wide">
-              Fachportal Altersvorsorge 2026
+              Fachportal für Alterssicherung
             </span>
           </div>
         </Link>
@@ -49,7 +50,7 @@ export default function Header() {
               isActive('/rentenkommission') ? 'bg-slate-800 text-amber-400 font-semibold' : 'text-slate-200 hover:text-white hover:bg-slate-800/60'
             }`}
           >
-            Rentenkommission 2026
+            Rentenkommission
           </Link>
 
           <Link
@@ -71,7 +72,7 @@ export default function Header() {
             Rentenlücke
           </Link>
 
-          {/* Mega Dropdown for Themes & Topics */}
+          {/* Mega Dropdown */}
           <div className="relative">
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -88,15 +89,15 @@ export default function Header() {
               >
                 <div className="text-[11px] uppercase tracking-wider text-slate-400 font-bold px-2 mb-1">Drei Säulen der Vorsorge</div>
                 <Link to="/private-rente" onClick={() => setDropdownOpen(false)} className="px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block">Private Rentenversicherung</Link>
-                <Link to="/riester-rente" onClick={() => setDropdownOpen(false)} className="px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block">Riester-Rente 2026</Link>
+                <Link to="/riester-rente" onClick={() => setDropdownOpen(false)} className="px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block">Riester-Rente Förderung</Link>
                 <Link to="/betriebliche-altersvorsorge" onClick={() => setDropdownOpen(false)} className="px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block">Betriebliche Altersvorsorge (bAV)</Link>
                 <Link to="/etf-rente" onClick={() => setDropdownOpen(false)} className="px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block">ETF-Sparplan für Rente</Link>
                 <Link to="/altersvorsorge" onClick={() => setDropdownOpen(false)} className="px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block">Altersvorsorge Übersicht</Link>
 
                 <div className="text-[11px] uppercase tracking-wider text-slate-400 font-bold px-2 mt-2 mb-1 border-t border-slate-100 pt-2">Gesetzliche Rente & Themen</div>
-                <Link to="/rentenberechnung" onClick={() => setDropdownOpen(false)} className="px-2 py-1 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block">Gesetzliche Rentenberechnung</Link>
+                <Link to="/rentenberechnung" onClick={() => setDropdownOpen(false)} className="px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block">Gesetzliche Rentenberechnung</Link>
                 <Link to="/rentenalter" onClick={() => setDropdownOpen(false)} className="px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block">Rentenalter & Eintrittszeitpunkt</Link>
-                <Link to="/rentenanpassung" onClick={() => setDropdownOpen(false)} className="px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block">Rentenanpassung 2026 (+4,24%)</Link>
+                <Link to="/rentenanpassung" onClick={() => setDropdownOpen(false)} className="px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block">Rentenanpassung & Historie</Link>
                 <Link to="/rente-mit-63" onClick={() => setDropdownOpen(false)} className="px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block">Rente mit 63</Link>
                 <Link to="/grundrente" onClick={() => setDropdownOpen(false)} className="px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block">Grundrente</Link>
                 <Link to="/witwenrente" onClick={() => setDropdownOpen(false)} className="px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block">Witwen- & Hinterbliebenenrente</Link>
@@ -124,7 +125,7 @@ export default function Header() {
         <div className="lg:hidden bg-slate-900 border-t border-slate-800 px-4 py-6 max-h-[85vh] overflow-y-auto">
           <div className="flex flex-col gap-2 font-medium">
             <Link to="/" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800">Startseite</Link>
-            <Link to="/rentenkommission" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800">Rentenkommission 2026</Link>
+            <Link to="/rentenkommission" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800">Rentenkommission</Link>
             <Link to="/rentenrechner" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-lg bg-amber-500 text-slate-950 font-bold flex items-center gap-2">
               <Calculator className="w-4 h-4" /> Rechner-Hub (Alle 3 Rechner)
             </Link>
@@ -134,13 +135,13 @@ export default function Header() {
 
             <div className="text-[11px] uppercase tracking-wider text-amber-400 font-bold pt-3 pb-1">Vorsorge & Vergleiche</div>
             <Link to="/private-rente" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Private Rentenversicherung</Link>
-            <Link to="/riester-rente" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Riester-Rente 2026</Link>
+            <Link to="/riester-rente" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Riester-Rente Förderung</Link>
             <Link to="/betriebliche-altersvorsorge" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Betriebliche Altersvorsorge (bAV)</Link>
             <Link to="/etf-rente" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">ETF-Sparplan für Rente</Link>
             <Link to="/altersvorsorge" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Altersvorsorge Übersicht</Link>
 
             <div className="text-[11px] uppercase tracking-wider text-amber-400 font-bold pt-3 pb-1">Rentenwissen & Begriffe</div>
-            <Link to="/rentenanpassung" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Rentenanpassung 2026</Link>
+            <Link to="/rentenanpassung" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Rentenanpassung</Link>
             <Link to="/rente-mit-63" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Rente mit 63</Link>
             <Link to="/grundrente" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Grundrente</Link>
             <Link to="/witwenrente" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Witwenrente</Link>

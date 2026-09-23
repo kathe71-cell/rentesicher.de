@@ -4,6 +4,7 @@ import RentenBerechnungCalculator from '../components/RentenBerechnungCalculator
 import RentenEintrittsCalculator from '../components/RentenEintrittsCalculator';
 import SourceFootnote from '../components/SourceFootnote';
 import SchemaMarkup from '../components/SchemaMarkup';
+import LastUpdated from '../components/LastUpdated';
 import { Calculator, Calendar, TrendingUp, ArrowDown } from 'lucide-react';
 
 export default function RentenrechnerPage() {
@@ -11,16 +12,12 @@ export default function RentenrechnerPage() {
     {
       question: "Sind die Rechner auf rentesicher.de kostenlos?",
       answer: "Ja, alle 3 interaktiven Rechner stehen vollständig kostenlos, ohne Registrierung und ohne Weitergabe persönlicher Daten zur freien Nutzung bereit."
-    },
-    {
-      question: "Werden meine eingegebenen Daten auf einem Server gespeichert?",
-      answer: "Nein. Alle Berechnungen erfolgen ausschließlich lokal und datenschutzkonform im Webbrowser des Nutzers."
     }
   ];
 
   const breadcrumbs = [
     { name: "Startseite", item: "/" },
-    { name: "Interaktiver Rechner-Hub", item: "/rentenrechner" }
+    { name: "Interaktive Rentenrechner", item: "/rentenrechner" }
   ];
 
   return (
@@ -28,15 +25,18 @@ export default function RentenrechnerPage() {
       <SchemaMarkup faqItems={faqs} breadcrumbs={breadcrumbs} />
 
       <div className="mb-6 text-center sm:text-left">
+        <div className="mb-3">
+          <LastUpdated />
+        </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
-          Die 3 Rentenrechner 2026: Rentenlücke, Gesetzliche Rente & Rentenalter
+          Interaktive Rentenrechner: Rentenlücke, Rente & Eintritt
         </h1>
         <p className="text-slate-600 text-base leading-relaxed">
           Kostenlose Modellrechnungen für deine persönliche Vorsorgeplanung. Springe direkt zum gewünschten Rechner:
         </p>
       </div>
 
-      {/* Quick Jump Buttons - Mobile First */}
+      {/* Quick Jump Buttons */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-10">
         <a
           href="#rechner-luecke"
@@ -72,7 +72,6 @@ export default function RentenrechnerPage() {
         </a>
       </div>
 
-      {/* All 3 Calculators rendered 100% visible & mobile accessible */}
       <div className="space-y-12">
         <section>
           <RentenLueckeCalculator />

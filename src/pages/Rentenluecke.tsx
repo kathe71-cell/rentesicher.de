@@ -2,7 +2,7 @@ import React from 'react';
 import RentenLueckeCalculator from '../components/RentenLueckeCalculator';
 import SourceFootnote from '../components/SourceFootnote';
 import SchemaMarkup from '../components/SchemaMarkup';
-import AdSense from '../components/AdSense';
+import LastUpdated from '../components/LastUpdated';
 
 export default function Rentenluecke() {
   const faqs = [
@@ -26,8 +26,11 @@ export default function Rentenluecke() {
       <SchemaMarkup faqItems={faqs} breadcrumbs={breadcrumbs} />
 
       <div className="mb-8">
+        <div className="mb-3">
+          <LastUpdated />
+        </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
-          Rentenlücke berechnen: Wie viel Rente bekomme ich wirklich?
+          Rentenlücke berechnen: So groß ist deine Versorgungslücke
         </h1>
         <p className="text-slate-600 text-base leading-relaxed">
           Viele Arbeitnehmer unterschätzen die Versorgungslücke im Alter. Mit unserem kostenlosen Online-Rechner ermittelst du sekundenschnell deine individuelle Rentenlücke und dein nötiges Sparziel.
@@ -36,19 +39,17 @@ export default function Rentenluecke() {
 
       <RentenLueckeCalculator />
 
-      <AdSense />
-
       <section className="prose prose-slate max-w-none my-10">
         <h2 className="text-2xl font-bold text-slate-900 mb-4">Warum entsteht eine Rentenlücke?</h2>
         <p className="text-slate-700">
-          Die gesetzliche Rentenversicherung ist als Basisversorgung konzipiert. Da das gesetzliche Rentenniveau 2026 bei ca. 48 % liegt, ersetzt die gesetzliche Rente im Schnitt nicht einmal die Hälfte deines Bruttoeinkommens.
+          Die gesetzliche Rentenversicherung ist als Basisversorgung konzipiert. Da das gesetzliche Rentenniveau bei ca. 48 % liegt, ersetzt die gesetzliche Rente im Schnitt nicht einmal die Hälfte deines Bruttoeinkommens.
         </p>
 
         <h3 className="text-xl font-bold text-slate-900 mt-6 mb-3">Wichtige Einflussfaktoren auf deine Netto-Rente:</h3>
         <ul className="list-disc pl-5 space-y-2 text-slate-700">
-          <li><strong>Kranken- und Pflegeversicherung:</strong> Auf die Bruttorente werden ca. 11,5 % Sozialabgaben fällig.</li>
-          <li><strong>Einkommensteuer:</strong> Für Renteneintritte ab 2026 unterliegt der Großteil der Rente der vollen Einkommensteuer.</li>
-          <li><strong>Inflation / Kaufkraftverlust:</strong> Eine jährliche Inflation von 2 % halbiert die Kaufkraft deines Ersparten in etwa 35 Jahren.</li>
+          <li><strong>Kranken- und Pflegeversicherung:</strong> Auf die Bruttorente werden Abzüge zur Kranken- und Pflegeversicherung fällig.</li>
+          <li><strong>Einkommensteuer:</strong> Nach dem Alterseinkünftegesetz unterliegt ein Großteil der Rente der nachgelagerten Besteuerung.</li>
+          <li><strong>Inflation / Kaufkraftverlust:</strong> Eine jährliche Inflation halbiert die Kaufkraft des Ersparten über längere Zeiträume.</li>
         </ul>
       </section>
 

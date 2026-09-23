@@ -1,17 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShieldCheck, TrendingUp, Calculator, ArrowRight, HelpCircle, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, ArrowRight, HelpCircle, CheckCircle2 } from 'lucide-react';
 import RentenLueckeCalculator from '../components/RentenLueckeCalculator';
 import AffiliateWidget from '../components/AffiliateWidget';
-import AdSense from '../components/AdSense';
 import SourceFootnote from '../components/SourceFootnote';
 import StatusBadge from '../components/StatusBadge';
 import SchemaMarkup from '../components/SchemaMarkup';
+import LastUpdated from '../components/LastUpdated';
+import { CURRENT_VALUES } from '../data/current-values';
 
 export default function Home() {
   const faqs = [
     {
-      question: "Welche gesetzlichen Regelungen sichern die Rentenauszahlung 2026?",
+      question: "Welche gesetzlichen Regelungen sichern die Rentenauszahlung?",
       answer: "Die Auszahlung der gesetzlichen Rente beruht auf dem umlagefinanzierten System der gesetzlichen Rentenversicherung. Der Schutz vor nominalen Rentenkürzungen ist gesetzlich im Schutzklausel-Mechanismus (§ 68 Abs. 4 SGB VI) geregelt."
     },
     {
@@ -19,8 +20,8 @@ export default function Home() {
       answer: "Die Kommission 'Verlässlicher Generationenvertrag' hat wissenschaftliche Empfehlungen zur Stabilisierung des Rentenniveaus bei 48 % erarbeitet. Diese Empfehlungen sind Handlungsvorschläge und entfalten erst dann rechtliche Wirkung, wenn sie vom Gesetzgeber beschlossen werden."
     },
     {
-      question: "Wie hoch ist der bundeseinheitliche Rentenwert 2026?",
-      answer: "Der aktuelle Rentenwert liegt seit dem 1. Juli 2026 bundeseinheitlich bei 42,52 € je Entgeltpunkt. Ein Modell-Eckrentner mit 45 Entgeltpunkten erzielt damit eine Brutto-Standardrente von 1.913,40 € pro Monat."
+      question: "Wie hoch ist der aktuelle Rentenwert?",
+      answer: `Der aktuelle Rentenwert liegt derzeit bei ${CURRENT_VALUES.rentenwertFormatted} je Entgeltpunkt. Ein Modell-Eckrentner mit 45 Entgeltpunkten erzielt damit eine Brutto-Standardrente von ${CURRENT_VALUES.standardrenteFormatted} pro Monat.`
     }
   ];
 
@@ -33,47 +34,47 @@ export default function Home() {
       <SchemaMarkup faqItems={faqs} breadcrumbs={breadcrumbs} />
 
       {/* Hero Header */}
-      <section className="mb-12 text-center sm:text-left">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 text-amber-400 text-xs font-mono tracking-widest uppercase mb-4">
-          <span>§ Stand September 2026 • BMAS & DRV Daten</span>
+      <section className="mb-10 text-center sm:text-left">
+        <div className="mb-3">
+          <LastUpdated />
         </div>
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
-          Rentensicherheit & Alterssicherung 2026 <br />
-          <span className="text-blue-900">Gesetzliche Daten, Formeln & Orientierung</span>
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
+          Rentensicherheit & Alterssicherung <br />
+          <span className="text-blue-900">Gesetzliche Rente, Formeln & Orientierung</span>
         </h1>
-        <p className="text-lg text-slate-600 max-w-3xl leading-relaxed">
+        <p className="text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed">
           Unabhängiges Fachportal zur gesetzlichen Rentenentwicklung, den Empfehlungen der Rentenkommission und Berechnungsmöglichkeiten für die private und betriebliche Vorsorge.
         </p>
       </section>
 
       {/* Position-0 Featured Snippet Box */}
-      <div className="p-6 bg-slate-900 text-white rounded-2xl shadow-lg mb-10 border-l-4 border-amber-500">
+      <div className="p-5 sm:p-6 bg-slate-900 text-white rounded-2xl shadow-lg mb-10 border-l-4 border-amber-500">
         <div className="flex items-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider mb-2">
           <ShieldCheck className="w-4 h-4" />
-          <span>Fakten-Check & Gesetzliche Rahmenbedingungen 2026</span>
+          <span>Fakten-Check & Gesetzliche Rahmenbedingungen</span>
         </div>
-        <p className="text-base leading-relaxed text-slate-100">
-          <strong>Die gesetzliche Schutzklausel verhindert nominale Rentenkürzungen (§ 68 Abs. 4 SGB VI).</strong> Der aktuelle Rentenwert beträgt 2026 bundeseinheitlich <strong>42,52 €</strong> je Entgeltpunkt (Standardrente: 1.913,40 € brutto nach 45 Beitragsjahren). Zusätzliche betriebliche oder private Vorsorge kann dazu dienen, eine individuelle Versorgungslücke im Vergleich zum früheren Erwerbseinkommen zu reduzieren.
+        <p className="text-sm sm:text-base leading-relaxed text-slate-100">
+          <strong>Die gesetzliche Schutzklausel verhindert nominale Rentenkürzungen (§ 68 Abs. 4 SGB VI).</strong> Der aktuelle Rentenwert beträgt derzeit <strong>{CURRENT_VALUES.rentenwertFormatted}</strong> je Entgeltpunkt (Standardrente: {CURRENT_VALUES.standardrenteFormatted} brutto nach 45 Beitragsjahren). Zusätzliche betriebliche oder private Vorsorge kann dazu dienen, eine individuelle Versorgungslücke im Vergleich zum früheren Erwerbseinkommen zu reduzieren.
         </p>
       </div>
 
       {/* Highlights Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
         <div className="p-5 bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-          <span className="text-xs uppercase font-bold text-slate-400 block mb-1">Rentenwert 2026</span>
-          <div className="text-3xl font-extrabold text-blue-900">42,52 €</div>
+          <span className="text-xs uppercase font-bold text-slate-400 block mb-1">Aktueller Rentenwert</span>
+          <div className="text-3xl font-extrabold text-blue-900">{CURRENT_VALUES.rentenwertFormatted}</div>
           <span className="text-xs text-slate-500 mt-1 block">Pro Entgeltpunkt (§ 68 SGB VI)</span>
         </div>
 
         <div className="p-5 bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
           <span className="text-xs uppercase font-bold text-slate-400 block mb-1">Rentenanpassung</span>
-          <div className="text-3xl font-extrabold text-emerald-600">+4,24 %</div>
-          <span className="text-xs text-slate-500 mt-1 block">Erhöhung ab 1. Juli 2026</span>
+          <div className="text-3xl font-extrabold text-emerald-600">{CURRENT_VALUES.rentenanpassungFormatted}</div>
+          <span className="text-xs text-slate-500 mt-1 block">Letzte Anpassung</span>
         </div>
 
         <div className="p-5 bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
           <span className="text-xs uppercase font-bold text-slate-400 block mb-1">Ziel-Rentenniveau</span>
-          <div className="text-3xl font-extrabold text-amber-600">48,0 %</div>
+          <div className="text-3xl font-extrabold text-amber-600">{CURRENT_VALUES.haltelinieFormatted}</div>
           <span className="text-xs text-slate-500 mt-1 block">Gesetzliche Haltelinie</span>
         </div>
       </div>
@@ -118,7 +119,7 @@ export default function Home() {
       </section>
 
       {/* Prominent Affiliate Renten-Widget */}
-      <AffiliateWidget type="rente" title="Unverbindlicher Rentenversicherungs-Vergleich 2026" />
+      <AffiliateWidget type="rente" title="Unverbindlicher Rentenversicherungs-Vergleich" />
 
       {/* Rentenlücken Calculator Section */}
       <section className="my-12">
@@ -130,8 +131,6 @@ export default function Home() {
         </p>
         <RentenLueckeCalculator />
       </section>
-
-      <AdSense />
 
       {/* Rentenkommission Section */}
       <section className="my-12 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">

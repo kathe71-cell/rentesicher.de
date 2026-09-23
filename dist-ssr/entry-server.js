@@ -5,13 +5,33 @@ import { useLocation, Link, Routes, Route, MemoryRouter } from 'react-router-dom
 import { Calculator, ChevronDown, X, Menu, ChevronUp, Check, Share2, AlertTriangle, TrendingUp, Info, ShieldCheck, BookOpen, ExternalLink, ArrowRight, HelpCircle, ShieldAlert, AlertCircle, CheckCircle2, XCircle, Calendar, Clock, ArrowDown } from 'lucide-react';
 import { Analytics } from '@vercel/analytics/react';
 
+const CURRENT_VALUES = {
+  rentenwertFormatted: "42,52 €",
+  rentenanpassungFormatted: "+4,24 %",
+  standardrenteFormatted: "1.913,40 €",
+  haltelinieFormatted: "48,0 %",
+  riesterGrundzulageFormatted: "175,00 €",
+  riesterKinderzulageAb2008Formatted: "300,00 €",
+  riesterKinderzulageVor2008Formatted: "185,00 €",
+  riesterHoechstbetragFormatted: "2.100,00 €",
+  riesterMindestbeitragProzent: 4,
+  bavArbeitgeberzuschussFormatted: "15 %",
+  lastCheckedText: "Zuletzt fachlich geprüft: September 2026"
+};
+
 function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
   return /* @__PURE__ */ jsxs("header", { className: "bg-slate-900 text-white sticky top-0 z-50 shadow-md border-b border-slate-800", children: [
-    /* @__PURE__ */ jsx("div", { className: "bg-amber-600 text-slate-950 text-xs py-1 px-4 font-bold text-center", children: /* @__PURE__ */ jsx("span", { children: "* Rentenwert 2026: 42,52 € / EP • Rentenanpassung: +4,24 % • Unabhängiges Fachportal" }) }),
+    /* @__PURE__ */ jsx("div", { className: "bg-amber-600 text-slate-950 text-xs py-1 px-4 font-bold text-center", children: /* @__PURE__ */ jsxs("span", { children: [
+      "* Aktueller Rentenwert: ",
+      CURRENT_VALUES.rentenwertFormatted,
+      " / EP • Rentenanpassung: ",
+      CURRENT_VALUES.rentenanpassungFormatted,
+      " • Unabhängiges Fachportal"
+    ] }) }),
     /* @__PURE__ */ jsxs("div", { className: "max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between", children: [
       /* @__PURE__ */ jsxs(Link, { to: "/", className: "flex items-center gap-2.5 group", children: [
         /* @__PURE__ */ jsx("div", { className: "w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center font-extrabold text-slate-950 text-xl shadow-inner group-hover:bg-amber-400 transition-colors", children: "€" }),
@@ -20,7 +40,7 @@ function Header() {
             "rentesicher",
             /* @__PURE__ */ jsx("span", { className: "text-amber-500", children: ".de" })
           ] }),
-          /* @__PURE__ */ jsx("span", { className: "text-[10px] text-slate-400 font-medium tracking-wide", children: "Fachportal Altersvorsorge 2026" })
+          /* @__PURE__ */ jsx("span", { className: "text-[10px] text-slate-400 font-medium tracking-wide", children: "Fachportal für Alterssicherung" })
         ] })
       ] }),
       /* @__PURE__ */ jsxs("nav", { className: "hidden lg:flex items-center gap-1 text-sm font-medium", children: [
@@ -37,7 +57,7 @@ function Header() {
           {
             to: "/rentenkommission",
             className: `px-3 py-2 rounded-lg transition-colors ${isActive("/rentenkommission") ? "bg-slate-800 text-amber-400 font-semibold" : "text-slate-200 hover:text-white hover:bg-slate-800/60"}`,
-            children: "Rentenkommission 2026"
+            children: "Rentenkommission"
           }
         ),
         /* @__PURE__ */ jsxs(
@@ -79,14 +99,14 @@ function Header() {
               children: [
                 /* @__PURE__ */ jsx("div", { className: "text-[11px] uppercase tracking-wider text-slate-400 font-bold px-2 mb-1", children: "Drei Säulen der Vorsorge" }),
                 /* @__PURE__ */ jsx(Link, { to: "/private-rente", onClick: () => setDropdownOpen(false), className: "px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block", children: "Private Rentenversicherung" }),
-                /* @__PURE__ */ jsx(Link, { to: "/riester-rente", onClick: () => setDropdownOpen(false), className: "px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block", children: "Riester-Rente 2026" }),
+                /* @__PURE__ */ jsx(Link, { to: "/riester-rente", onClick: () => setDropdownOpen(false), className: "px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block", children: "Riester-Rente Förderung" }),
                 /* @__PURE__ */ jsx(Link, { to: "/betriebliche-altersvorsorge", onClick: () => setDropdownOpen(false), className: "px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block", children: "Betriebliche Altersvorsorge (bAV)" }),
                 /* @__PURE__ */ jsx(Link, { to: "/etf-rente", onClick: () => setDropdownOpen(false), className: "px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block", children: "ETF-Sparplan für Rente" }),
                 /* @__PURE__ */ jsx(Link, { to: "/altersvorsorge", onClick: () => setDropdownOpen(false), className: "px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block", children: "Altersvorsorge Übersicht" }),
                 /* @__PURE__ */ jsx("div", { className: "text-[11px] uppercase tracking-wider text-slate-400 font-bold px-2 mt-2 mb-1 border-t border-slate-100 pt-2", children: "Gesetzliche Rente & Themen" }),
-                /* @__PURE__ */ jsx(Link, { to: "/rentenberechnung", onClick: () => setDropdownOpen(false), className: "px-2 py-1 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block", children: "Gesetzliche Rentenberechnung" }),
+                /* @__PURE__ */ jsx(Link, { to: "/rentenberechnung", onClick: () => setDropdownOpen(false), className: "px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block", children: "Gesetzliche Rentenberechnung" }),
                 /* @__PURE__ */ jsx(Link, { to: "/rentenalter", onClick: () => setDropdownOpen(false), className: "px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block", children: "Rentenalter & Eintrittszeitpunkt" }),
-                /* @__PURE__ */ jsx(Link, { to: "/rentenanpassung", onClick: () => setDropdownOpen(false), className: "px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block", children: "Rentenanpassung 2026 (+4,24%)" }),
+                /* @__PURE__ */ jsx(Link, { to: "/rentenanpassung", onClick: () => setDropdownOpen(false), className: "px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block", children: "Rentenanpassung & Historie" }),
                 /* @__PURE__ */ jsx(Link, { to: "/rente-mit-63", onClick: () => setDropdownOpen(false), className: "px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block", children: "Rente mit 63" }),
                 /* @__PURE__ */ jsx(Link, { to: "/grundrente", onClick: () => setDropdownOpen(false), className: "px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block", children: "Grundrente" }),
                 /* @__PURE__ */ jsx(Link, { to: "/witwenrente", onClick: () => setDropdownOpen(false), className: "px-2 py-1.5 hover:bg-slate-100 rounded-lg text-xs font-semibold text-slate-800 block", children: "Witwen- & Hinterbliebenenrente" }),
@@ -111,7 +131,7 @@ function Header() {
     ] }),
     mobileMenuOpen && /* @__PURE__ */ jsx("div", { className: "lg:hidden bg-slate-900 border-t border-slate-800 px-4 py-6 max-h-[85vh] overflow-y-auto", children: /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-2 font-medium", children: [
       /* @__PURE__ */ jsx(Link, { to: "/", onClick: () => setMobileMenuOpen(false), className: "px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800", children: "Startseite" }),
-      /* @__PURE__ */ jsx(Link, { to: "/rentenkommission", onClick: () => setMobileMenuOpen(false), className: "px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800", children: "Rentenkommission 2026" }),
+      /* @__PURE__ */ jsx(Link, { to: "/rentenkommission", onClick: () => setMobileMenuOpen(false), className: "px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800", children: "Rentenkommission" }),
       /* @__PURE__ */ jsxs(Link, { to: "/rentenrechner", onClick: () => setMobileMenuOpen(false), className: "px-3 py-2 rounded-lg bg-amber-500 text-slate-950 font-bold flex items-center gap-2", children: [
         /* @__PURE__ */ jsx(Calculator, { className: "w-4 h-4" }),
         " Rechner-Hub (Alle 3 Rechner)"
@@ -121,12 +141,12 @@ function Header() {
       /* @__PURE__ */ jsx(Link, { to: "/rentenalter", onClick: () => setMobileMenuOpen(false), className: "px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800", children: "Renteneintritts-Rechner" }),
       /* @__PURE__ */ jsx("div", { className: "text-[11px] uppercase tracking-wider text-amber-400 font-bold pt-3 pb-1", children: "Vorsorge & Vergleiche" }),
       /* @__PURE__ */ jsx(Link, { to: "/private-rente", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Private Rentenversicherung" }),
-      /* @__PURE__ */ jsx(Link, { to: "/riester-rente", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Riester-Rente 2026" }),
+      /* @__PURE__ */ jsx(Link, { to: "/riester-rente", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Riester-Rente Förderung" }),
       /* @__PURE__ */ jsx(Link, { to: "/betriebliche-altersvorsorge", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Betriebliche Altersvorsorge (bAV)" }),
       /* @__PURE__ */ jsx(Link, { to: "/etf-rente", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "ETF-Sparplan für Rente" }),
       /* @__PURE__ */ jsx(Link, { to: "/altersvorsorge", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Altersvorsorge Übersicht" }),
       /* @__PURE__ */ jsx("div", { className: "text-[11px] uppercase tracking-wider text-amber-400 font-bold pt-3 pb-1", children: "Rentenwissen & Begriffe" }),
-      /* @__PURE__ */ jsx(Link, { to: "/rentenanpassung", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Rentenanpassung 2026" }),
+      /* @__PURE__ */ jsx(Link, { to: "/rentenanpassung", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Rentenanpassung" }),
       /* @__PURE__ */ jsx(Link, { to: "/rente-mit-63", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Rente mit 63" }),
       /* @__PURE__ */ jsx(Link, { to: "/grundrente", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Grundrente" }),
       /* @__PURE__ */ jsx(Link, { to: "/witwenrente", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Witwenrente" }),
@@ -370,15 +390,15 @@ function AffiliateWidget({ type, title }) {
     }
   }, [type]);
   const elementId = type === "rente" ? "tcpp-iframe-rente" : "tcpp-iframe-riester";
-  return /* @__PURE__ */ jsxs("div", { className: "my-8 p-6 bg-white rounded-2xl border border-slate-200 shadow-sm", children: [
+  return /* @__PURE__ */ jsxs("div", { className: "my-6 sm:my-8 p-4 sm:p-6 bg-white rounded-2xl border border-slate-200 shadow-sm max-w-full overflow-hidden", children: [
     /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-100", children: [
       /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
-        /* @__PURE__ */ jsx(ShieldCheck, { className: "w-5 h-5 text-blue-700" }),
-        /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-slate-900", children: title || (type === "rente" ? "Unverbindlicher Rentenversicherung-Vergleich" : "Riester-Vorsorge Anfordern") })
+        /* @__PURE__ */ jsx(ShieldCheck, { className: "w-5 h-5 text-blue-700 shrink-0" }),
+        /* @__PURE__ */ jsx("h3", { className: "text-base sm:text-lg font-bold text-slate-900 leading-snug", children: title || (type === "rente" ? "Unverbindlicher Rentenversicherung-Vergleich" : "Riester-Vorsorge Anfordern") })
       ] }),
-      /* @__PURE__ */ jsx("span", { className: "text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full", children: "Partner-Vergleich" })
+      /* @__PURE__ */ jsx("span", { className: "text-[11px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full shrink-0", children: "Partner-Vergleich" })
     ] }),
-    /* @__PURE__ */ jsx("div", { style: { width: "100%" }, id: elementId, className: "min-h-[420px] rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 text-sm", children: /* @__PURE__ */ jsx("span", { children: "Lade Vergleichsformular..." }) }),
+    /* @__PURE__ */ jsx("div", { className: "w-full max-w-full overflow-x-auto overflow-y-hidden rounded-xl bg-slate-50 min-h-[420px] flex items-center justify-center", children: /* @__PURE__ */ jsx("div", { style: { width: "100%", minWidth: "280px", maxWidth: "100%" }, id: elementId, className: "w-full text-slate-400 text-xs sm:text-sm text-center p-4", children: /* @__PURE__ */ jsx("span", { children: "Lade Vergleichsformular..." }) }) }),
     /* @__PURE__ */ jsxs("div", { className: "mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500 flex items-start gap-1.5 leading-relaxed", children: [
       /* @__PURE__ */ jsx(Info, { className: "w-4 h-4 text-slate-400 shrink-0 mt-0.5" }),
       /* @__PURE__ */ jsxs("span", { children: [
@@ -387,10 +407,6 @@ function AffiliateWidget({ type, title }) {
       ] })
     ] })
   ] });
-}
-
-function AdSense() {
-  return null;
 }
 
 function SourceFootnote() {
@@ -501,10 +517,17 @@ function SchemaMarkup({ faqItems, breadcrumbs }) {
   );
 }
 
+function LastUpdated({ className = "" }) {
+  return /* @__PURE__ */ jsxs("div", { className: `inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-medium border border-slate-200 ${className}`, children: [
+    /* @__PURE__ */ jsx(ShieldCheck, { className: "w-3.5 h-3.5 text-emerald-600 shrink-0" }),
+    /* @__PURE__ */ jsx("span", { children: CURRENT_VALUES.lastCheckedText })
+  ] });
+}
+
 function Home() {
   const faqs = [
     {
-      question: "Welche gesetzlichen Regelungen sichern die Rentenauszahlung 2026?",
+      question: "Welche gesetzlichen Regelungen sichern die Rentenauszahlung?",
       answer: "Die Auszahlung der gesetzlichen Rente beruht auf dem umlagefinanzierten System der gesetzlichen Rentenversicherung. Der Schutz vor nominalen Rentenkürzungen ist gesetzlich im Schutzklausel-Mechanismus (§ 68 Abs. 4 SGB VI) geregelt."
     },
     {
@@ -512,8 +535,8 @@ function Home() {
       answer: "Die Kommission 'Verlässlicher Generationenvertrag' hat wissenschaftliche Empfehlungen zur Stabilisierung des Rentenniveaus bei 48 % erarbeitet. Diese Empfehlungen sind Handlungsvorschläge und entfalten erst dann rechtliche Wirkung, wenn sie vom Gesetzgeber beschlossen werden."
     },
     {
-      question: "Wie hoch ist der bundeseinheitliche Rentenwert 2026?",
-      answer: "Der aktuelle Rentenwert liegt seit dem 1. Juli 2026 bundeseinheitlich bei 42,52 € je Entgeltpunkt. Ein Modell-Eckrentner mit 45 Entgeltpunkten erzielt damit eine Brutto-Standardrente von 1.913,40 € pro Monat."
+      question: "Wie hoch ist der aktuelle Rentenwert?",
+      answer: `Der aktuelle Rentenwert liegt derzeit bei ${CURRENT_VALUES.rentenwertFormatted} je Entgeltpunkt. Ein Modell-Eckrentner mit 45 Entgeltpunkten erzielt damit eine Brutto-Standardrente von ${CURRENT_VALUES.standardrenteFormatted} pro Monat.`
     }
   ];
   const breadcrumbs = [
@@ -521,41 +544,43 @@ function Home() {
   ];
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
-    /* @__PURE__ */ jsxs("section", { className: "mb-12 text-center sm:text-left", children: [
-      /* @__PURE__ */ jsx("div", { className: "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 text-amber-400 text-xs font-mono tracking-widest uppercase mb-4", children: /* @__PURE__ */ jsx("span", { children: "§ Stand September 2026 • BMAS & DRV Daten" }) }),
-      /* @__PURE__ */ jsxs("h1", { className: "text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4", children: [
-        "Rentensicherheit & Alterssicherung 2026 ",
+    /* @__PURE__ */ jsxs("section", { className: "mb-10 text-center sm:text-left", children: [
+      /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
+      /* @__PURE__ */ jsxs("h1", { className: "text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4", children: [
+        "Rentensicherheit & Alterssicherung ",
         /* @__PURE__ */ jsx("br", {}),
-        /* @__PURE__ */ jsx("span", { className: "text-blue-900", children: "Gesetzliche Daten, Formeln & Orientierung" })
+        /* @__PURE__ */ jsx("span", { className: "text-blue-900", children: "Gesetzliche Rente, Formeln & Orientierung" })
       ] }),
-      /* @__PURE__ */ jsx("p", { className: "text-lg text-slate-600 max-w-3xl leading-relaxed", children: "Unabhängiges Fachportal zur gesetzlichen Rentenentwicklung, den Empfehlungen der Rentenkommission und Berechnungsmöglichkeiten für die private und betriebliche Vorsorge." })
+      /* @__PURE__ */ jsx("p", { className: "text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed", children: "Unabhängiges Fachportal zur gesetzlichen Rentenentwicklung, den Empfehlungen der Rentenkommission und Berechnungsmöglichkeiten für die private und betriebliche Vorsorge." })
     ] }),
-    /* @__PURE__ */ jsxs("div", { className: "p-6 bg-slate-900 text-white rounded-2xl shadow-lg mb-10 border-l-4 border-amber-500", children: [
+    /* @__PURE__ */ jsxs("div", { className: "p-5 sm:p-6 bg-slate-900 text-white rounded-2xl shadow-lg mb-10 border-l-4 border-amber-500", children: [
       /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider mb-2", children: [
         /* @__PURE__ */ jsx(ShieldCheck, { className: "w-4 h-4" }),
-        /* @__PURE__ */ jsx("span", { children: "Fakten-Check & Gesetzliche Rahmenbedingungen 2026" })
+        /* @__PURE__ */ jsx("span", { children: "Fakten-Check & Gesetzliche Rahmenbedingungen" })
       ] }),
-      /* @__PURE__ */ jsxs("p", { className: "text-base leading-relaxed text-slate-100", children: [
+      /* @__PURE__ */ jsxs("p", { className: "text-sm sm:text-base leading-relaxed text-slate-100", children: [
         /* @__PURE__ */ jsx("strong", { children: "Die gesetzliche Schutzklausel verhindert nominale Rentenkürzungen (§ 68 Abs. 4 SGB VI)." }),
-        " Der aktuelle Rentenwert beträgt 2026 bundeseinheitlich ",
-        /* @__PURE__ */ jsx("strong", { children: "42,52 €" }),
-        " je Entgeltpunkt (Standardrente: 1.913,40 € brutto nach 45 Beitragsjahren). Zusätzliche betriebliche oder private Vorsorge kann dazu dienen, eine individuelle Versorgungslücke im Vergleich zum früheren Erwerbseinkommen zu reduzieren."
+        " Der aktuelle Rentenwert beträgt derzeit ",
+        /* @__PURE__ */ jsx("strong", { children: CURRENT_VALUES.rentenwertFormatted }),
+        " je Entgeltpunkt (Standardrente: ",
+        CURRENT_VALUES.standardrenteFormatted,
+        " brutto nach 45 Beitragsjahren). Zusätzliche betriebliche oder private Vorsorge kann dazu dienen, eine individuelle Versorgungslücke im Vergleich zum früheren Erwerbseinkommen zu reduzieren."
       ] })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12", children: [
       /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow", children: [
-        /* @__PURE__ */ jsx("span", { className: "text-xs uppercase font-bold text-slate-400 block mb-1", children: "Rentenwert 2026" }),
-        /* @__PURE__ */ jsx("div", { className: "text-3xl font-extrabold text-blue-900", children: "42,52 €" }),
+        /* @__PURE__ */ jsx("span", { className: "text-xs uppercase font-bold text-slate-400 block mb-1", children: "Aktueller Rentenwert" }),
+        /* @__PURE__ */ jsx("div", { className: "text-3xl font-extrabold text-blue-900", children: CURRENT_VALUES.rentenwertFormatted }),
         /* @__PURE__ */ jsx("span", { className: "text-xs text-slate-500 mt-1 block", children: "Pro Entgeltpunkt (§ 68 SGB VI)" })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow", children: [
         /* @__PURE__ */ jsx("span", { className: "text-xs uppercase font-bold text-slate-400 block mb-1", children: "Rentenanpassung" }),
-        /* @__PURE__ */ jsx("div", { className: "text-3xl font-extrabold text-emerald-600", children: "+4,24 %" }),
-        /* @__PURE__ */ jsx("span", { className: "text-xs text-slate-500 mt-1 block", children: "Erhöhung ab 1. Juli 2026" })
+        /* @__PURE__ */ jsx("div", { className: "text-3xl font-extrabold text-emerald-600", children: CURRENT_VALUES.rentenanpassungFormatted }),
+        /* @__PURE__ */ jsx("span", { className: "text-xs text-slate-500 mt-1 block", children: "Letzte Anpassung" })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow", children: [
         /* @__PURE__ */ jsx("span", { className: "text-xs uppercase font-bold text-slate-400 block mb-1", children: "Ziel-Rentenniveau" }),
-        /* @__PURE__ */ jsx("div", { className: "text-3xl font-extrabold text-amber-600", children: "48,0 %" }),
+        /* @__PURE__ */ jsx("div", { className: "text-3xl font-extrabold text-amber-600", children: CURRENT_VALUES.haltelinieFormatted }),
         /* @__PURE__ */ jsx("span", { className: "text-xs text-slate-500 mt-1 block", children: "Gesetzliche Haltelinie" })
       ] })
     ] }),
@@ -592,13 +617,12 @@ function Home() {
         ] })
       ] })
     ] }),
-    /* @__PURE__ */ jsx(AffiliateWidget, { type: "rente", title: "Unverbindlicher Rentenversicherungs-Vergleich 2026" }),
+    /* @__PURE__ */ jsx(AffiliateWidget, { type: "rente", title: "Unverbindlicher Rentenversicherungs-Vergleich" }),
     /* @__PURE__ */ jsxs("section", { className: "my-12", children: [
       /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-2", children: "Modellrechnung: Persönliche Rentenlücke ermitteln" }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-sm mb-6", children: "Kalkuliere eine erste Orientierung über die Differenz zwischen deinem Wunscheinkommen und deiner erwarteten Gesetzlichen Rente." }),
       /* @__PURE__ */ jsx(RentenLueckeCalculator, {})
     ] }),
-    /* @__PURE__ */ jsx(AdSense, {}),
     /* @__PURE__ */ jsxs("section", { className: "my-12 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm", children: [
       /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between gap-4 mb-4", children: [
         /* @__PURE__ */ jsx("h2", { className: "text-xl font-bold text-slate-900", children: "Rentenkommission: Die 33 Empfehlungen im Überblick" }),
@@ -952,27 +976,27 @@ function Rentenluecke() {
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Rentenlücke berechnen: Wie viel Rente bekomme ich wirklich?" }),
+      /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Rentenlücke berechnen: So groß ist deine Versorgungslücke" }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Viele Arbeitnehmer unterschätzen die Versorgungslücke im Alter. Mit unserem kostenlosen Online-Rechner ermittelst du sekundenschnell deine individuelle Rentenlücke und dein nötiges Sparziel." })
     ] }),
     /* @__PURE__ */ jsx(RentenLueckeCalculator, {}),
-    /* @__PURE__ */ jsx(AdSense, {}),
     /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none my-10", children: [
       /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "Warum entsteht eine Rentenlücke?" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Die gesetzliche Rentenversicherung ist als Basisversorgung konzipiert. Da das gesetzliche Rentenniveau 2026 bei ca. 48 % liegt, ersetzt die gesetzliche Rente im Schnitt nicht einmal die Hälfte deines Bruttoeinkommens." }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Die gesetzliche Rentenversicherung ist als Basisversorgung konzipiert. Da das gesetzliche Rentenniveau bei ca. 48 % liegt, ersetzt die gesetzliche Rente im Schnitt nicht einmal die Hälfte deines Bruttoeinkommens." }),
       /* @__PURE__ */ jsx("h3", { className: "text-xl font-bold text-slate-900 mt-6 mb-3", children: "Wichtige Einflussfaktoren auf deine Netto-Rente:" }),
       /* @__PURE__ */ jsxs("ul", { className: "list-disc pl-5 space-y-2 text-slate-700", children: [
         /* @__PURE__ */ jsxs("li", { children: [
           /* @__PURE__ */ jsx("strong", { children: "Kranken- und Pflegeversicherung:" }),
-          " Auf die Bruttorente werden ca. 11,5 % Sozialabgaben fällig."
+          " Auf die Bruttorente werden Abzüge zur Kranken- und Pflegeversicherung fällig."
         ] }),
         /* @__PURE__ */ jsxs("li", { children: [
           /* @__PURE__ */ jsx("strong", { children: "Einkommensteuer:" }),
-          " Für Renteneintritte ab 2026 unterliegt der Großteil der Rente der vollen Einkommensteuer."
+          " Nach dem Alterseinkünftegesetz unterliegt ein Großteil der Rente der nachgelagerten Besteuerung."
         ] }),
         /* @__PURE__ */ jsxs("li", { children: [
           /* @__PURE__ */ jsx("strong", { children: "Inflation / Kaufkraftverlust:" }),
-          " Eine jährliche Inflation von 2 % halbiert die Kaufkraft deines Ersparten in etwa 35 Jahren."
+          " Eine jährliche Inflation halbiert die Kaufkraft des Ersparten über längere Zeiträume."
         ] })
       ] })
     ] }),
@@ -1002,7 +1026,8 @@ function PrivateRente() {
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Private Rentenversicherung im Vergleich 2026: Steuerliche Regelungen & Modelle" }),
+      /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Private Rentenversicherung: Modelle, Vorteile und Steuer" }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Die private Rentenversicherung bildet die 3. Säule der deutschen Alterssicherung. Erfahre alles über klassische und fondsgebundene Tarife, den Rentenfaktor, Vertragskosten und die exakte steuerliche Behandlung nach § 20 und § 22 EStG." })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "p-4 bg-blue-50 border border-blue-200 text-blue-950 rounded-xl mb-8 text-xs sm:text-sm flex items-start gap-3", children: [
@@ -1013,14 +1038,13 @@ function PrivateRente() {
       ] })
     ] }),
     /* @__PURE__ */ jsx(AffiliateWidget, { type: "rente", title: "Kostenlosen Tarife-Vergleich anfordern" }),
-    /* @__PURE__ */ jsx(AdSense, {}),
     /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none my-10 space-y-6", children: [
       /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900", children: "Klassische vs. Fondsgebundene Rentenversicherung" }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Bei der Wahl einer privaten Rentenversicherung stehen Verbraucher grundsätzlich vor der Entscheidung zwischen zwei Hauptformen:" }),
       /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6 not-prose my-6", children: [
         /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
           /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 mb-2 text-base", children: "Klassische Rentenversicherung" }),
-          /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600 leading-relaxed mb-3", children: "Legt die Beiträge im Sicherungsvermögen des Versicherers an. Bietet eine vertraglich festgelegte Höchstrechnungszins-Garantie plus Überschussbeteiligung." }),
+          /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600 leading-relaxed mb-3", children: "Legt die Beiträge im Sicherungsvermögen des Versicherers an. Bietet eine vertraglich festgelegte Garantie plus Überschussbeteiligung." }),
           /* @__PURE__ */ jsxs("ul", { className: "text-xs text-slate-700 space-y-1", children: [
             /* @__PURE__ */ jsxs("li", { className: "flex items-center gap-1.5", children: [
               /* @__PURE__ */ jsx(CheckCircle2, { className: "w-4 h-4 text-emerald-600" }),
@@ -1053,32 +1077,8 @@ function PrivateRente() {
       /* @__PURE__ */ jsxs("p", { className: "text-slate-700", children: [
         "Wird das Vorsorgeguthaben als lebenslange monatliche Rente ausgezahlt, unterliegt lediglich der sogenannte ",
         /* @__PURE__ */ jsx("strong", { children: "Ertragsanteil" }),
-        " der Einkommensteuer (§ 22 Nr. 1 Satz 3 Buchst. a Doppelbuchst. bb EStG). Die Höhe des Ertragsanteils richtet sich nach dem Alter bei Rentenbeginn:"
+        " der Einkommensteuer (§ 22 Nr. 1 Satz 3 Buchst. a Doppelbuchst. bb EStG). Die Höhe des Ertragsanteils richtet sich nach dem Alter bei Rentenbeginn."
       ] }),
-      /* @__PURE__ */ jsx("div", { className: "overflow-x-auto my-4 not-prose", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-left text-sm border-collapse border border-slate-200", children: [
-        /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "bg-slate-100 text-slate-900 border-b border-slate-200", children: [
-          /* @__PURE__ */ jsx("th", { className: "p-3 border-r border-slate-200", children: "Alter bei Rentenbeginn" }),
-          /* @__PURE__ */ jsx("th", { className: "p-3 border-r border-slate-200", children: "Steuerpflichtiger Ertragsanteil (%)" }),
-          /* @__PURE__ */ jsx("th", { className: "p-3", children: "Steuerfreier Anteil (%)" })
-        ] }) }),
-        /* @__PURE__ */ jsxs("tbody", { children: [
-          /* @__PURE__ */ jsxs("tr", { className: "border-b border-slate-200", children: [
-            /* @__PURE__ */ jsx("td", { className: "p-3 border-r border-slate-200", children: "62 Jahre" }),
-            /* @__PURE__ */ jsx("td", { className: "p-3 border-r border-slate-200 font-bold text-blue-900", children: "21 %" }),
-            /* @__PURE__ */ jsx("td", { className: "p-3", children: "79 %" })
-          ] }),
-          /* @__PURE__ */ jsxs("tr", { className: "border-b border-slate-200 bg-slate-50/50", children: [
-            /* @__PURE__ */ jsx("td", { className: "p-3 border-r border-slate-200", children: "65 Jahre" }),
-            /* @__PURE__ */ jsx("td", { className: "p-3 border-r border-slate-200 font-bold text-blue-900", children: "18 %" }),
-            /* @__PURE__ */ jsx("td", { className: "p-3", children: "82 %" })
-          ] }),
-          /* @__PURE__ */ jsxs("tr", { className: "border-b border-slate-200", children: [
-            /* @__PURE__ */ jsx("td", { className: "p-3 border-r border-slate-200", children: "67 Jahre" }),
-            /* @__PURE__ */ jsx("td", { className: "p-3 border-r border-slate-200 font-bold text-blue-900", children: "17 %" }),
-            /* @__PURE__ */ jsx("td", { className: "p-3", children: "83 %" })
-          ] })
-        ] })
-      ] }) }),
       /* @__PURE__ */ jsx("h3", { className: "text-xl font-bold text-slate-900 mt-6", children: "2. Einmalkapitalauszahlung (§ 20 Abs. 1 Nr. 6 EStG)" }),
       /* @__PURE__ */ jsxs("p", { className: "text-slate-700", children: [
         "Entscheidet sich der Versicherte bei Vertragsende für die einmalige Kapitalabfindung, gilt für nach 2011 abgeschlossene Verträge: Wenn die Auszahlung nach Vollendung des ",
@@ -1088,20 +1088,7 @@ function PrivateRente() {
         " aufwies, ist nur die ",
         /* @__PURE__ */ jsx("u", { children: "Hälfte des Unterschiedsbetrags" }),
         " (Auszahlungssumme abzüglich eingezahlter Beiträge) steuerpflichtig."
-      ] }),
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mt-8", children: "Wichtige Kennzahlen: Rentenfaktor und Kostenstruktur" }),
-      /* @__PURE__ */ jsxs("ul", { className: "list-disc pl-5 space-y-2 text-slate-700", children: [
-        /* @__PURE__ */ jsxs("li", { children: [
-          /* @__PURE__ */ jsx("strong", { children: "Garantierter Rentenfaktor:" }),
-          " Der Rentenfaktor legt fest, wie viel Euro monatliche Rente pro 10.000 Euro angespartem Kapital ausgezahlt werden. Ein garantierter Faktor schützt vor späteren Absenkungen seitens der Versicherung."
-        ] }),
-        /* @__PURE__ */ jsxs("li", { children: [
-          /* @__PURE__ */ jsx("strong", { children: "Effektive Vertragskosten (Effective Costs):" }),
-          " Die Effektivkosten mindern die jährliche Gesamtrendite der Geldanlage. Sie setzen sich zusammen aus Abschlusskosten (Abschluss- und Vertriebskosten), laufenden Verwaltungskosten und Fondskosten."
-        ] })
-      ] }),
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mt-8", children: "Für wen eignet sich eine private Rentenversicherung?" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Eine private Rentenversicherung eignet sich vor allem für Sparer, die einen planbaren, lebenslangen Einkommensstrom wünschen und das Risiko, im Alter ohne Ersparnisse dazustehen, absichern möchten. Für Anleger mit sehr kurzem Anlagehorizont oder hohem Liquiditätsbedarf während der Ansparphase ist sie aufgrund der Abschlusskosten meist weniger geeignet." })
+      ] })
     ] }),
     /* @__PURE__ */ jsx(SourceFootnote, {})
   ] });
@@ -1110,39 +1097,35 @@ function PrivateRente() {
 function RiesterRente() {
   const faqs = [
     {
-      question: "Wer ist für die Riester-Förderung 2026 unmittelbar zulagenberechtigt?",
+      question: "Wer ist für die Riester-Förderung unmittelbar zulagenberechtigt?",
       answer: "Unmittelbar zulagenberechtigt sind versicherungspflichtige Arbeitnehmer, Auszubildende, Pflichtversicherte in der gesetzlichen Rentenversicherung, Beamtinnen und Beamte sowie Bezieher von Lohnersatzleistungen (z. B. Krankengeld, Elterngeld)."
     },
     {
       question: "Wie hoch ist der Mindesteigenbeitrag bei der Riester-Rente?",
-      answer: "Um die volle staatliche Zulagenförderung zu erhalten, müssen Sparer 4 % ihres sozialversicherungspflichtigen Vorjahreseinkommens (abzüglich der zustehenden Zulagen) als Eigenbeitrag in den Vertrag einzahlen – mindestens jedoch den Sockelbeitrag von 60 € pro Jahr."
-    },
-    {
-      question: "Werden künftige Reformen (z. B. Altersvorsorgedepot) rückwirkend auf bestehende Riester-Verträge angewendet?",
-      answer: "Bestehende Riester-Verträge genießen Besitzstandsschutz. Geplante Reformen zur Einführung eines staatlich geförderten Altersvorsorgedepots befinden sich in der Gesetzgebungsberatung und stellen kein geltendes Recht für Bestandsverträge dar."
+      answer: `Um die volle staatliche Zulagenförderung zu erhalten, müssen Sparer ${CURRENT_VALUES.riesterMindestbeitragProzent} % ihres sozialversicherungspflichtigen Vorjahreseinkommens (abzüglich der zustehenden Zulagen) als Eigenbeitrag in den Vertrag einzahlen – mindestens jedoch den Sockelbeitrag von 60 € pro Jahr.`
     }
   ];
   const breadcrumbs = [
     { name: "Startseite", item: "/" },
-    { name: "Riester-Rente 2026", item: "/riester-rente" }
+    { name: "Riester-Rente", item: "/riester-rente" }
   ];
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Riester-Rente 2026: Zulagen, Steuerabzug & Förderbedingungen" }),
+      /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Riester-Rente: Förderung, Vorteile und Nachteile" }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Umfassende Darstellung der gesetzlichen Bestimmungen der Riester-Förderung nach § 79 ff. EStG, Berechnung des Mindesteigenbeitrags und sachliche Gegenüberstellung von Vor- und Nachteilen." })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "p-4 bg-blue-50 border border-blue-200 text-blue-950 rounded-xl mb-8 text-xs sm:text-sm flex items-start gap-3", children: [
       /* @__PURE__ */ jsx(Info, { className: "w-5 h-5 text-blue-700 shrink-0 mt-0.5" }),
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("strong", { children: "Differenzierung geltendes Recht vs. Reformvorschläge:" }),
-        " Die nachfolgenden Zulagenwerte entsprechen der im EStG verankerten Rechtslage 2026. Vorschläge für künftige Reformen (z. B. ein rentenunabhängiges Altersvorsorgedepot ab 2027) sind noch nicht beschlossen."
+        " Die nachfolgenden Zulagenwerte entsprechen der im EStG verankerten Rechtslage. Vorschläge für künftige Reformen (z. B. ein staatlich gefördertes Altersvorsorgedepot) sind in der parlamentarischen Beratschlagung."
       ] })
     ] }),
     /* @__PURE__ */ jsx(AffiliateWidget, { type: "riester", title: "Riester-Förderung & Tarife anfordern" }),
-    /* @__PURE__ */ jsx(AdSense, {}),
     /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none my-10 space-y-6", children: [
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900", children: "Die staatlichen Riester-Zulagen im Detail (Rechtsstand 2026)" }),
+      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900", children: "Die staatlichen Riester-Zulagen im Detail" }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Die staatliche Riester-Förderung beruht auf zwei Säulen: direkten staatlichen Zulagen und einem zusätzlichen Sonderausgabenabzug bei der Einkommensteuererklärung (§ 10a EStG)." }),
       /* @__PURE__ */ jsx("div", { className: "overflow-x-auto my-6 not-prose", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-left text-sm text-slate-700 border-collapse border border-slate-200", children: [
         /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "bg-slate-100 text-slate-900 border-b border-slate-200", children: [
@@ -1153,17 +1136,17 @@ function RiesterRente() {
         /* @__PURE__ */ jsxs("tbody", { children: [
           /* @__PURE__ */ jsxs("tr", { className: "border-b border-slate-200", children: [
             /* @__PURE__ */ jsx("td", { className: "p-3 font-semibold border-r border-slate-200", children: "Grundzulage" }),
-            /* @__PURE__ */ jsx("td", { className: "p-3 font-bold text-emerald-700 border-r border-slate-200", children: "175,00 €" }),
+            /* @__PURE__ */ jsx("td", { className: "p-3 font-bold text-emerald-700 border-r border-slate-200", children: CURRENT_VALUES.riesterGrundzulageFormatted }),
             /* @__PURE__ */ jsx("td", { className: "p-3", children: "Zahlung von 4 % des Vorjahresbrutto (mind. 60 € Sockelbeitrag) (§ 84 EStG)" })
           ] }),
           /* @__PURE__ */ jsxs("tr", { className: "border-b border-slate-200 bg-slate-50/50", children: [
             /* @__PURE__ */ jsx("td", { className: "p-3 font-semibold border-r border-slate-200", children: "Kinderzulage (ab 2008 geb.)" }),
-            /* @__PURE__ */ jsx("td", { className: "p-3 font-bold text-emerald-700 border-r border-slate-200", children: "300,00 €" }),
+            /* @__PURE__ */ jsx("td", { className: "p-3 font-bold text-emerald-700 border-r border-slate-200", children: CURRENT_VALUES.riesterKinderzulageAb2008Formatted }),
             /* @__PURE__ */ jsx("td", { className: "p-3", children: "Kindergeldanspruch im jeweiligen Beitragsjahr (§ 85 EStG)" })
           ] }),
           /* @__PURE__ */ jsxs("tr", { className: "border-b border-slate-200", children: [
             /* @__PURE__ */ jsx("td", { className: "p-3 font-semibold border-r border-slate-200", children: "Kinderzulage (vor 2008 geb.)" }),
-            /* @__PURE__ */ jsx("td", { className: "p-3 font-bold text-emerald-700 border-r border-slate-200", children: "185,00 €" }),
+            /* @__PURE__ */ jsx("td", { className: "p-3 font-bold text-emerald-700 border-r border-slate-200", children: CURRENT_VALUES.riesterKinderzulageVor2008Formatted }),
             /* @__PURE__ */ jsx("td", { className: "p-3", children: "Kindergeldanspruch im jeweiligen Beitragsjahr (§ 85 EStG)" })
           ] }),
           /* @__PURE__ */ jsxs("tr", { className: "bg-slate-50/50", children: [
@@ -1173,17 +1156,15 @@ function RiesterRente() {
           ] })
         ] })
       ] }) }),
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900", children: "Sonderausgabenabzug und Günstigerprüfung (§ 10a EStG)" }),
+      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900", children: "Sonderausgabenabzug (§ 10a EStG)" }),
       /* @__PURE__ */ jsxs("p", { className: "text-slate-700", children: [
         "Beiträge zur Riester-Rente können bis zu einem Höchstbetrag von ",
-        /* @__PURE__ */ jsx("strong", { children: "2.100 Euro pro Kalenderjahr" }),
-        " (Eigenbeiträge plus Zulagen) als Sonderausgaben in der Einkommensteuererklärung geltend gemacht werden. Das Finanzamt führt automatisch eine Günstigerprüfung durch: Ist der Steuervorteil höher als die bereits erhaltenen Zulagen, wird die Differenz dem Steuerpflichtigen erstattet."
-      ] }),
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900", children: "Berechnung des Mindesteigenbeitrags" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Um den vollen Anspruch auf die Zulagen zu sichern, muss der berechnete Mindesteigenbeitrag erbracht werden. Formel:" }),
-      /* @__PURE__ */ jsx("div", { className: "p-4 bg-slate-900 text-white rounded-xl font-mono text-xs sm:text-sm my-4", children: "Mindesteigenbeitrag = (4 % des sozialversicherungspflichtigen Vorjahreseinkommens) – (Zustehende Zulagen)" }),
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900", children: "Nachgelagerte Besteuerung im Ruhestand (§ 22 Nr. 5 EStG)" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Riester-Rentenleistungen unterliegen in der Auszahlungsphase der vollen nachgelagerten Besteuerung. Das bedeutet, dass die erhaltene Monatsrente mit dem individuellen Einkommensteuersatz im Alter versteuert werden muss." })
+        /* @__PURE__ */ jsxs("strong", { children: [
+          CURRENT_VALUES.riesterHoechstbetragFormatted,
+          " pro Kalenderjahr"
+        ] }),
+        " als Sonderausgaben geltend gemacht werden."
+      ] })
     ] }),
     /* @__PURE__ */ jsx(SourceFootnote, {})
   ] });
@@ -1192,12 +1173,8 @@ function RiesterRente() {
 function BetrieblicheAltersvorsorge() {
   const faqs = [
     {
-      question: "Wann gilt die Pflicht zum 15 % Arbeitgeberzuschuss bei der bAV?",
-      answer: "Nach § 1a Abs. 1a BetrAVG muss der Arbeitgeber bei der Entgeltumwandlung über eine Direktversicherung, eine Pensionskasse oder einen Pensionsfonds grundsätzlich 15 % des umgewandelten Entgelts zusätzlich als Zuschuss an den Versorgungsträger weiterleiten, soweit er durch die Entgeltumwandlung Sozialversicherungsbeiträge einspart."
-    },
-    {
-      question: "Welche Abzüge fallen im Ruhestand auf die Betriebsrente an?",
-      answer: "In der Auszahlungsphase unterliegt die Betriebsrente als Versorgungsbezug nach § 229 SGB V grundsätzlich der vollen gesetzlichen Kranken- und Pflegeversicherung. Für die Krankenversicherung gilt jedoch ein monatlicher Freibetrag nach § 226 SGB V."
+      question: "Wann gilt die Pflicht zum Arbeitgeberzuschuss bei der bAV?",
+      answer: `Nach § 1a Abs. 1a BetrAVG muss der Arbeitgeber bei der Entgeltumwandlung über eine Direktversicherung, eine Pensionskasse oder einen Pensionsfonds grundsätzlich ${CURRENT_VALUES.bavArbeitgeberzuschussFormatted} des umgewandelten Entgelts zusätzlich als Zuschuss weiterleiten, soweit er durch die Entgeltumwandlung Sozialversicherungsbeiträge einspart.`
     }
   ];
   const breadcrumbs = [
@@ -1207,14 +1184,22 @@ function BetrieblicheAltersvorsorge() {
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Betriebliche Altersvorsorge (bAV): Arbeitgeberzuschuss & Durchführungswege" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Wie die Entgeltumwandlung nach § 1a BetrAVG funktioniert, unter welchen Voraussetzungen der 15 % Arbeitgeberzuschuss greift und worauf in der Auszahlungsphase zu achten ist." })
+      /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Betriebliche Altersvorsorge: Arbeitgeberzuschuss & bAV" }),
+      /* @__PURE__ */ jsxs("p", { className: "text-slate-600 text-base leading-relaxed", children: [
+        "Wie die Entgeltumwandlung nach § 1a BetrAVG funktioniert, unter welchen Voraussetzungen der ",
+        CURRENT_VALUES.bavArbeitgeberzuschussFormatted,
+        " Arbeitgeberzuschuss greift und worauf in der Auszahlungsphase zu achten ist."
+      ] })
     ] }),
-    /* @__PURE__ */ jsx(AdSense, {}),
     /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none my-10 space-y-6", children: [
       /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900", children: "Rechtsgrundlage der Entgeltumwandlung (§ 1a BetrAVG)" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Sozialversicherungspflichtig beschäftigte Arbeitnehmer haben in Deutschland nach § 1a Abs. 1 Betriebsrentengesetz (BetrAVG) einen Rechtsanspruch darauf, von ihren künftigen Entgeltansprüchen bis zu 4 % der Beitragsbemessungsgrenze der allgemeinen Rentenversicherung steuer- und sozialabgabenfrei in eine betriebliche Altersvorsorge umzuwandeln." }),
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900", children: "Der 15 % Arbeitgeberzuschuss nach § 1a Abs. 1a BetrAVG" }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Sozialversicherungspflichtig beschäftigte Arbeitnehmer haben in Deutschland nach § 1a Abs. 1 Betriebsrentengesetz (BetrAVG) einen Rechtsanspruch darauf, von ihren künftigen Entgeltansprüchen Teile steuer- und sozialabgabenfrei in eine betriebliche Altersvorsorge umzuwandeln." }),
+      /* @__PURE__ */ jsxs("h2", { className: "text-2xl font-bold text-slate-900", children: [
+        "Der ",
+        CURRENT_VALUES.bavArbeitgeberzuschussFormatted,
+        " Arbeitgeberzuschuss nach § 1a Abs. 1a BetrAVG"
+      ] }),
       /* @__PURE__ */ jsxs("div", { className: "p-5 bg-blue-50 border border-blue-200 rounded-xl my-6", children: [
         /* @__PURE__ */ jsxs("h3", { className: "font-bold text-blue-950 mb-2 text-base flex items-center gap-2", children: [
           /* @__PURE__ */ jsx(Info, { className: "w-5 h-5 text-blue-700" }),
@@ -1222,55 +1207,13 @@ function BetrieblicheAltersvorsorge() {
         ] }),
         /* @__PURE__ */ jsxs("p", { className: "text-sm text-blue-900 leading-relaxed", children: [
           "Soweit der Arbeitgeber durch die Entgeltumwandlung Sozialversicherungsbeiträge einspart, ist er verpflichtet, ",
-          /* @__PURE__ */ jsx("strong", { children: "15 Prozent des umgewandelten Entgelts zusätzlich" }),
-          " als Arbeitgeberzuschuss an den Versorgungsträger (Direktversicherung, Pensionskasse oder Pensionsfonds) weiterzuleiten."
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "mt-3 pt-3 border-t border-blue-200 text-xs text-blue-800", children: [
-          "Quelle: ",
-          /* @__PURE__ */ jsx("a", { href: "https://www.gesetze-im-internet.de/betravg/__1a.html", target: "_blank", rel: "noopener noreferrer", className: "underline font-semibold", children: "§ 1a BetrAVG auf Gesetze-im-Internet.de" })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsx("h3", { className: "text-xl font-bold text-slate-900", children: "Rechenbeispiel zur Entgeltumwandlung" }),
-      /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white rounded-xl border border-slate-200 shadow-sm not-prose text-sm", children: [
-        /* @__PURE__ */ jsxs("div", { className: "space-y-2 text-slate-700", children: [
-          /* @__PURE__ */ jsxs("div", { className: "flex justify-between border-b pb-1", children: [
-            /* @__PURE__ */ jsx("span", { children: "Gewünschte monatliche Sparrate des Arbeitnehmers:" }),
-            /* @__PURE__ */ jsx("span", { className: "font-bold", children: "100,00 €" })
+          /* @__PURE__ */ jsxs("strong", { children: [
+            CURRENT_VALUES.bavArbeitgeberzuschussFormatted,
+            " des umgewandelten Entgelts zusätzlich"
           ] }),
-          /* @__PURE__ */ jsxs("div", { className: "flex justify-between border-b pb-1 text-emerald-700", children: [
-            /* @__PURE__ */ jsx("span", { children: "+ Gesetzlicher Arbeitgeberzuschuss (15 %):" }),
-            /* @__PURE__ */ jsx("span", { className: "font-bold", children: "+ 15,00 €" })
-          ] }),
-          /* @__PURE__ */ jsxs("div", { className: "flex justify-between font-bold text-slate-900 pt-1", children: [
-            /* @__PURE__ */ jsx("span", { children: "Monatlicher Gesamtbeitrag im bAV-Vertrag:" }),
-            /* @__PURE__ */ jsx("span", { className: "text-blue-900", children: "115,00 €" })
-          ] })
-        ] }),
-        /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-500 mt-3", children: "* Der Netto-Aufwand für den Arbeitnehmer ist geringer als 100 €, da der Betrag vor Abzug von Lohnsteuer und Sozialabgaben vom Bruttogehalt umgewandelt wird." })
-      ] }),
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mt-8", children: "Die 5 Durchführungswege der betrieblichen Altersvorsorge" }),
-      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4 not-prose my-6", children: [
-        /* @__PURE__ */ jsxs("div", { className: "p-4 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
-          /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 mb-1 text-sm", children: "1. Direktversicherung" }),
-          /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600", children: "Der Arbeitgeber schließt eine Lebens- oder Rentenversicherung auf das Leben des Arbeitnehmers ab. Häufigster Weg bei Entgeltumwandlung." })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "p-4 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
-          /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 mb-1 text-sm", children: "2. Pensionskasse" }),
-          /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600", children: "Umlage- oder kapitalgedeckte rechtlich selbstständige Versorgungseinrichtung mehrerer Unternehmen." })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "p-4 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
-          /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 mb-1 text-sm", children: "3. Pensionsfonds" }),
-          /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600", children: "Rechtlich selbstständige Einrichtung mit höherer Aktienquote und flexibleren Anlagemöglichkeiten." })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "p-4 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
-          /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 mb-1 text-sm", children: "4. Direktzusage / Pensionszusage" }),
-          /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600", children: "Der Arbeitgeber sagt dem Arbeitnehmer unmittelbar eine Versorgungsleistung aus dem Firmenvermögen zu." })
+          " als Arbeitgeberzuschuss an den Versorgungsträger weiterzuleiten."
         ] })
-      ] }),
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mt-8", children: "Auszahlungsphase & Abzüge im Ruhestand" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "In der Ansparphase geförderte Betriebsrenten unterliegen in der Auszahlungsphase der vollen nachgelagerten Besteuerung mit dem individuellen Einkommensteuersatz. Zudem werden auf Betriebsrenten Beiträge zur gesetzlichen Kranken- und Pflegeversicherung erhoben. Für die Krankenversicherung gilt ein gesetzlicher Freibetrag (§ 226 SGB V), sodass erst Beträge oberhalb dieser Grenze verbeitragt werden." }),
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mt-8", children: "Übertragbarkeit bei Arbeitgeberwechsel (§ 4 BetrAVG)" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Bei einem Wechsel des Arbeitgebers besteht nach § 4 BetrAVG unter bestimmten Voraussetzungen der Anspruch auf Übertragung des gebildeten Kapitals auf den neuen Arbeitgeber (Portabilität)." })
+      ] })
     ] }),
     /* @__PURE__ */ jsx(SourceFootnote, {})
   ] });
@@ -1281,14 +1224,6 @@ function EtfRente() {
     {
       question: "Welche Rolle können breit gestreute Aktien-ETFs bei der Altersvorsorge spielen?",
       answer: "Breit gestreute Aktien-ETFs (z. B. auf den MSCI World oder FTSE All-World) ermöglichen Privatanlegern die Teilhabe an der globalen Wirtschaftsentwicklung. Durch niedrige laufende Produktkosten (TER) eignen sie sich für den langfristigen Vermögensaufbau über mehrere Jahrzehnte."
-    },
-    {
-      question: "Welche Kosten fallen bei einem ETF-Sparplan an?",
-      answer: "Bei ETFs fallen laufende Gesamtkostenquoten (TER – Total Expense Ratio) von ca. 0,10 % bis 0,50 % p.a. an. Hinzu kommen je nach Broker eventuelle Depotführungsgebühren, Ausführungsgebühren für Sparpläne sowie handelsübliche Kauf- und Verkauf-Spreads."
-    },
-    {
-      question: "Was ist das Sequenzrisiko (Sequence of Returns Risk)?",
-      answer: "Das Sequenzrisiko bezeichnet die Gefahr, dass kurz vor oder zu Beginn des Ruhestands ein strammer Börsencrash eintritt. Wenn in dieser Phase Anteile verkauft werden müssen, um den Lebensunterhalt zu bestreiten, wird das Kapital übermäßig schnell aufgebraucht."
     }
   ];
   const breadcrumbs = [
@@ -1298,7 +1233,8 @@ function EtfRente() {
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "ETF-Sparplan für die Altersvorsorge: Möglichkeiten, Kosten & Risiken" }),
+      /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "ETF zur Altersvorsorge: Chancen, Kosten und Risiken" }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Welche Rolle breit gestreute Aktien-ETFs beim langfristigen Vermögensaufbau spielen können, wie Gesamtkosten wirken und welche Risiken vor Rentenbeginn beachtet werden müssen." })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "p-4 bg-amber-50 border border-amber-200 text-amber-950 rounded-xl mb-8 text-xs sm:text-sm flex items-start gap-3", children: [
@@ -1308,58 +1244,9 @@ function EtfRente() {
         " Diese Seite stellt keine individuelle Anlageberatung oder Kaufempfehlung dar. Wertpapierangebote unterliegen Kursschwankungen und Verlustrisiken."
       ] })
     ] }),
-    /* @__PURE__ */ jsx(AdSense, {}),
     /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none my-10 space-y-6", children: [
       /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900", children: "Funktionsweise von Aktien-ETFs in der Altersvorsorge" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Ein ETF (Exchange Traded Fund) ist ein börsengehandelter Indexfonds, der die Wertentwicklung eines festgelegten Marktindexes (z. B. MSCI World mit über 1.400 Unternehmen aus 23 Industrieländern) möglichst exakt abbildet. Durch die breite Streuung (Diversifikation) wird das Einzelwertrisiko von Unternehmenspleiten im Vergleich zu Einzelaktien drastisch reduziert." }),
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900", children: "Kostenstruktur eines ETF-Sparplans" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Obwohl ETFs im Vergleich zu aktiv gemanagten Investmentfonds sehr kostengünstig sind, fallen auch hier gebührenrelevante Faktoren an:" }),
-      /* @__PURE__ */ jsxs("ul", { className: "list-disc pl-5 space-y-2 text-slate-700", children: [
-        /* @__PURE__ */ jsxs("li", { children: [
-          /* @__PURE__ */ jsx("strong", { children: "Gesamtkostenquote (TER):" }),
-          " Die laufenden Fondskosten bewegen sich bei weltweiten Standard-ETFs meist zwischen 0,10 % und 0,30 % pro Jahr und werden direkt aus dem Fondsvermögen entnommen."
-        ] }),
-        /* @__PURE__ */ jsxs("li", { children: [
-          /* @__PURE__ */ jsx("strong", { children: "Depot- & Sparplanausführungsgebühren:" }),
-          " Manche Banken verlangen fixe oder prozentuale Gebühren pro Sparratenausführung (z. B. 1,50 % der Sparrate oder Festgebühren von 1,50 €). Viele Direktbroker bieten jedoch kostenfreie Aktionssparpläne an."
-        ] }),
-        /* @__PURE__ */ jsxs("li", { children: [
-          /* @__PURE__ */ jsx("strong", { children: "Handelsspannen (Spread):" }),
-          " Die Differenz zwischen Kauf- und Verkaufspreis an der Börse."
-        ] })
-      ] }),
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900", children: "Historische Renditebetrachtung & Risikohinweis" }),
-      /* @__PURE__ */ jsxs("div", { className: "p-5 bg-slate-900 text-white rounded-xl my-6", children: [
-        /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider mb-2", children: [
-          /* @__PURE__ */ jsx(Info, { className: "w-4 h-4" }),
-          /* @__PURE__ */ jsx("span", { children: "Historische Daten & Methodik" })
-        ] }),
-        /* @__PURE__ */ jsxs("p", { className: "text-sm text-slate-200 leading-relaxed", children: [
-          "Historisch erzielte der MSCI World Index über Zeiträume von 15 bis 30 Jahren (Betrachtungszeitraum 1970–2025, Quelle: MSCI Inc. Index Data) eine durchschnittliche Rendite von nominal ca. 6 % bis 8 % pro Jahr vor Inflation.",
-          /* @__PURE__ */ jsx("strong", { className: "text-amber-400 block mt-2", children: "Wichtig: Weder historische Erträge noch vergangene Wertentwicklungen sind eine Garantie oder ein verlässlicher Indikator für zukünftige Renditen." })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900", children: "Zentrale Risiken bei der ETF-Altersvorsorge" }),
-      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4 not-prose my-6", children: [
-        /* @__PURE__ */ jsxs("div", { className: "p-4 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
-          /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 mb-1 text-sm", children: "Kursschwankungen & Verlustrisiko" }),
-          /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600", children: "Aktienmärkte unterliegen zyklischen Schwankungen. In Krisenzeiten können weltweite Indizes vorübergehend um 30 % bis 50 % einbrechen." })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "p-4 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
-          /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 mb-1 text-sm", children: "Sequenzrisiko (Entnahmerisiko)" }),
-          /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600", children: "Tritt kurz vor Rentenbeginn ein starker Kursverfall ein, müssen Anteile zu niedrigen Preisen verkauft werden. Ein schrittweiser Umschichtungsprozess (Derisking) vor dem Ruhestand ist daher ratsam." })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "p-4 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
-          /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 mb-1 text-sm", children: "Währungsrisiko" }),
-          /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600", children: "Globale Indizes wie der MSCI World notieren zu großen Teilen in US-Dollar. Wechselkursschwankungen zwischen Euro und US-Dollar beeinflussen die Rendite im Heimatland." })
-        ] }),
-        /* @__PURE__ */ jsxs("div", { className: "p-4 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
-          /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 mb-1 text-sm", children: "Keine Beitrags- oder Rentengarantie" }),
-          /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600", children: "Im Gegensatz zu klassischen Rentenversicherungen gibt es bei reinen ETF-Depots keine Mindestbeitragsgarantie und keine Versicherung gegen das Langlebigkeitsrisiko." })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mt-8", children: "Unterschiede zwischen ETF-Eigenanlage und Rentenversicherung" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Ein eigenverantwortlicher ETF-Sparplan bietet maximale Flexibilität und die geringste Kostenbelastung, erfordert jedoch Disziplin in Marktphasen mit fallenden Kursen. Eine fondsgebundene Rentenversicherung verpackt ETFs hingegen in einen Versicherungsmantel mit lebenslanger Garantierente und Ertragsanteilsbesteuerung, fordert dafür aber laufende Versicherungskosten." })
+      /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Ein ETF (Exchange Traded Fund) ist ein börsengehandelter Indexfonds, der die Wertentwicklung eines festgelegten Marktindexes (z. B. MSCI World mit über 1.400 Unternehmen aus 23 Industrieländern) möglichst exakt abbildet." })
     ] }),
     /* @__PURE__ */ jsx(SourceFootnote, {})
   ] });
@@ -1501,56 +1388,20 @@ function Rentenalter() {
     {
       question: "Wann kann ich frühestens in Rente gehen?",
       answer: "Wer 35 Beitragsjahre nachweist (langjährig Versicherte), kann ab Alter 63 mit Abschlägen (0,3 % pro Monat vorzeitig, max. 14,4 %) in Rente gehen. Wer 45 Beitragsjahre vorweist, kann früher abschlagsfrei in Rente gehen."
-    },
-    {
-      question: "Wurde die Rente mit 63 abgeschafft?",
-      answer: "Die ursprüngliche 'Rente mit 63' ohne Abschläge gilt seit den Geburtsjahrgängen ab 1964 nicht mehr mit 63, sondern schrittweise erst ab Alter 65 (für besonders langjährig Versicherte mit 45 Beitragsjahren)."
     }
   ];
   const breadcrumbs = [
     { name: "Startseite", item: "/" },
-    { name: "Renteneintrittsalter 2026", item: "/rentenalter" }
+    { name: "Renteneintrittsalter", item: "/rentenalter" }
   ];
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Wann kann ich in Rente? Renteneintrittsalter 2026 & Frührente" }),
+      /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Wann kann ich in Rente? Rentenalter einfach erklärt" }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Ermittle mit unserem Rechner dein exaktes gesetzliches Reguläres Eintrittsalter sowie die Bedingungen für Frührente und die Rente nach 45 Beitragsjahren." })
     ] }),
     /* @__PURE__ */ jsx(RentenEintrittsCalculator, {}),
-    /* @__PURE__ */ jsx(AdSense, {}),
-    /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none my-8", children: [
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "Regelaltersgrenze nach Geburtsjahrgang" }),
-      /* @__PURE__ */ jsx("div", { className: "overflow-x-auto my-4", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-left text-sm text-slate-700 border-collapse border border-slate-200", children: [
-        /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "bg-slate-100 text-slate-900 border-b border-slate-200", children: [
-          /* @__PURE__ */ jsx("th", { className: "p-3 border-r border-slate-200", children: "Geburtsjahrgang" }),
-          /* @__PURE__ */ jsx("th", { className: "p-3 border-r border-slate-200", children: "Reguläres Rentenalter" }),
-          /* @__PURE__ */ jsx("th", { className: "p-3", children: "Eintrittsjahr" })
-        ] }) }),
-        /* @__PURE__ */ jsxs("tbody", { children: [
-          /* @__PURE__ */ jsxs("tr", { className: "border-b border-slate-200", children: [
-            /* @__PURE__ */ jsx("td", { className: "p-3 border-r border-slate-200 font-semibold", children: "1959" }),
-            /* @__PURE__ */ jsx("td", { className: "p-3 border-r border-slate-200", children: "66 Jahre + 2 Monate" }),
-            /* @__PURE__ */ jsx("td", { className: "p-3", children: "2025 / 2026" })
-          ] }),
-          /* @__PURE__ */ jsxs("tr", { className: "border-b border-slate-200 bg-slate-50/50", children: [
-            /* @__PURE__ */ jsx("td", { className: "p-3 border-r border-slate-200 font-semibold", children: "1960" }),
-            /* @__PURE__ */ jsx("td", { className: "p-3 border-r border-slate-200", children: "66 Jahre + 4 Monate" }),
-            /* @__PURE__ */ jsx("td", { className: "p-3", children: "2026 / 2027" })
-          ] }),
-          /* @__PURE__ */ jsxs("tr", { className: "border-b border-slate-200", children: [
-            /* @__PURE__ */ jsx("td", { className: "p-3 border-r border-slate-200 font-semibold", children: "1961" }),
-            /* @__PURE__ */ jsx("td", { className: "p-3 border-r border-slate-200", children: "66 Jahre + 6 Monate" }),
-            /* @__PURE__ */ jsx("td", { className: "p-3", children: "2027 / 2028" })
-          ] }),
-          /* @__PURE__ */ jsxs("tr", { className: "border-b border-slate-200 bg-slate-50/50", children: [
-            /* @__PURE__ */ jsx("td", { className: "p-3 border-r border-slate-200 font-semibold", children: "1964 und später" }),
-            /* @__PURE__ */ jsx("td", { className: "p-3 border-r border-slate-200 font-bold text-blue-900", children: "67 Jahre" }),
-            /* @__PURE__ */ jsx("td", { className: "p-3", children: "Ab 2031" })
-          ] })
-        ] })
-      ] }) })
-    ] }),
     /* @__PURE__ */ jsx(SourceFootnote, {})
   ] });
 }
@@ -1689,11 +1540,7 @@ function Rentenberechnung() {
   const faqs = [
     {
       question: "Wie wird die gesetzliche Rente berechnet?",
-      answer: "Die Rentenformel lautet: Monatliche Rente = Entgeltpunkte × Zugangsfaktor × Aktueller Rentenwert × Rentenartfaktor."
-    },
-    {
-      question: "Wie hoch ist die Standardrente (Eckrente) 2026?",
-      answer: "Die Standardrente für einen Modellrentner mit 45 Entgeltpunkten beträgt 2026 genau 1.913,40 € brutto pro Monat (45 × 42,52 €)."
+      answer: "Die Rentenformel lautet nach § 64 SGB VI: Monatliche Rente = Entgeltpunkte × Zugangsfaktor × Aktueller Rentenwert × Rentenartfaktor."
     }
   ];
   const breadcrumbs = [
@@ -1703,33 +1550,15 @@ function Rentenberechnung() {
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Wie wird meine Rente berechnet? Rentenformel & Rentenwert 2026" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Berechne deine voraussichtliche gesetzliche Monatsrente auf Basis deiner Entgeltpunkte (Rentenpunkte) und des bundeseinheitlichen Rentenwerts von 42,52 €." })
-    ] }),
-    /* @__PURE__ */ jsx(RentenBerechnungCalculator, {}),
-    /* @__PURE__ */ jsx(AdSense, {}),
-    /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none my-8", children: [
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "Die gesetzliche Rentenformel im Detail" }),
-      /* @__PURE__ */ jsx("div", { className: "p-6 bg-slate-900 text-white rounded-xl font-mono text-sm mb-6", children: "Rente = Entgeltpunkte (EP) × Zugangsfaktor (ZF) × Rentenwert (RW) × Rentenartfaktor (RAF)" }),
-      /* @__PURE__ */ jsxs("ul", { className: "list-disc pl-5 space-y-2 text-slate-700", children: [
-        /* @__PURE__ */ jsxs("li", { children: [
-          /* @__PURE__ */ jsx("strong", { children: "Entgeltpunkte (EP):" }),
-          " Wer in einem Jahr exakt das Durchschnittsentgelt aller Versicherten verdient, erhält genau 1,0 Entgeltpunkt."
-        ] }),
-        /* @__PURE__ */ jsxs("li", { children: [
-          /* @__PURE__ */ jsx("strong", { children: "Zugangsfaktor (ZF):" }),
-          " Berücksichtigt Zu- oder Abschläge bei früherem oder späterem Renteneintritt (1,0 bei regulärem Eintritt)."
-        ] }),
-        /* @__PURE__ */ jsxs("li", { children: [
-          /* @__PURE__ */ jsx("strong", { children: "Aktueller Rentenwert (RW):" }),
-          " Der Gegenwert eines Entgeltpunkts. 2026 liegt er bei 42,52 €."
-        ] }),
-        /* @__PURE__ */ jsxs("li", { children: [
-          /* @__PURE__ */ jsx("strong", { children: "Rentenartfaktor (RAF):" }),
-          " 1,0 für Altersrenten und volle Erwerbsminderungsrenten; 0,55 für Witwenrenten."
-        ] })
+      /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Gesetzliche Rentenberechnung: Rentenformel & Rentenwert" }),
+      /* @__PURE__ */ jsxs("p", { className: "text-slate-600 text-base leading-relaxed", children: [
+        "Berechne deine voraussichtliche gesetzliche Monatsrente auf Basis deiner Entgeltpunkte (Rentenpunkte) und des aktuellen Rentenwerts von ",
+        CURRENT_VALUES.rentenwertFormatted,
+        "."
       ] })
     ] }),
+    /* @__PURE__ */ jsx(RentenBerechnungCalculator, {}),
     /* @__PURE__ */ jsx(SourceFootnote, {})
   ] });
 }
@@ -1737,28 +1566,36 @@ function Rentenberechnung() {
 function Rentenanpassung() {
   const faqs = [
     {
-      question: "Wie hoch ist die Rentenanpassung 2026?",
-      answer: "Die Rentenerhöhung beträgt zum 1. Juli 2026 bundeseinheitlich +4,24 %. Der Rentenwert steigt damit von 40,79 € auf 42,52 € je Entgeltpunkt."
+      question: "Wie wird die jährliche Rentenanpassung berechnet?",
+      answer: "Die Rentenanpassung erfolgt jährlich zum 1. Juli per Verordnung der Bundesregierung auf Basis der bundesweiten Lohnentwicklung und des Nachhaltigkeitsfaktors."
     }
   ];
   const breadcrumbs = [
     { name: "Startseite", item: "/" },
-    { name: "Rentenanpassung 2026", item: "/rentenanpassung" }
+    { name: "Rentenanpassung", item: "/rentenanpassung" }
   ];
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Rentenanpassung 2026: +4,24 % Erhöhung des Rentenwerts" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Alle Hintergründe zur Rentenwertbestimmungsverordnung 2026, der Koppelung an die Lohnentwicklung und historischer Vergleich der Rentenanpassungen." })
+      /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Rentenanpassung: Aktuelle Erhöhung & Entwicklung" }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Alle Hintergründe zur jährlichen Rentenwertbestimmungsverordnung, der Koppelung an die Lohnentwicklung und historischer Vergleich der Rentenanpassungen." })
     ] }),
-    /* @__PURE__ */ jsx(AdSense, {}),
     /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none my-8", children: [
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "Historischer Vergleich der Rentenanpassungen" }),
-      /* @__PURE__ */ jsx("div", { className: "overflow-x-auto my-6", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-left text-sm text-slate-700 border-collapse border border-slate-200", children: [
+      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "Aktueller Stand der Rentenanpassung" }),
+      /* @__PURE__ */ jsxs("div", { className: "p-5 bg-amber-50 rounded-xl border border-amber-200 text-amber-950 font-semibold mb-6 text-sm", children: [
+        "Der aktuelle Rentenwert beträgt derzeit ",
+        /* @__PURE__ */ jsx("strong", { children: CURRENT_VALUES.rentenwertFormatted }),
+        " je Entgeltpunkt (Rentenanpassung: ",
+        /* @__PURE__ */ jsx("strong", { children: CURRENT_VALUES.rentenanpassungFormatted }),
+        ")."
+      ] }),
+      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "Historische Entwicklung der Rentenanpassungen" }),
+      /* @__PURE__ */ jsx("div", { className: "overflow-x-auto my-6 not-prose", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-left text-sm text-slate-700 border-collapse border border-slate-200", children: [
         /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "bg-slate-100 text-slate-900 border-b border-slate-200", children: [
           /* @__PURE__ */ jsx("th", { className: "p-3 border-r border-slate-200", children: "Jahr" }),
           /* @__PURE__ */ jsx("th", { className: "p-3 border-r border-slate-200", children: "Rentenanpassung" }),
-          /* @__PURE__ */ jsx("th", { className: "p-3", children: "Neuer Rentenwert / EP" })
+          /* @__PURE__ */ jsx("th", { className: "p-3", children: "Rentenwert / EP" })
         ] }) }),
         /* @__PURE__ */ jsxs("tbody", { children: [
           /* @__PURE__ */ jsxs("tr", { className: "border-b border-slate-200 bg-amber-50/60 font-bold", children: [
@@ -1786,6 +1623,10 @@ function Rentenanpassung() {
     ] }),
     /* @__PURE__ */ jsx(SourceFootnote, {})
   ] });
+}
+
+function AdSense() {
+  return null;
 }
 
 function RenteMit63() {
@@ -1895,8 +1736,8 @@ function Erwerbsminderungsrente() {
 function Rentenpunkte() {
   const faqs = [
     {
-      question: "Wie viel Euro ist 1 Rentenpunkt (Entgeltpunkt) 2026 wert?",
-      answer: "Ein Entgeltpunkt (Rentenpunkt) entspricht ab dem 1. Juli 2026 bundeseinheitlich genau 42,52 € Brutto-Monatsrente."
+      question: "Wie viel Euro ist 1 Rentenpunkt (Entgeltpunkt) wert?",
+      answer: `Ein Entgeltpunkt (Rentenpunkt) entspricht aktuell genau ${CURRENT_VALUES.rentenwertFormatted} Brutto-Monatsrente.`
     }
   ];
   const breadcrumbs = [
@@ -1906,13 +1747,13 @@ function Rentenpunkte() {
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Entgeltpunkte (Rentenpunkte) 2026: Berechnung & Wert" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Wie sammelt man Rentenpunkte? Erklärung des vorläufigen Durchschnittsentgelts und Punktegutschrift für Erziehung und Pflege." })
-    ] }),
-    /* @__PURE__ */ jsx(AdSense, {}),
-    /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none my-8", children: [
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "Berechnung der Entgeltpunkte" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Entgeltpunkte = Dein Bruttojahreseinkommen ÷ Durchschnittsentgelt aller Versicherten." })
+      /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Entgeltpunkte (Rentenpunkte): Wert & Berechnung" }),
+      /* @__PURE__ */ jsxs("p", { className: "text-slate-600 text-base leading-relaxed", children: [
+        "Wie sammelt man Rentenpunkte? Erklärung des Durchschnittsentgelts und Punktegutschrift für Erziehung und Pflege. Aktueller Gegenwert: ",
+        CURRENT_VALUES.rentenwertFormatted,
+        " pro Punkt."
+      ] })
     ] }),
     /* @__PURE__ */ jsx(SourceFootnote, {})
   ] });
@@ -1978,7 +1819,7 @@ function Altersvorsorge() {
   const faqs = [
     {
       question: "Welche Altersvorsorge passt zu mir?",
-      answer: "Das hängt von deinem Alter, Einkommen, Förderansprüchen (z. B. Kinder) und Risikoprofil ab. Eine Kombination aus Gesetzlicher Rente, ETF-Sparplan und ggf. bAV / Riester bietet optimale Diversifikation."
+      answer: "Das hängt von deinem Alter, Einkommen, Förderansprüchen und Risikoprofil ab. Eine Kombination aus Gesetzlicher Rente, ETF-Sparplan und ggf. bAV / Riester bietet optimale Diversifikation."
     }
   ];
   const breadcrumbs = [
@@ -1988,18 +1829,19 @@ function Altersvorsorge() {
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Altersvorsorge im Vergleich 2026: Strategien für jeden Lebensabschnitt" }),
+      /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Altersvorsorge im Vergleich: Die 3 Säulen erklärt" }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Gesamtschau aller Vorsorgeoptionen in Deutschland – von staatlich geförderten Verträgen bis zu eigenverantwortlichen Anlageformen." })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6 my-8", children: [
       /* @__PURE__ */ jsxs("div", { className: "p-6 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
         /* @__PURE__ */ jsx("h2", { className: "text-lg font-bold text-slate-900 mb-2", children: "Private Rentenversicherung" }),
-        /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600 mb-4", children: "Garantierte lebenslange Rente und Steuervorteile beim Halbeinkünfteverfahren." }),
+        /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600 mb-4", children: "Garantierte lebenslange Rente und Steuervorteile im Alter." }),
         /* @__PURE__ */ jsx(Link, { to: "/private-rente", className: "text-xs font-bold text-blue-900 hover:underline", children: "Zum Vergleich →" })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "p-6 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
-        /* @__PURE__ */ jsx("h2", { className: "text-lg font-bold text-slate-900 mb-2", children: "Riester-Rente 2026" }),
-        /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600 mb-4", children: "Hohe staatliche Zulagen für Familien und Geringverdiener." }),
+        /* @__PURE__ */ jsx("h2", { className: "text-lg font-bold text-slate-900 mb-2", children: "Riester-Rente" }),
+        /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600 mb-4", children: "Staatliche Zulagen für Familien und Geringverdiener." }),
         /* @__PURE__ */ jsx(Link, { to: "/riester-rente", className: "text-xs font-bold text-blue-900 hover:underline", children: "Zulagen prüfen →" })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "p-6 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
@@ -2013,7 +1855,6 @@ function Altersvorsorge() {
         /* @__PURE__ */ jsx(Link, { to: "/etf-rente", className: "text-xs font-bold text-blue-900 hover:underline", children: "ETF-Strategie ansehen →" })
       ] })
     ] }),
-    /* @__PURE__ */ jsx(AdSense, {}),
     /* @__PURE__ */ jsx(SourceFootnote, {})
   ] });
 }
@@ -2023,20 +1864,17 @@ function RentenrechnerPage() {
     {
       question: "Sind die Rechner auf rentesicher.de kostenlos?",
       answer: "Ja, alle 3 interaktiven Rechner stehen vollständig kostenlos, ohne Registrierung und ohne Weitergabe persönlicher Daten zur freien Nutzung bereit."
-    },
-    {
-      question: "Werden meine eingegebenen Daten auf einem Server gespeichert?",
-      answer: "Nein. Alle Berechnungen erfolgen ausschließlich lokal und datenschutzkonform im Webbrowser des Nutzers."
     }
   ];
   const breadcrumbs = [
     { name: "Startseite", item: "/" },
-    { name: "Interaktiver Rechner-Hub", item: "/rentenrechner" }
+    { name: "Interaktive Rentenrechner", item: "/rentenrechner" }
   ];
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-6 text-center sm:text-left", children: [
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Die 3 Rentenrechner 2026: Rentenlücke, Gesetzliche Rente & Rentenalter" }),
+      /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Interaktive Rentenrechner: Rentenlücke, Rente & Eintritt" }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Kostenlose Modellrechnungen für deine persönliche Vorsorgeplanung. Springe direkt zum gewünschten Rechner:" })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 sm:grid-cols-3 gap-3 mb-10", children: [
@@ -2188,10 +2026,20 @@ function Datenschutz() {
   ] });
 }
 
+function ScrollToContent() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname]);
+  return null;
+}
 function App() {
-  return /* @__PURE__ */ jsxs("div", { className: "min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans", children: [
+  return /* @__PURE__ */ jsxs("div", { className: "min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans max-w-full overflow-x-hidden", children: [
+    /* @__PURE__ */ jsx(ScrollToContent, {}),
     /* @__PURE__ */ jsx(Header, {}),
-    /* @__PURE__ */ jsx("main", { className: "flex-grow", children: /* @__PURE__ */ jsxs(Routes, { children: [
+    /* @__PURE__ */ jsx("main", { className: "flex-grow max-w-full overflow-x-hidden", children: /* @__PURE__ */ jsxs(Routes, { children: [
       /* @__PURE__ */ jsx(Route, { path: "/", element: /* @__PURE__ */ jsx(Home, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/rentenkommission", element: /* @__PURE__ */ jsx(Rentenkommission, {}) }),
       /* @__PURE__ */ jsx(Route, { path: "/rentenluecke", element: /* @__PURE__ */ jsx(Rentenluecke, {}) }),

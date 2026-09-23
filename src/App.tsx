@@ -1,5 +1,5 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
@@ -28,11 +28,25 @@ import RentenrechnerPage from './pages/RentenrechnerPage';
 import Impressum from './pages/Impressum';
 import Datenschutz from './pages/Datenschutz';
 
+// Automatic Scroll to Top / Content into View on Route Navigation
+function ScrollToContent() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname]);
+
+  return null;
+}
+
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans max-w-full overflow-x-hidden">
+      <ScrollToContent />
       <Header />
-      <main className="flex-grow">
+      <main className="flex-grow max-w-full overflow-x-hidden">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/rentenkommission" element={<Rentenkommission />} />

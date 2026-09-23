@@ -25,22 +25,24 @@ export default function AffiliateWidget({ type, title }: AffiliateWidgetProps) {
   const elementId = type === 'rente' ? 'tcpp-iframe-rente' : 'tcpp-iframe-riester';
 
   return (
-    <div className="my-8 p-6 bg-white rounded-2xl border border-slate-200 shadow-sm">
+    <div className="my-6 sm:my-8 p-4 sm:p-6 bg-white rounded-2xl border border-slate-200 shadow-sm max-w-full overflow-hidden">
       <div className="flex items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-100">
         <div className="flex items-center gap-2">
-          <ShieldCheck className="w-5 h-5 text-blue-700" />
-          <h3 className="text-lg font-bold text-slate-900">
+          <ShieldCheck className="w-5 h-5 text-blue-700 shrink-0" />
+          <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-snug">
             {title || (type === 'rente' ? 'Unverbindlicher Rentenversicherung-Vergleich' : 'Riester-Vorsorge Anfordern')}
           </h3>
         </div>
-        <span className="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full">
+        <span className="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full shrink-0">
           Partner-Vergleich
         </span>
       </div>
 
-      <div style={{ width: '100%' }} id={elementId} className="min-h-[420px] rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 text-sm">
-        {/* iFrame Script mounts here */}
-        <span>Lade Vergleichsformular...</span>
+      {/* Overflow-X wrapper prevents iframe script from expanding parent page on mobile */}
+      <div className="w-full max-w-full overflow-x-auto overflow-y-hidden rounded-xl bg-slate-50 min-h-[420px] flex items-center justify-center">
+        <div style={{ width: '100%', minWidth: '280px', maxWidth: '100%' }} id={elementId} className="w-full text-slate-400 text-xs sm:text-sm text-center p-4">
+          <span>Lade Vergleichsformular...</span>
+        </div>
       </div>
 
       <div className="mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500 flex items-start gap-1.5 leading-relaxed">
