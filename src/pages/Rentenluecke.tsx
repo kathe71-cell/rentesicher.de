@@ -1,5 +1,6 @@
 import React from 'react';
 import RentenLueckeCalculator from '../components/RentenLueckeCalculator';
+import AffiliateWidget from '../components/AffiliateWidget';
 import SourceFootnote from '../components/SourceFootnote';
 import SchemaMarkup from '../components/SchemaMarkup';
 import LastUpdated from '../components/LastUpdated';
@@ -52,6 +53,8 @@ export default function Rentenluecke() {
           <li><strong>Inflation / Kaufkraftverlust:</strong> Eine jährliche Inflation halbiert die Kaufkraft des Ersparten über längere Zeiträume.</li>
         </ul>
       </section>
+
+      <AffiliateWidget type="rente" title="Monatliche Rentenlücke schließen: Tarife vergleichen" />
 
       <SourceFootnote />
     </div>

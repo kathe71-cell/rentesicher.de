@@ -25,7 +25,7 @@ export default function RentenBerechnungCalculator() {
         <div>
           <div className="flex items-center gap-2">
             <Calculator className="w-6 h-6 text-blue-700 shrink-0" />
-            <h3 className="text-lg sm:text-xl font-bold text-slate-900">Gesetzlicher Rentenrechner 2026</h3>
+            <h3 className="text-lg sm:text-xl font-bold text-slate-900">Gesetzlicher Rentenrechner</h3>
           </div>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Formel nach § 64 SGB VI: <em>Rente = EP × ZF × RW × RAF</em>
@@ -58,7 +58,7 @@ export default function RentenBerechnungCalculator() {
 
         <div>
           <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
-            Aktueller Rentenwert 2026 (€)
+            Aktueller Rentenwert (€)
           </label>
           <input
             type="number"
@@ -69,7 +69,7 @@ export default function RentenBerechnungCalculator() {
             className="w-full h-12 px-4 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 focus:border-blue-600 text-base sm:text-lg font-bold text-slate-900 shadow-sm"
           />
           <span className="text-[11px] text-slate-400 mt-1 block">
-            Amtlich ab 1. Juli 2026: 42,52 € (<a href="https://www.deutsche-rentenversicherung.de" target="_blank" rel="noopener noreferrer" className="underline hover:text-blue-700">DRV Quelle</a>)
+            Aktueller Bundeswert: {rentenwert.toFixed(2).replace('.', ',')} € (<a href="https://www.deutsche-rentenversicherung.de" target="_blank" rel="noopener noreferrer" className="underline hover:text-blue-700">DRV Quelle</a>)
           </span>
         </div>
 

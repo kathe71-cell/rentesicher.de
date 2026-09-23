@@ -55,7 +55,7 @@ export default function RentenEintrittsCalculator() {
         <div>
           <div className="flex items-center gap-2">
             <Calendar className="w-6 h-6 text-emerald-600 shrink-0" />
-            <h3 className="text-lg sm:text-xl font-bold text-slate-900">„Wann kann ich in Rente?"-Rechner 2026</h3>
+            <h3 className="text-lg sm:text-xl font-bold text-slate-900">„Wann kann ich in Rente?"-Rechner</h3>
           </div>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">Ermittle dein gesetzliches Reguläres Eintrittsalter und Frühestmögliche Optionen.</p>
         </div>

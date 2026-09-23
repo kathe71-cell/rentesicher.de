@@ -2,6 +2,7 @@ import React from 'react';
 import RentenLueckeCalculator from '../components/RentenLueckeCalculator';
 import RentenBerechnungCalculator from '../components/RentenBerechnungCalculator';
 import RentenEintrittsCalculator from '../components/RentenEintrittsCalculator';
+import AffiliateWidget from '../components/AffiliateWidget';
 import SourceFootnote from '../components/SourceFootnote';
 import SchemaMarkup from '../components/SchemaMarkup';
 import LastUpdated from '../components/LastUpdated';
@@ -85,6 +86,8 @@ export default function RentenrechnerPage() {
           <RentenEintrittsCalculator />
         </section>
       </div>
+
+      <AffiliateWidget type="rente" title="Ergebnis nutzen & passende Altersvorsorge-Tarife vergleichen" />
 
       <SourceFootnote />
     </div>

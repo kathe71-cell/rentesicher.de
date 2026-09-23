@@ -1,5 +1,5 @@
 import { jsxs, jsx } from 'react/jsx-runtime';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { useLocation, Link, Routes, Route, MemoryRouter } from 'react-router-dom';
 import { Calculator, ChevronDown, X, Menu, ChevronUp, Check, Share2, AlertTriangle, TrendingUp, Info, ShieldCheck, BookOpen, ExternalLink, ArrowRight, HelpCircle, ShieldAlert, AlertCircle, CheckCircle2, XCircle, Calendar, Clock, ArrowDown } from 'lucide-react';
@@ -378,31 +378,69 @@ function RentenLueckeCalculator() {
 }
 
 function AffiliateWidget({ type, title }) {
+  const containerRef = useRef(null);
+  const elementId = type === "rente" ? "tcpp-iframe-rente" : "tcpp-iframe-riester";
+  const [showFallbackIframe, setShowFallbackIframe] = useState(false);
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const scriptId = `script-pv-${type}`;
-    if (!document.getElementById(scriptId)) {
-      const script = document.createElement("script");
-      script.id = scriptId;
-      script.src = type === "rente" ? "https://form.partner-versicherung.de/widgets/72057/tcpp-iframe-rente/rente-iframe.js" : "https://form.partner-versicherung.de/widgets/72057/tcpp-iframe-riester/riester-iframe.js";
-      script.async = true;
-      document.body.appendChild(script);
+    setShowFallbackIframe(false);
+    const scriptId = `script-pv-${type}-${Date.now()}`;
+    const oldScripts = document.querySelectorAll(`script[id^="script-pv-${type}"]`);
+    oldScripts.forEach((s) => s.remove());
+    const container = document.getElementById(elementId) || containerRef.current;
+    if (container) {
+      container.innerHTML = "";
     }
-  }, [type]);
-  const elementId = type === "rente" ? "tcpp-iframe-rente" : "tcpp-iframe-riester";
+    const script = document.createElement("script");
+    script.id = scriptId;
+    script.src = type === "rente" ? "https://form.partner-versicherung.de/widgets/72057/tcpp-iframe-rente/rente-iframe.js" : "https://form.partner-versicherung.de/widgets/72057/tcpp-iframe-riester/riester-iframe.js";
+    script.async = true;
+    document.body.appendChild(script);
+    const fallbackTimer = setTimeout(() => {
+      const currentContainer = document.getElementById(elementId) || containerRef.current;
+      if (currentContainer && !currentContainer.querySelector("iframe")) {
+        setShowFallbackIframe(true);
+      }
+    }, 1200);
+    return () => {
+      clearTimeout(fallbackTimer);
+      script.remove();
+    };
+  }, [type, elementId]);
+  const fallbackUrl = type === "rente" ? "https://form.partner-versicherung.de/form.php?aid=1226&cid=2&partner_id=72057&tracking=&insurance_id=2&module=formv4" : "https://form.partner-versicherung.de/form.php?aid=1226&cid=21&partner_id=72057&tracking=&insurance_id=21&module=formv4";
   return /* @__PURE__ */ jsxs("div", { className: "my-6 sm:my-8 p-4 sm:p-6 bg-white rounded-2xl border border-slate-200 shadow-sm max-w-full overflow-hidden", children: [
     /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-100", children: [
       /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
         /* @__PURE__ */ jsx(ShieldCheck, { className: "w-5 h-5 text-blue-700 shrink-0" }),
         /* @__PURE__ */ jsx("h3", { className: "text-base sm:text-lg font-bold text-slate-900 leading-snug", children: title || (type === "rente" ? "Unverbindlicher Rentenversicherung-Vergleich" : "Riester-Vorsorge Anfordern") })
       ] }),
-      /* @__PURE__ */ jsx("span", { className: "text-[11px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full shrink-0", children: "Partner-Vergleich" })
+      /* @__PURE__ */ jsx("span", { className: "text-[11px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full shrink-0", children: "Partner-Vergleich*" })
     ] }),
-    /* @__PURE__ */ jsx("div", { className: "w-full max-w-full overflow-x-auto overflow-y-hidden rounded-xl bg-slate-50 min-h-[420px] flex items-center justify-center", children: /* @__PURE__ */ jsx("div", { style: { width: "100%", minWidth: "280px", maxWidth: "100%" }, id: elementId, className: "w-full text-slate-400 text-xs sm:text-sm text-center p-4", children: /* @__PURE__ */ jsx("span", { children: "Lade Vergleichsformular..." }) }) }),
+    /* @__PURE__ */ jsx("div", { className: "w-full max-w-full overflow-x-auto overflow-y-hidden rounded-xl bg-slate-50 min-h-[500px] flex items-center justify-center", children: /* @__PURE__ */ jsx(
+      "div",
+      {
+        ref: containerRef,
+        style: { width: "100%", minWidth: "280px", maxWidth: "100%" },
+        id: elementId,
+        className: "w-full text-slate-400 text-xs sm:text-sm text-center p-2",
+        children: showFallbackIframe ? /* @__PURE__ */ jsx(
+          "iframe",
+          {
+            src: fallbackUrl,
+            title: title || "Tarif-Vergleich",
+            className: "w-full min-h-[550px] border-0 rounded-xl",
+            style: { width: "100%", minHeight: "550px", border: "none" }
+          }
+        ) : /* @__PURE__ */ jsxs("div", { className: "py-12 flex flex-col items-center justify-center gap-2", children: [
+          /* @__PURE__ */ jsx("div", { className: "w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" }),
+          /* @__PURE__ */ jsx("span", { className: "text-slate-500 font-medium", children: "Lade Vergleichsformular..." })
+        ] })
+      }
+    ) }),
     /* @__PURE__ */ jsxs("div", { className: "mt-4 pt-3 border-t border-slate-100 text-xs text-slate-500 flex items-start gap-1.5 leading-relaxed", children: [
       /* @__PURE__ */ jsx(Info, { className: "w-4 h-4 text-slate-400 shrink-0 mt-0.5" }),
       /* @__PURE__ */ jsxs("span", { children: [
-        /* @__PURE__ */ jsx("strong", { children: "* Werbung / Affiliate-Partnerschaft:" }),
+        /* @__PURE__ */ jsx("strong", { children: "* Werbelink / Partnerlink:" }),
         " Wenn du über dieses Vergleichs- oder Anfrageformular einen Vertrag abschließt, können wir eine Vergütung erhalten. Für dich entstehen dadurch keine zusätzlichen Kosten."
       ] })
     ] })
@@ -1000,6 +1038,7 @@ function Rentenluecke() {
         ] })
       ] })
     ] }),
+    /* @__PURE__ */ jsx(AffiliateWidget, { type: "rente", title: "Monatliche Rentenlücke schließen: Tarife vergleichen" }),
     /* @__PURE__ */ jsx(SourceFootnote, {})
   ] });
 }
@@ -1298,7 +1337,7 @@ function RentenEintrittsCalculator() {
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
           /* @__PURE__ */ jsx(Calendar, { className: "w-6 h-6 text-emerald-600 shrink-0" }),
-          /* @__PURE__ */ jsx("h3", { className: "text-lg sm:text-xl font-bold text-slate-900", children: '„Wann kann ich in Rente?"-Rechner 2026' })
+          /* @__PURE__ */ jsx("h3", { className: "text-lg sm:text-xl font-bold text-slate-900", children: '„Wann kann ich in Rente?"-Rechner' })
         ] }),
         /* @__PURE__ */ jsx("p", { className: "text-xs sm:text-sm text-slate-500 mt-1", children: "Ermittle dein gesetzliches Reguläres Eintrittsalter und Frühestmögliche Optionen." })
       ] }),
@@ -1426,7 +1465,7 @@ function RentenBerechnungCalculator() {
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
           /* @__PURE__ */ jsx(Calculator, { className: "w-6 h-6 text-blue-700 shrink-0" }),
-          /* @__PURE__ */ jsx("h3", { className: "text-lg sm:text-xl font-bold text-slate-900", children: "Gesetzlicher Rentenrechner 2026" })
+          /* @__PURE__ */ jsx("h3", { className: "text-lg sm:text-xl font-bold text-slate-900", children: "Gesetzlicher Rentenrechner" })
         ] }),
         /* @__PURE__ */ jsxs("p", { className: "text-xs sm:text-sm text-slate-500 mt-1", children: [
           "Formel nach § 64 SGB VI: ",
@@ -1462,7 +1501,7 @@ function RentenBerechnungCalculator() {
         /* @__PURE__ */ jsx("span", { className: "text-[11px] text-slate-400 mt-1 block", children: "45 EP = Standard-Eckrentner" })
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2", children: "Aktueller Rentenwert 2026 (€)" }),
+        /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2", children: "Aktueller Rentenwert (€)" }),
         /* @__PURE__ */ jsx(
           "input",
           {
@@ -1475,7 +1514,9 @@ function RentenBerechnungCalculator() {
           }
         ),
         /* @__PURE__ */ jsxs("span", { className: "text-[11px] text-slate-400 mt-1 block", children: [
-          "Amtlich ab 1. Juli 2026: 42,52 € (",
+          "Aktueller Bundeswert: ",
+          rentenwert.toFixed(2).replace(".", ","),
+          " € (",
           /* @__PURE__ */ jsx("a", { href: "https://www.deutsche-rentenversicherung.de", target: "_blank", rel: "noopener noreferrer", className: "underline hover:text-blue-700", children: "DRV Quelle" }),
           ")"
         ] })
@@ -1926,6 +1967,7 @@ function RentenrechnerPage() {
       /* @__PURE__ */ jsx("section", { children: /* @__PURE__ */ jsx(RentenBerechnungCalculator, {}) }),
       /* @__PURE__ */ jsx("section", { children: /* @__PURE__ */ jsx(RentenEintrittsCalculator, {}) })
     ] }),
+    /* @__PURE__ */ jsx(AffiliateWidget, { type: "rente", title: "Ergebnis nutzen & passende Altersvorsorge-Tarife vergleichen" }),
     /* @__PURE__ */ jsx(SourceFootnote, {})
   ] });
 }
