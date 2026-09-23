@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2000/rss/1.0/modules/atom/">
+  <channel>
+    <title>rentesicher.de – Rentensicherheit &amp; Altersvorsorge 2026</title>
+    <link>https://www.rentesicher.de/</link>
+    <description>Fachportal zur Rentenkommission 2026, gesetzlichen Rentenberechnung und Drei-Säulen-Altersvorsorge.</description>
+    <language>de-de</language>
+    <lastBuildDate>Wed, 23 Sep 2026 09:00:00 +0200</lastBuildDate>
+    <atom:link href="https://www.rentesicher.de/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Die 33 Empfehlungen der Rentenkommission 2026 im Überblick</title>
+      <link>https://www.rentesicher.de/rentenkommission</link>
+      <description>Verständliche Analyse aller Empfehlungen der Rentenkommission 2026 und Unterscheidung von geltendem Recht.</description>
+      <pubDate>Wed, 23 Sep 2026 09:00:00 +0200</pubDate>
+      <guid>https://www.rentesicher.de/rentenkommission</guid>
+    </item>
+    <item>
+      <title>Rentenanpassung 2026: +4,24% Erhöhung des Rentenwerts auf 42,52 €</title>
+      <link>https://www.rentesicher.de/rentenanpassung</link>
+      <description>Der aktuelle Rentenwert liegt 2026 bei 42,52 €. Alle Hintergründe zur Erhöhung und Berechnung.</description>
+      <pubDate>Wed, 23 Sep 2026 09:00:00 +0200</pubDate>
+      <guid>https://www.rentesicher.de/rentenanpassung</guid>
+    </item>
+  </channel>
+</rss>

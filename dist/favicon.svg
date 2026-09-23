@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <rect width="100" height="100" rx="20" fill="#0f172a"/>
+  <path d="M50 18 L80 32 V55 C80 72 50 85 50 85 C50 85 20 72 20 55 V32 Z" fill="#1e293b" stroke="#f59e0b" stroke-width="4"/>
+  <text x="50" y="62" font-family="system-ui, sans-serif" font-weight="900" font-size="34" fill="#f59e0b" text-anchor="middle">€</text>
+</svg>
