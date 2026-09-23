@@ -21,7 +21,7 @@ export default function Witwenrente() {
       <SchemaMarkup faqItems={faqs} breadcrumbs={breadcrumbs} />
       <div className="mb-8">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
-          Witwen- & Hinterbliebenenrente 2026: Große vs. Kleine Witwenrente
+          Witwen- & Hinterbliebenenrente: Große vs. Kleine Witwenrente
         </h1>
         <p className="text-slate-600 text-base leading-relaxed">
           Rechtliche Regelungen zur Versorgung von Ehepartnern, Freibeträge bei eigenem Einkommen und Antragsverfahren.

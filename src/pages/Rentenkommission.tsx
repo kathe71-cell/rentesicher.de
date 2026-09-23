@@ -2,283 +2,292 @@ import React from 'react';
 import StatusBadge from '../components/StatusBadge';
 import SourceFootnote from '../components/SourceFootnote';
 import SchemaMarkup from '../components/SchemaMarkup';
-import { AlertCircle, ExternalLink, ShieldAlert, BookOpen, CheckCircle2 } from 'lucide-react';
+import LastUpdated from '../components/LastUpdated';
+import { ShieldAlert, ExternalLink, BookOpen } from 'lucide-react';
 
 export default function Rentenkommission() {
   const empfehlungen = [
     {
       id: 1,
-      titel: "Stabilisierung der Haltelinie beim Sicherungsniveau (48 %)",
-      status: "empfehlung" as const,
-      kategorie: "Rentenniveau",
-      beschreibung: "Empfehlung, das Rentenniveau vor Steuern bis mindestens 2031 (bzw. 2035) gesetzlich bei 48 % abzusichern, um eine Entkopplung der Renten von den Löhnen zu verhindern."
+      titel: "Politische Zielgröße von mindestens 70 % Nettoersatzquote im Mehrsäulensystem",
+      status: "zielsetzung" as const,
+      kategorie: "Mehrsäulensystem",
+      beschreibung: "Empfehlung einer Gesamtzielgröße für das Alterssicherungsniveau über alle drei Säulen (gesetzlich, betrieblich, privat), um den Lebensstandard im Alter verlässlich abzusichern."
     },
     {
       id: 2,
-      titel: "Festlegung einer Beitragssatzobergrenze (20 % bzw. 22 %)",
+      titel: "Zusätzlicher Ausweis der Nettoersatzquote in Berichten und Auskünften",
       status: "empfehlung" as const,
-      kategorie: "Beitragssatz",
-      beschreibung: "Vorschlag, den Beitragssatz zur gesetzlichen Rentenversicherung bis 2030 nicht über 20 % und bis 2035 nicht über 22 % steigen zu lassen."
+      kategorie: "Transparenz",
+      beschreibung: "Erweiterung der Berichterstattung um die kaufkraft- und steuerbereinigte Nettoersatzquote, um Bürgern eine realistischere Einschätzung ihrer späteren Gesamtversorgung zu ermöglichen."
     },
     {
       id: 3,
-      titel: "Einrichtung eines Kapitalstocks zur Beitragsdämpfung",
-      status: "gilt_ab" as const,
-      dateStr: "2026",
-      kategorie: "Kapitaldeckung",
-      beschreibung: "Aufbau einer kapitalgedeckten Komponente (Generationenkapital) aus Bundesmitteln zur langfristigen Dämpfung künftiger Beitragsanstiege ab den 2030er Jahren."
+      titel: "Verbesserung der Datenbasis und Erhebung trägerübergreifender Kennzahlen",
+      status: "empfehlung" as const,
+      kategorie: "Statistik & Forschung",
+      beschreibung: "Verbindung von Rentenversicherungsdaten mit Steuerdaten und Betriebspensionen zur präzisen Erfassung von Versorgungslücken und Altersarmut."
     },
     {
       id: 4,
-      titel: "Anpassung des Ausgleichsfaktors im Nachhaltigkeitsfaktor",
-      status: "empfehlung" as const,
-      kategorie: "Rentenformel",
-      beschreibung: "Wissenschaftlicher Vorschlag zur Anpassung der Dämpfungsfaktoren bei Eintritt geburtenstarker Jahrgänge in den Ruhestand."
+      titel: "Weiterentwicklung und trägerübergreifende Etablierung der Digitalen Rentenübersicht",
+      status: "gesetz" as const,
+      kategorie: "Digitalisierung",
+      beschreibung: "Gesetzlich verankertes Portal (rentenuebersicht.de) zur gebündelten, trägerübergreifenden Abfrage aller Anwartschaften aus gesetzlicher, betrieblicher und privater Vorsorge."
     },
     {
       id: 5,
-      titel: "Stärkung der betrieblichen Altersvorsorge (bAV) in KMU",
+      titel: "Stärkere Kopplung des Renteneintrittsalters an die Lebenserwartung ab 2031",
       status: "empfehlung" as const,
-      kategorie: "Betriebsrente",
-      beschreibung: "Vereinfachung von Sozialpartner-Modellen und Ausweitung der Geringverdiener-Förderung im Betriebskrankenkassen- und Firmenumfeld."
+      kategorie: "Renteneintritt",
+      beschreibung: "Wissenschaftliche Empfehlung, das Regelaltersrentenalter nach Erreichen der Altersgrenze von 67 Jahren ab 2031 dynamisch an die fernere Lebenserwartung anzupassen."
     },
     {
       id: 6,
-      titel: "Förderung von Opting-Out-Systemen im Betrieb",
+      titel: "Reform bzw. Auslauf der abschlagsfreien Rente für besonders langjährig Versicherte („Rente ab 63 / 65“)",
       status: "empfehlung" as const,
-      kategorie: "Betriebsrente",
-      beschreibung: "Empfehlung für automatische Einbezugssysteme bei der betrieblichen Altersvorsorge auf Tarifvertragsebene (mit Widerspruchsrecht)."
+      kategorie: "Frührente",
+      beschreibung: "Vorschlag zur Überprüfung der versicherungsfremden Sonderregelungen bei 45 Beitragsjahren zum Schutz der langfristigen Finanzierbarkeit der Gesetzlichen Rentenversicherung."
     },
     {
       id: 7,
-      titel: "Weiterentwicklung der Erwerbsminderungsrente",
-      status: "gesetz" as const,
-      kategorie: "EM-Rente",
-      beschreibung: "Bereits gesetzlich umgesetzte Verlängerung der Zurechnungszeit bis zum regulären Renteneintrittsalter."
+      titel: "Gesetzliche Sicherung der Mindesthaltelinie beim Rentenniveau (48 %)",
+      status: "gilt_ab" as const,
+      dateStr: "Rentenpaket",
+      kategorie: "Rentenniveau",
+      beschreibung: "Gesetzliche Verankerung einer Untergrenze für das Rentenniveau vor Steuern bei 48 %, um eine Entkopplung der Renten von der allgemeinen Lohnentwicklung zu verhindern."
     },
     {
       id: 8,
-      titel: "Verbindliche Digitale Rentenübersicht",
-      status: "gesetz" as const,
-      kategorie: "Transparenz",
-      beschreibung: "Bereits gesetzlich verankertes Portal zur trägerübergreifenden Abfrage aller Rentenansprüche (gesetzlich, betrieblich, privat)."
+      titel: "Festlegung einer Beitragsgrenze (Beitragssatzkorridor max. 20 % bis 2030, max. 22 % bis 2035)",
+      status: "empfehlung" as const,
+      kategorie: "Beitragssatz",
+      beschreibung: "Empfehlung zur Begrenzung der Beitragsnetzbelastung für Arbeitnehmer und Arbeitgeber, um Lohnnebenkosten stabil zu halten."
     },
     {
       id: 9,
-      titel: "Überprüfung des Rechtskreises Ost/West-Angleichung",
-      status: "gesetz" as const,
-      kategorie: "Rentenwert",
-      beschreibung: "Gesetzlich vollzogene Vereinheitlichung des Rentenwerts in Ost und West ab dem 1. Juli 2023."
+      titel: "Anpassung des Ausgleichsfaktors im Nachhaltigkeitsfaktor der Rentenformel",
+      status: "empfehlung" as const,
+      kategorie: "Rentenformel",
+      beschreibung: "Dämpfung der jährlichen Rentenanpassung bei Eintritt geburtenstarker Jahrgänge (Babyboomer) in den Ruhestand über den Nachhaltigkeitsfaktor nach § 68 SGB VI."
     },
     {
       id: 10,
-      titel: "Regelmäßige Begutachtung des Generationenvertrags",
-      status: "empfehlung" as const,
-      kategorie: "Monitoring",
-      beschreibung: "Empfehlung zur Installation eines ständigen unabhängigen Sachverständigenrats für Alterssicherungssysteme."
+      titel: "Reform der geförderten privaten Altersvorsorge (Altersvorsorgedepot ohne Garantiezwang)",
+      status: "gilt_ab" as const,
+      dateStr: "Reformvorhaben",
+      kategorie: "Private Vorsorge",
+      beschreibung: "Weiterentwicklung der Riester-Förderung zu einem chancenreichen, geförderten Anspardepot ohne strikte Beitragsgarantiepflicht zur Nutzung von Kapitalmarktchancen."
     },
     {
       id: 11,
-      titel: "Verlängerung der Gleitzone bei Erwerbsminderung",
+      titel: "Stärkung der betrieblichen Altersvorsorge (bAV) und Opt-Out-Modelle im Betrieb",
       status: "empfehlung" as const,
-      kategorie: "EM-Rente",
-      beschreibung: "Erleichterung des Wiedereinstiegs in das Erwerbsleben für Bezieher teilweiser Erwerbsminderungsrenten."
+      kategorie: "Betriebsrente",
+      beschreibung: "Vereinfachung von Sozialpartner-Modellen und Förderung automatischer Einbezugssysteme bei der bAV auf Betriebsebene (mit Widerspruchsrecht)."
     },
     {
       id: 12,
-      titel: "Evaluierung der Altersgrenzen im Handwerk",
-      status: "empfehlung" as const,
+      titel: "Obligatorische Altersvorsorge für alle nicht anderweitig abgesicherten Selbstständigen",
+      status: "zielsetzung" as const,
       kategorie: "Pflichtversicherung",
-      beschreibung: "Vorschlag zur Überprüfung der Pflichtversicherung für selbstständige Handwerker nach 18 Jahren."
+      beschreibung: "Politische Zielsetzung zur Einbeziehung aller Selbstständigen in die gesetzliche Rentenversicherung (mit Opt-Out bei Nachweis einer gleichwertigen Altersvorsorge)."
     },
     {
       id: 13,
-      titel: "Einbeziehung aller nicht anderweitig abgesicherten Selbstständigen",
-      status: "empfehlung" as const,
-      kategorie: "Pflichtversicherung",
-      beschreibung: "Politische Zielsetzung zur Einbeziehung von Selbstständigen in die gesetzliche Rentenversicherung (mit Opt-Out bei Vorsorgenachweis)."
+      titel: "Ausweitung und Dynamisierung der bAV-Geringverdienerförderung (§ 100 EStG)",
+      status: "gesetz" as const,
+      kategorie: "Steuerförderung",
+      beschreibung: "Gesetzlicher Zuschuss des Staates an Arbeitgeber, wenn diese Geringverdienern einen zusätzlichen Beitrag zur betrieblichen Altersvorsorge zahlen."
     },
     {
       id: 14,
-      titel: "Flexibilisierung des Übergangs vom Erwerbsleben in den Ruhestand",
+      titel: "Weiterentwicklung der Erwerbsminderungsrente durch verlängerte Zurechnungszeiten",
       status: "gesetz" as const,
-      kategorie: "Flexirente",
-      beschreibung: "Bereits umgesetzte Abschaffung der Hinzuverdienstgrenzen bei vorzeitigen Altersrenten."
+      kategorie: "EM-Rente",
+      beschreibung: "Gesetzlich vollzogene schrittweise Verlängerung der Zurechnungszeit bei Erwerbsminderung bis zum regulären Renteneintrittsalter."
     },
     {
       id: 15,
-      titel: "Förderung des Weiterarbeitens über die Regelaltersgrenze hinaus",
+      titel: "Flexibilisierung der Zuverdienstgrenzen bei teilweiser Erwerbsminderung",
       status: "gesetz" as const,
-      kategorie: "Flexirente",
-      beschreibung: "Zuschläge zur Rente (+0,5 % pro Monat) und Verzicht auf Arbeitnehmerbeiträge zur Arbeitslosenversicherung."
+      kategorie: "EM-Rente",
+      beschreibung: "Gesetzliche Erleichterungen beim Wiedereinstieg in das Erwerbsleben für Bezieher teilweiser Erwerbsminderungsrenten ohne Rentenverlust."
     },
     {
       id: 16,
-      titel: "Anpassung der Mindestversicherungszeit für Reha-Leistungen",
+      titel: "Ausbau von Anreizsystemen für das Weiterarbeiten über die Regelaltersgrenze hinaus",
       status: "gesetz" as const,
-      kategorie: "Rehabilitation",
-      beschreibung: "Stärkung des Grundsatzes 'Reha vor Rente' durch vereinfachten Zugang zu medizinischen Leistungen der DRV."
+      kategorie: "Flexirente",
+      beschreibung: "Gesetzliche Rentenzuschläge (+0,5 % pro Monat) bei freiwilligem Aufschub des Rentenbeginns sowie Wegfall der Arbeitgeberbeiträge zur Arbeitslosenversicherung."
     },
     {
       id: 17,
-      titel: "Transparente Berichterstattung über Steuerzuschüsse",
-      status: "empfehlung" as const,
-      kategorie: "Bundeszuschuss",
-      beschreibung: "Empfehlung zur klaren Abgrenzung beitragsgedeckter Leistungen von versicherungsfremden Leistungen des Bundes."
+      titel: "Stärkung von Reha-Leistungen nach dem Grundsatz „Reha vor Rente“",
+      status: "gesetz" as const,
+      kategorie: "Rehabilitation",
+      beschreibung: "Ausbau medizinischer und beruflicher Reha-Angebote der Rentenversicherung zur langfristigen Erhaltung der Erwerbsfähigkeit im Betrieb."
     },
     {
       id: 18,
-      titel: "Weiterentwicklung der Riester-Förderung zu einem Altersvorsorgedepot",
-      status: "empfehlung" as const,
-      kategorie: "Private Vorsorge",
-      beschreibung: "Vorschlag für ein kostenarmes, gefördertes Anspardepot ohne strikte Beitragsgarantiepflicht (Reformmodell ab 2027 in Beratung)."
+      titel: "Anrechnung von Kindererziehungszeiten (Mütterrente) weiter fortführen",
+      status: "gesetz" as const,
+      kategorie: "Familienleistung",
+      beschreibung: "Gesetzlich verankerte Gutschrift von bis zu 36 Monaten Kindererziehungszeiten pro Kind im Rentenkonto."
     },
     {
       id: 19,
-      titel: "Dynamisierung der Förderung für Geringverdiener",
+      titel: "Transparente Berichterstattung und volle Gegenfinanzierung versicherungsfremder Leistungen",
       status: "empfehlung" as const,
-      kategorie: "Förderung",
-      beschreibung: "Regelmäßige Anpassung der Einkommensgrenzen für die bAV-Geringverdienerförderung nach § 100 EStG."
+      kategorie: "Bundeszuschuss",
+      beschreibung: "Forderung nach vollständiger Erstattung gesamtgesellschaftlicher Aufgaben (z. B. Mütterrente, Grundrente) durch Bundeszuschüsse aus dem allgemeinen Steuerhaushalt."
     },
     {
       id: 20,
-      titel: "Stärkung der Mütterrente / Kindererziehungszeiten",
-      status: "gesetz" as const,
-      kategorie: "Erziehungszeiten",
-      beschreibung: "Gesetzlich verankerte Anrechnung von bis zu 36 Monaten Kindererziehung pro Kind."
+      titel: "Einrichtung eines ständigen unabhängigen Sachverständigenrats für Alterssicherung",
+      status: "empfehlung" as const,
+      kategorie: "Monitoring",
+      beschreibung: "Einsetzung eines wissenschaftlichen Expertengremiums zur kontinuierlichen Überwachung der finanziellen Tragfähigkeit und Generationengerechtigkeit."
     },
     {
       id: 21,
-      titel: "Vereinfachung der Antragsverfahren bei Erwerbsminderung",
-      status: "empfehlung" as const,
-      kategorie: "Verwaltung",
-      beschreibung: "Bürokratieabbau und digitale Antragstellung für EM-Rentner."
+      titel: "Automatisierter Einkommensabgleich beim Grundrentenzuschlag",
+      status: "gesetz" as const,
+      kategorie: "Grundrente",
+      beschreibung: "Gesetzlich umgesetzter automatischer Datenaustausch zwischen der Deutschen Rentenversicherung und den Finanzbehörden ohne gesonderten Antrag."
     },
     {
       id: 22,
-      titel: "Plausibilisierung von Ausbildungsanrechnungszeiten",
-      status: "gesetz" as const,
-      kategorie: "Anrechnungszeiten",
-      beschreibung: "Regelung zur Berücksichtigung von Fachschul- und Hochschulzeiten (bis zu 8 Jahre, bewertet als Anrechnungszeit)."
+      titel: "Ausbau von Präventionsprogrammen im betrieblichen Gesundheitsmanagement",
+      status: "empfehlung" as const,
+      kategorie: "Gesundheit",
+      beschreibung: "Stärkere Verknüpfung von betrieblicher Gesundheitsförderung mit Reha-Maßnahmen der Rentenversicherung zur Vermeidung frühzeitiger Erwerbsminderung."
     },
     {
       id: 23,
-      titel: "Harmonisierung der Rentenwertbestimmungsverordnung",
-      status: "gesetz" as const,
-      kategorie: "Rentenwert",
-      beschreibung: "Jährliche Verordnung zur Festsetzung des aktuellen Rentenwerts auf Basis der Nominallohnentwicklung."
+      titel: "Evaluierung der Handwerker-Pflichtversicherung",
+      status: "empfehlung" as const,
+      kategorie: "Handwerk",
+      beschreibung: "Überprüfung der 18-jährigen Pflichtversicherungsdauer für selbstständige Handwerker auf zeitgemäße Ausgestaltung und Übergangsmöglichkeiten."
     },
     {
       id: 24,
-      titel: "Automatisierte Ermittlung des Grundrentenzuschlags",
+      titel: "Vollständige Angleichung der Rentenwerte in Ost und West",
       status: "gesetz" as const,
-      kategorie: "Grundrente",
-      beschreibung: "Gesetzlicher Datenabgleich zwischen Rentenversicherung und Finanzbehörden ohne gesonderten Antrag."
+      kategorie: "Rentenwert",
+      beschreibung: "Vollzogene gesetzliche Vereinheitlichung des aktuellen Rentenwerts in den neuen und alten Bundesländern (in Kraft seit 1. Juli 2023)."
     },
     {
       id: 25,
-      titel: "Sicherung der Nachhaltigkeitsreserve",
+      titel: "Absicherung der Mindestnachhaltigkeitsreserve",
       status: "gesetz" as const,
       kategorie: "Liquidität",
-      beschreibung: "Gesetzlich vorgeschriebene Mindestreserve von 0,2 Monatsausgaben in der Rentenversicherung."
+      beschreibung: "Gesetzlich vorgeschriebener Mindestpuffer der Nachhaltigkeitsreserve (0,2 Monatsausgaben) zur Sicherung der monatlichen Rentenauszahlungen."
     },
     {
       id: 26,
-      titel: "Erweiterung der Reha-Leistungen für pflegende Angehörige",
+      titel: "Berücksichtigung von Pflegenden im Rentenrecht",
       status: "gesetz" as const,
       kategorie: "Pflege",
-      beschreibung: "Verbesserte Rentenpunkt-Gutschriften bei häuslicher Pflege ab Pflegegrad 2."
+      beschreibung: "Gesetzliche Übernahme von Rentenversicherungsbeiträgen durch die Pflegekasse für Angehörige, die Personen ab Pflegegrad 2 ehrenamtlich pflegen."
     },
     {
       id: 27,
-      titel: "Reform der versicherungsfremden Leistungen",
+      titel: "Digitalisierung und Entbürokratisierung von Verwaltungs- und Antragsverfahren",
       status: "empfehlung" as const,
-      kategorie: "Bundeszuschuss",
-      beschreibung: "Forderung nach vollständiger Erstattung gesamtgesellschaftlicher Aufgaben durch den Bundeshaushalt."
+      kategorie: "Verwaltung",
+      beschreibung: "Vereinfachung von Renten- und Reha-Anträgen durch durchgehende digitale Workflows und barrierefreie Online-Dienste der DRV."
     },
     {
       id: 28,
-      titel: "Vereinfachung des Versorgungsausgleichs bei Scheidung",
-      status: "gesetz" as const,
-      kategorie: "Familienrecht",
-      beschreibung: "Direkte Übertragung von Entgeltpunkten auf das Rentenkonto des ausgleichsberechtigten Ehegatten."
+      titel: "Verpflichtende gesetzliche Kapitalrente mit einem zusätzlichen Beitrag von 2 %",
+      status: "empfehlung" as const,
+      kategorie: "Kapitalrente",
+      beschreibung: "Handlungsempfehlung zur Einführung einer obligatorischen kapitalgedeckten Altersvorsorgekomponente mit 2 % Zusatzbeitrag zur Ergänzung der Umlagedeckung."
     },
     {
       id: 29,
-      titel: "Verstärkte Prävention im betrieblichen Gesundheitsmanagement",
-      status: "empfehlung" as const,
-      kategorie: "Gesundheit",
-      beschreibung: "Kopplung von Präventionsmaßnahmen an DRV-Reha-Angebote zur Erhaltung der Erwerbsfähigkeit."
+      titel: "Vereinfachung des Versorgungsausgleichs bei Ehescheidungen",
+      status: "gesetz" as const,
+      kategorie: "Familienrecht",
+      beschreibung: "Direkte rentenrechtliche Übertragung von Entgeltpunkten auf das Beitragskonto des ausgleichsberechtigten Ehegatten nach § 12 VersAusglG."
     },
     {
       id: 30,
-      titel: "Schutz von Erwerbsminderungsrentnern vor Armut",
+      titel: "Zuschläge für Bestandsbezieher von Erwerbsminderungsrenten",
       status: "gesetz" as const,
-      kategorie: "Sozialschutz",
-      beschreibung: "Gesetzlicher Zuschlag für Bestands-EM-Rentner mit Renteneintritt zwischen 2001 und 2018."
+      kategorie: "EM-Rente",
+      beschreibung: "Gesetzlich umgesetzter pauschaler Zuschlag (4,5 % bis 7,5 %) für Erwerbsminderungsrentner mit Rentenbeginn zwischen 2001 und 2018."
     },
     {
       id: 31,
-      titel: "Verbesserung der Renteninformationen bezüglich Inflation",
+      titel: "Kaufkraftbereinigte Ausweise in der jährlichen Renteninformation",
       status: "empfehlung" as const,
       kategorie: "Transparenz",
-      beschreibung: "Ausweis von kaufkraftbereinigten Hochrechnungen in der jährlichen DRV-Renteninformation."
+      beschreibung: "Vorschlag zur Darstellung von Modellhochrechnungen unter Berücksichtigung einer angenommenen Inflationsrate in den jährlichen DRV-Schreiben."
     },
     {
       id: 32,
-      titel: "Förderung ehrenamtlicher Tätigkeit im Ruhestand",
+      titel: "Anrechnungsfreie Aufwandsentschädigungen bei ehrenamtlicher Tätigkeit",
       status: "gesetz" as const,
       kategorie: "Ehrenamt",
-      beschreibung: "Anrechnungsfreie Aufwandsentschädigungen für Rentner bei ehrenamtlichem Engagement."
+      beschreibung: "Gesetzlicher Schutz von Aufwandsentschädigungen (Ehrenamts- und Übungsleiterpauschale) vor Rentenkürzungen bei Altersrentnern."
     },
     {
       id: 33,
-      titel: "Regelmäßige Vorlegung eines Sozialberichts der Bundesregierung",
+      titel: "Vierjährlicher Sozialbericht der Bundesregierung zur Lage der Alterssicherung",
       status: "gesetz" as const,
-      kategorie: "Transparenz",
-      beschreibung: "Gesetzliche Pflicht zur vierjährigen Vorlage des Berichts über die Lage der Alterssicherung."
+      kategorie: "Berichterstattung",
+      beschreibung: "Gesetzlich verankerte Verpflichtung der Bundesregierung zur regelmäßigen Vorlage eines umfassenden Sozialberichts über alle drei Säulen."
     }
   ];
 
   const faqs = [
     {
       question: "Sind die Empfehlungen der Rentenkommission bereits geltendes Gesetz?",
-      answer: "Nein. Bei den 33 Reformpunkten der Kommission 'Verlässlicher Generationenvertrag' handelt es sich um wissenschaftliche und politische Handlungsempfehlungen. Gesetzliche Wirkung entfalten sie erst, wenn sie vom Deutschen Bundestag beschlossen und im Bundesgesetzblatt verkündet werden."
+      answer: "Nein. Bei den 33 Reformpunkten der Kommission handelt es sich um wissenschaftliche und politische Handlungsempfehlungen. Gesetzliche Wirkung entfalten sie erst, wenn sie vom Deutschen Bundestag beschlossen und im Bundesgesetzblatt verkündet werden."
     },
     {
       question: "Was bedeutet das Generationenkapital im Vergleich zur empfohlenen Kapitalrente?",
-      answer: "Das gesetzlich beschlossene Generationenkapital ist ein staatlicher Ausgleichsfonds, der durch Bundesmittel am Kapitalmarkt angelegt wird, um ab den 2030er Jahren die Beitragszahler zu entlasten. Es verändert nicht die individuelle Beitragszahlung des Bürgers, im Gegensatz zu privaten Vorsorgeformen."
+      answer: "Das gesetzlich beschlossene Generationenkapital ist ein staatlicher Ausgleichsfonds, der durch Bundesmittel am Kapitalmarkt angelegt wird, um ab den 2030er Jahren die Beitragszahler zu entlasten. Die in Empfehlung 28 vorgeschlagene Kapitalrente sieht hingegen einen individuellen 2 % Zusatzbeitrag vor."
     }
   ];
 
   const breadcrumbs = [
     { name: "Startseite", item: "/" },
-    { name: "Rentenkommission 2026", item: "/rentenkommission" }
+    { name: "Rentenkommission", item: "/rentenkommission" }
   ];
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed">
       <SchemaMarkup faqItems={faqs} breadcrumbs={breadcrumbs} />
 
-      {/* Top Disclaimer Header */}
-      <div className="p-4 bg-amber-100/80 border border-amber-300 text-amber-950 rounded-2xl mb-8 flex items-start gap-3 text-xs sm:text-sm">
+      <div className="mb-3">
+        <LastUpdated />
+      </div>
+
+      {/* Top Disclaimer Header - Exact Prompt Wording */}
+      <div className="p-4 bg-amber-100/90 border border-amber-300 text-amber-950 rounded-2xl mb-8 flex items-start gap-3 text-xs sm:text-sm shadow-sm">
         <ShieldAlert className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
         <div>
-          <strong>Wichtiger Status-Hinweis:</strong> Die Rentenkommission 2026 hat Handlungsempfehlungen vorgelegt. Diese sind <u>nicht automatisch geltendes Recht</u>. Einige Punkte wurden bereits im SGB VI verankert, andere befinden sich in der Gesetzgebung oder sind unverbindliche Vorschläge.
+          <strong>Wichtiger Status-Hinweis:</strong> Die Rentenkommission 2026 hat Empfehlungen zur Weiterentwicklung der Alterssicherung vorgelegt. Diese Empfehlungen sind <u>nicht automatisch geltendes Recht</u>.
         </div>
       </div>
 
       <div className="mb-8">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
-          Die 33 Empfehlungen der Rentenkommission verständlich erklärt
+          Die 33 Empfehlungen der Rentenkommission
         </h1>
-        <p className="text-slate-600 text-base leading-relaxed">
-          Systematische Aufstellung der Empfehlungen der Regierungskommission „Verlässlicher Generationenvertrag“. Bei allen Punkten unterscheiden wir strikt zwischen bloßen Vorschlägen, politischen Zielsetzungen und bereits geltendem Recht.
+        <p className="text-slate-700 text-base leading-relaxed font-medium">
+          Der Abschlussbericht der Rentenkommission enthält 33 Empfehlungen zur Weiterentwicklung der Alterssicherung.
+        </p>
+        <p className="text-slate-600 text-sm leading-relaxed mt-2">
+          Systematische Aufstellung aller 33 Reformpunkte der Regierungskommission „Verlässlicher Generationenvertrag“. Bei allen Punkten unterscheiden wir strikt zwischen bloßen Vorschlägen, politischen Zielsetzungen und bereits geltendem Recht.
         </p>
       </div>
 
       {/* Official Source Link Box */}
-      <div className="p-5 bg-slate-900 text-white rounded-xl mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="p-5 bg-slate-900 text-white rounded-xl mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-md">
         <div className="flex items-center gap-3">
           <BookOpen className="w-6 h-6 text-amber-400 shrink-0" />
           <div>
@@ -290,7 +299,7 @@ export default function Rentenkommission() {
           href="https://www.bmas.de" 
           target="_blank" 
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-amber-500 text-slate-950 text-xs font-bold hover:bg-amber-400 transition-colors shrink-0"
+          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-amber-500 text-slate-950 text-xs font-extrabold hover:bg-amber-400 active:scale-95 transition-all shrink-0"
         >
           <span>Zum BMAS-Portal</span>
           <ExternalLink className="w-3.5 h-3.5" />
@@ -300,13 +309,13 @@ export default function Rentenkommission() {
       {/* 33 Recommendations List */}
       <div className="space-y-4 mb-12">
         {empfehlungen.map((emp) => (
-          <div key={emp.id} className="p-5 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <div key={emp.id} className="p-5 bg-white rounded-xl border border-slate-200 shadow-sm hover:border-slate-300 transition-colors">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
               <div className="flex items-center gap-2">
-                <span className="w-7 h-7 rounded-full bg-slate-100 text-slate-800 font-bold text-xs flex items-center justify-center border border-slate-200">
+                <span className="w-7 h-7 rounded-full bg-slate-100 text-slate-800 font-bold text-xs flex items-center justify-center border border-slate-200 shrink-0">
                   #{emp.id}
                 </span>
-                <h2 className="text-base font-bold text-slate-900">{emp.titel}</h2>
+                <h2 className="text-base font-bold text-slate-900 leading-snug">{emp.titel}</h2>
               </div>
               <StatusBadge type={emp.status} dateStr={emp.dateStr} />
             </div>

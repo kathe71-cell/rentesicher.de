@@ -24,7 +24,7 @@ export default function RentenLueckeCalculator() {
         <div>
           <div className="flex items-center gap-2">
             <Calculator className="w-6 h-6 text-amber-600 shrink-0" />
-            <h3 className="text-lg sm:text-xl font-bold text-slate-900">Interaktiver Rentenlücken-Rechner 2026</h3>
+            <h3 className="text-lg sm:text-xl font-bold text-slate-900">Interaktiver Rentenlücken-Rechner</h3>
           </div>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">Ermittle deine monatliche Vorsorgelücke und das erforderliche Gesamtsparziel.</p>
         </div>

@@ -40,7 +40,7 @@ export default function Footer() {
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-3">Drei Säulen Vorsorge</h4>
             <ul className="space-y-2 text-xs">
               <li><Link to="/private-rente" className="hover:text-amber-400 transition-colors">Private Rentenversicherung</Link></li>
-              <li><Link to="/riester-rente" className="hover:text-amber-400 transition-colors">Riester-Rente 2026</Link></li>
+              <li><Link to="/riester-rente" className="hover:text-amber-400 transition-colors">Riester-Rente</Link></li>
               <li><Link to="/betriebliche-altersvorsorge" className="hover:text-amber-400 transition-colors">Betriebliche Altersvorsorge (bAV)</Link></li>
               <li><Link to="/etf-rente" className="hover:text-amber-400 transition-colors">ETF-Sparplan für Rente</Link></li>
               <li><Link to="/altersvorsorge" className="hover:text-amber-400 transition-colors">Altersvorsorge Vergleich</Link></li>

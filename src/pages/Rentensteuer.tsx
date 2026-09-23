@@ -21,7 +21,7 @@ export default function Rentensteuer() {
       <SchemaMarkup faqItems={faqs} breadcrumbs={breadcrumbs} />
       <div className="mb-8">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
-          Besteuerung von Renten 2026: Rentenfreibetrag & Grundfreibetrag
+          Besteuerung von Renten: Rentenfreibetrag & Grundfreibetrag
         </h1>
         <p className="text-slate-600 text-base leading-relaxed">
           Wann müssen Rentner eine Steuererklärung abgeben? Erklärung der nachgelagerten Besteuerung nach dem Alterseinkünftegesetz.
@@ -31,7 +31,7 @@ export default function Rentensteuer() {
       <AdSense />
 
       <section className="prose prose-slate max-w-none my-8">
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">Grundfreibetrag 2026</h2>
+        <h2 className="text-2xl font-bold text-slate-900 mb-4">Grundfreibetrag & Steuerfreibetrag</h2>
         <p className="text-slate-700">
           Wer als Einzelperson ein zu versteuerndes Einkommen unterhalb des steuerlichen Grundfreibetrags erzielt, zahlt keine Einkommensteuer.
         </p>

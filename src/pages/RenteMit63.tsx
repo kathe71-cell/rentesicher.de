@@ -21,7 +21,7 @@ export default function RenteMit63() {
       <SchemaMarkup faqItems={faqs} breadcrumbs={breadcrumbs} />
       <div className="mb-8">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
-          Rente mit 63: Voraussetzungen, Abschläge & Neuregelung 2026
+          Rente mit 63: Voraussetzungen, Abschläge & Regelungen
         </h1>
         <p className="text-slate-600 text-base leading-relaxed">
           Verständliche Erklärung zur Altersrente für besonders langjährig Versicherte (45 Jahre Wartezeit) und langjährig Versicherte (35 Jahre Wartezeit).

@@ -185,7 +185,7 @@ function Footer() {
         /* @__PURE__ */ jsx("h4", { className: "text-xs font-bold uppercase tracking-wider text-slate-200 mb-3", children: "Drei Säulen Vorsorge" }),
         /* @__PURE__ */ jsxs("ul", { className: "space-y-2 text-xs", children: [
           /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(Link, { to: "/private-rente", className: "hover:text-amber-400 transition-colors", children: "Private Rentenversicherung" }) }),
-          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(Link, { to: "/riester-rente", className: "hover:text-amber-400 transition-colors", children: "Riester-Rente 2026" }) }),
+          /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(Link, { to: "/riester-rente", className: "hover:text-amber-400 transition-colors", children: "Riester-Rente" }) }),
           /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(Link, { to: "/betriebliche-altersvorsorge", className: "hover:text-amber-400 transition-colors", children: "Betriebliche Altersvorsorge (bAV)" }) }),
           /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(Link, { to: "/etf-rente", className: "hover:text-amber-400 transition-colors", children: "ETF-Sparplan für Rente" }) }),
           /* @__PURE__ */ jsx("li", { children: /* @__PURE__ */ jsx(Link, { to: "/altersvorsorge", className: "hover:text-amber-400 transition-colors", children: "Altersvorsorge Vergleich" }) })
@@ -282,7 +282,7 @@ function RentenLueckeCalculator() {
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
           /* @__PURE__ */ jsx(Calculator, { className: "w-6 h-6 text-amber-600 shrink-0" }),
-          /* @__PURE__ */ jsx("h3", { className: "text-lg sm:text-xl font-bold text-slate-900", children: "Interaktiver Rentenlücken-Rechner 2026" })
+          /* @__PURE__ */ jsx("h3", { className: "text-lg sm:text-xl font-bold text-slate-900", children: "Interaktiver Rentenlücken-Rechner" })
         ] }),
         /* @__PURE__ */ jsx("p", { className: "text-xs sm:text-sm text-slate-500 mt-1", children: "Ermittle deine monatliche Vorsorgelücke und das erforderliche Gesamtsparziel." })
       ] }),
@@ -506,15 +506,18 @@ function SourceFootnote() {
 
 function StatusBadge({ type, dateStr }) {
   if (type === "empfehlung") {
-    return /* @__PURE__ */ jsx("span", { className: "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-950 border border-amber-300", children: "Empfehlung (nicht in Kraft)" });
+    return /* @__PURE__ */ jsx("span", { className: "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-950 border border-amber-300 shrink-0", children: "Empfehlung der Kommission" });
+  }
+  if (type === "zielsetzung") {
+    return /* @__PURE__ */ jsx("span", { className: "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-950 border border-purple-300 shrink-0", children: "Politische Zielsetzung" });
   }
   if (type === "gilt_ab") {
-    return /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-950 border border-emerald-300", children: [
-      "Gilt ab ",
-      dateStr || "2026"
+    return /* @__PURE__ */ jsxs("span", { className: "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-950 border border-emerald-300 shrink-0", children: [
+      "Gesetzliches Vorhaben ",
+      dateStr ? `(ab ${dateStr})` : ""
     ] });
   }
-  return /* @__PURE__ */ jsx("span", { className: "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-950 border border-blue-300", children: "Geltendes Recht" });
+  return /* @__PURE__ */ jsx("span", { className: "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-950 border border-blue-300 shrink-0", children: "Geltendes Recht (SGB VI)" });
 }
 
 function SchemaMarkup({ faqItems, breadcrumbs }) {
@@ -697,267 +700,270 @@ function Rentenkommission() {
   const empfehlungen = [
     {
       id: 1,
-      titel: "Stabilisierung der Haltelinie beim Sicherungsniveau (48 %)",
-      status: "empfehlung",
-      kategorie: "Rentenniveau",
-      beschreibung: "Empfehlung, das Rentenniveau vor Steuern bis mindestens 2031 (bzw. 2035) gesetzlich bei 48 % abzusichern, um eine Entkopplung der Renten von den Löhnen zu verhindern."
+      titel: "Politische Zielgröße von mindestens 70 % Nettoersatzquote im Mehrsäulensystem",
+      status: "zielsetzung",
+      kategorie: "Mehrsäulensystem",
+      beschreibung: "Empfehlung einer Gesamtzielgröße für das Alterssicherungsniveau über alle drei Säulen (gesetzlich, betrieblich, privat), um den Lebensstandard im Alter verlässlich abzusichern."
     },
     {
       id: 2,
-      titel: "Festlegung einer Beitragssatzobergrenze (20 % bzw. 22 %)",
+      titel: "Zusätzlicher Ausweis der Nettoersatzquote in Berichten und Auskünften",
       status: "empfehlung",
-      kategorie: "Beitragssatz",
-      beschreibung: "Vorschlag, den Beitragssatz zur gesetzlichen Rentenversicherung bis 2030 nicht über 20 % und bis 2035 nicht über 22 % steigen zu lassen."
+      kategorie: "Transparenz",
+      beschreibung: "Erweiterung der Berichterstattung um die kaufkraft- und steuerbereinigte Nettoersatzquote, um Bürgern eine realistischere Einschätzung ihrer späteren Gesamtversorgung zu ermöglichen."
     },
     {
       id: 3,
-      titel: "Einrichtung eines Kapitalstocks zur Beitragsdämpfung",
-      status: "gilt_ab",
-      dateStr: "2026",
-      kategorie: "Kapitaldeckung",
-      beschreibung: "Aufbau einer kapitalgedeckten Komponente (Generationenkapital) aus Bundesmitteln zur langfristigen Dämpfung künftiger Beitragsanstiege ab den 2030er Jahren."
+      titel: "Verbesserung der Datenbasis und Erhebung trägerübergreifender Kennzahlen",
+      status: "empfehlung",
+      kategorie: "Statistik & Forschung",
+      beschreibung: "Verbindung von Rentenversicherungsdaten mit Steuerdaten und Betriebspensionen zur präzisen Erfassung von Versorgungslücken und Altersarmut."
     },
     {
       id: 4,
-      titel: "Anpassung des Ausgleichsfaktors im Nachhaltigkeitsfaktor",
-      status: "empfehlung",
-      kategorie: "Rentenformel",
-      beschreibung: "Wissenschaftlicher Vorschlag zur Anpassung der Dämpfungsfaktoren bei Eintritt geburtenstarker Jahrgänge in den Ruhestand."
+      titel: "Weiterentwicklung und trägerübergreifende Etablierung der Digitalen Rentenübersicht",
+      status: "gesetz",
+      kategorie: "Digitalisierung",
+      beschreibung: "Gesetzlich verankertes Portal (rentenuebersicht.de) zur gebündelten, trägerübergreifenden Abfrage aller Anwartschaften aus gesetzlicher, betrieblicher und privater Vorsorge."
     },
     {
       id: 5,
-      titel: "Stärkung der betrieblichen Altersvorsorge (bAV) in KMU",
+      titel: "Stärkere Kopplung des Renteneintrittsalters an die Lebenserwartung ab 2031",
       status: "empfehlung",
-      kategorie: "Betriebsrente",
-      beschreibung: "Vereinfachung von Sozialpartner-Modellen und Ausweitung der Geringverdiener-Förderung im Betriebskrankenkassen- und Firmenumfeld."
+      kategorie: "Renteneintritt",
+      beschreibung: "Wissenschaftliche Empfehlung, das Regelaltersrentenalter nach Erreichen der Altersgrenze von 67 Jahren ab 2031 dynamisch an die fernere Lebenserwartung anzupassen."
     },
     {
       id: 6,
-      titel: "Förderung von Opting-Out-Systemen im Betrieb",
+      titel: "Reform bzw. Auslauf der abschlagsfreien Rente für besonders langjährig Versicherte („Rente ab 63 / 65“)",
       status: "empfehlung",
-      kategorie: "Betriebsrente",
-      beschreibung: "Empfehlung für automatische Einbezugssysteme bei der betrieblichen Altersvorsorge auf Tarifvertragsebene (mit Widerspruchsrecht)."
+      kategorie: "Frührente",
+      beschreibung: "Vorschlag zur Überprüfung der versicherungsfremden Sonderregelungen bei 45 Beitragsjahren zum Schutz der langfristigen Finanzierbarkeit der Gesetzlichen Rentenversicherung."
     },
     {
       id: 7,
-      titel: "Weiterentwicklung der Erwerbsminderungsrente",
-      status: "gesetz",
-      kategorie: "EM-Rente",
-      beschreibung: "Bereits gesetzlich umgesetzte Verlängerung der Zurechnungszeit bis zum regulären Renteneintrittsalter."
+      titel: "Gesetzliche Sicherung der Mindesthaltelinie beim Rentenniveau (48 %)",
+      status: "gilt_ab",
+      dateStr: "Rentenpaket",
+      kategorie: "Rentenniveau",
+      beschreibung: "Gesetzliche Verankerung einer Untergrenze für das Rentenniveau vor Steuern bei 48 %, um eine Entkopplung der Renten von der allgemeinen Lohnentwicklung zu verhindern."
     },
     {
       id: 8,
-      titel: "Verbindliche Digitale Rentenübersicht",
-      status: "gesetz",
-      kategorie: "Transparenz",
-      beschreibung: "Bereits gesetzlich verankertes Portal zur trägerübergreifenden Abfrage aller Rentenansprüche (gesetzlich, betrieblich, privat)."
+      titel: "Festlegung einer Beitragsgrenze (Beitragssatzkorridor max. 20 % bis 2030, max. 22 % bis 2035)",
+      status: "empfehlung",
+      kategorie: "Beitragssatz",
+      beschreibung: "Empfehlung zur Begrenzung der Beitragsnetzbelastung für Arbeitnehmer und Arbeitgeber, um Lohnnebenkosten stabil zu halten."
     },
     {
       id: 9,
-      titel: "Überprüfung des Rechtskreises Ost/West-Angleichung",
-      status: "gesetz",
-      kategorie: "Rentenwert",
-      beschreibung: "Gesetzlich vollzogene Vereinheitlichung des Rentenwerts in Ost und West ab dem 1. Juli 2023."
+      titel: "Anpassung des Ausgleichsfaktors im Nachhaltigkeitsfaktor der Rentenformel",
+      status: "empfehlung",
+      kategorie: "Rentenformel",
+      beschreibung: "Dämpfung der jährlichen Rentenanpassung bei Eintritt geburtenstarker Jahrgänge (Babyboomer) in den Ruhestand über den Nachhaltigkeitsfaktor nach § 68 SGB VI."
     },
     {
       id: 10,
-      titel: "Regelmäßige Begutachtung des Generationenvertrags",
-      status: "empfehlung",
-      kategorie: "Monitoring",
-      beschreibung: "Empfehlung zur Installation eines ständigen unabhängigen Sachverständigenrats für Alterssicherungssysteme."
+      titel: "Reform der geförderten privaten Altersvorsorge (Altersvorsorgedepot ohne Garantiezwang)",
+      status: "gilt_ab",
+      dateStr: "Reformvorhaben",
+      kategorie: "Private Vorsorge",
+      beschreibung: "Weiterentwicklung der Riester-Förderung zu einem chancenreichen, geförderten Anspardepot ohne strikte Beitragsgarantiepflicht zur Nutzung von Kapitalmarktchancen."
     },
     {
       id: 11,
-      titel: "Verlängerung der Gleitzone bei Erwerbsminderung",
+      titel: "Stärkung der betrieblichen Altersvorsorge (bAV) und Opt-Out-Modelle im Betrieb",
       status: "empfehlung",
-      kategorie: "EM-Rente",
-      beschreibung: "Erleichterung des Wiedereinstiegs in das Erwerbsleben für Bezieher teilweiser Erwerbsminderungsrenten."
+      kategorie: "Betriebsrente",
+      beschreibung: "Vereinfachung von Sozialpartner-Modellen und Förderung automatischer Einbezugssysteme bei der bAV auf Betriebsebene (mit Widerspruchsrecht)."
     },
     {
       id: 12,
-      titel: "Evaluierung der Altersgrenzen im Handwerk",
-      status: "empfehlung",
+      titel: "Obligatorische Altersvorsorge für alle nicht anderweitig abgesicherten Selbstständigen",
+      status: "zielsetzung",
       kategorie: "Pflichtversicherung",
-      beschreibung: "Vorschlag zur Überprüfung der Pflichtversicherung für selbstständige Handwerker nach 18 Jahren."
+      beschreibung: "Politische Zielsetzung zur Einbeziehung aller Selbstständigen in die gesetzliche Rentenversicherung (mit Opt-Out bei Nachweis einer gleichwertigen Altersvorsorge)."
     },
     {
       id: 13,
-      titel: "Einbeziehung aller nicht anderweitig abgesicherten Selbstständigen",
-      status: "empfehlung",
-      kategorie: "Pflichtversicherung",
-      beschreibung: "Politische Zielsetzung zur Einbeziehung von Selbstständigen in die gesetzliche Rentenversicherung (mit Opt-Out bei Vorsorgenachweis)."
+      titel: "Ausweitung und Dynamisierung der bAV-Geringverdienerförderung (§ 100 EStG)",
+      status: "gesetz",
+      kategorie: "Steuerförderung",
+      beschreibung: "Gesetzlicher Zuschuss des Staates an Arbeitgeber, wenn diese Geringverdienern einen zusätzlichen Beitrag zur betrieblichen Altersvorsorge zahlen."
     },
     {
       id: 14,
-      titel: "Flexibilisierung des Übergangs vom Erwerbsleben in den Ruhestand",
+      titel: "Weiterentwicklung der Erwerbsminderungsrente durch verlängerte Zurechnungszeiten",
       status: "gesetz",
-      kategorie: "Flexirente",
-      beschreibung: "Bereits umgesetzte Abschaffung der Hinzuverdienstgrenzen bei vorzeitigen Altersrenten."
+      kategorie: "EM-Rente",
+      beschreibung: "Gesetzlich vollzogene schrittweise Verlängerung der Zurechnungszeit bei Erwerbsminderung bis zum regulären Renteneintrittsalter."
     },
     {
       id: 15,
-      titel: "Förderung des Weiterarbeitens über die Regelaltersgrenze hinaus",
+      titel: "Flexibilisierung der Zuverdienstgrenzen bei teilweiser Erwerbsminderung",
       status: "gesetz",
-      kategorie: "Flexirente",
-      beschreibung: "Zuschläge zur Rente (+0,5 % pro Monat) und Verzicht auf Arbeitnehmerbeiträge zur Arbeitslosenversicherung."
+      kategorie: "EM-Rente",
+      beschreibung: "Gesetzliche Erleichterungen beim Wiedereinstieg in das Erwerbsleben für Bezieher teilweiser Erwerbsminderungsrenten ohne Rentenverlust."
     },
     {
       id: 16,
-      titel: "Anpassung der Mindestversicherungszeit für Reha-Leistungen",
+      titel: "Ausbau von Anreizsystemen für das Weiterarbeiten über die Regelaltersgrenze hinaus",
       status: "gesetz",
-      kategorie: "Rehabilitation",
-      beschreibung: "Stärkung des Grundsatzes 'Reha vor Rente' durch vereinfachten Zugang zu medizinischen Leistungen der DRV."
+      kategorie: "Flexirente",
+      beschreibung: "Gesetzliche Rentenzuschläge (+0,5 % pro Monat) bei freiwilligem Aufschub des Rentenbeginns sowie Wegfall der Arbeitgeberbeiträge zur Arbeitslosenversicherung."
     },
     {
       id: 17,
-      titel: "Transparente Berichterstattung über Steuerzuschüsse",
-      status: "empfehlung",
-      kategorie: "Bundeszuschuss",
-      beschreibung: "Empfehlung zur klaren Abgrenzung beitragsgedeckter Leistungen von versicherungsfremden Leistungen des Bundes."
+      titel: "Stärkung von Reha-Leistungen nach dem Grundsatz „Reha vor Rente“",
+      status: "gesetz",
+      kategorie: "Rehabilitation",
+      beschreibung: "Ausbau medizinischer und beruflicher Reha-Angebote der Rentenversicherung zur langfristigen Erhaltung der Erwerbsfähigkeit im Betrieb."
     },
     {
       id: 18,
-      titel: "Weiterentwicklung der Riester-Förderung zu einem Altersvorsorgedepot",
-      status: "empfehlung",
-      kategorie: "Private Vorsorge",
-      beschreibung: "Vorschlag für ein kostenarmes, gefördertes Anspardepot ohne strikte Beitragsgarantiepflicht (Reformmodell ab 2027 in Beratung)."
+      titel: "Anrechnung von Kindererziehungszeiten (Mütterrente) weiter fortführen",
+      status: "gesetz",
+      kategorie: "Familienleistung",
+      beschreibung: "Gesetzlich verankerte Gutschrift von bis zu 36 Monaten Kindererziehungszeiten pro Kind im Rentenkonto."
     },
     {
       id: 19,
-      titel: "Dynamisierung der Förderung für Geringverdiener",
+      titel: "Transparente Berichterstattung und volle Gegenfinanzierung versicherungsfremder Leistungen",
       status: "empfehlung",
-      kategorie: "Förderung",
-      beschreibung: "Regelmäßige Anpassung der Einkommensgrenzen für die bAV-Geringverdienerförderung nach § 100 EStG."
+      kategorie: "Bundeszuschuss",
+      beschreibung: "Forderung nach vollständiger Erstattung gesamtgesellschaftlicher Aufgaben (z. B. Mütterrente, Grundrente) durch Bundeszuschüsse aus dem allgemeinen Steuerhaushalt."
     },
     {
       id: 20,
-      titel: "Stärkung der Mütterrente / Kindererziehungszeiten",
-      status: "gesetz",
-      kategorie: "Erziehungszeiten",
-      beschreibung: "Gesetzlich verankerte Anrechnung von bis zu 36 Monaten Kindererziehung pro Kind."
+      titel: "Einrichtung eines ständigen unabhängigen Sachverständigenrats für Alterssicherung",
+      status: "empfehlung",
+      kategorie: "Monitoring",
+      beschreibung: "Einsetzung eines wissenschaftlichen Expertengremiums zur kontinuierlichen Überwachung der finanziellen Tragfähigkeit und Generationengerechtigkeit."
     },
     {
       id: 21,
-      titel: "Vereinfachung der Antragsverfahren bei Erwerbsminderung",
-      status: "empfehlung",
-      kategorie: "Verwaltung",
-      beschreibung: "Bürokratieabbau und digitale Antragstellung für EM-Rentner."
+      titel: "Automatisierter Einkommensabgleich beim Grundrentenzuschlag",
+      status: "gesetz",
+      kategorie: "Grundrente",
+      beschreibung: "Gesetzlich umgesetzter automatischer Datenaustausch zwischen der Deutschen Rentenversicherung und den Finanzbehörden ohne gesonderten Antrag."
     },
     {
       id: 22,
-      titel: "Plausibilisierung von Ausbildungsanrechnungszeiten",
-      status: "gesetz",
-      kategorie: "Anrechnungszeiten",
-      beschreibung: "Regelung zur Berücksichtigung von Fachschul- und Hochschulzeiten (bis zu 8 Jahre, bewertet als Anrechnungszeit)."
+      titel: "Ausbau von Präventionsprogrammen im betrieblichen Gesundheitsmanagement",
+      status: "empfehlung",
+      kategorie: "Gesundheit",
+      beschreibung: "Stärkere Verknüpfung von betrieblicher Gesundheitsförderung mit Reha-Maßnahmen der Rentenversicherung zur Vermeidung frühzeitiger Erwerbsminderung."
     },
     {
       id: 23,
-      titel: "Harmonisierung der Rentenwertbestimmungsverordnung",
-      status: "gesetz",
-      kategorie: "Rentenwert",
-      beschreibung: "Jährliche Verordnung zur Festsetzung des aktuellen Rentenwerts auf Basis der Nominallohnentwicklung."
+      titel: "Evaluierung der Handwerker-Pflichtversicherung",
+      status: "empfehlung",
+      kategorie: "Handwerk",
+      beschreibung: "Überprüfung der 18-jährigen Pflichtversicherungsdauer für selbstständige Handwerker auf zeitgemäße Ausgestaltung und Übergangsmöglichkeiten."
     },
     {
       id: 24,
-      titel: "Automatisierte Ermittlung des Grundrentenzuschlags",
+      titel: "Vollständige Angleichung der Rentenwerte in Ost und West",
       status: "gesetz",
-      kategorie: "Grundrente",
-      beschreibung: "Gesetzlicher Datenabgleich zwischen Rentenversicherung und Finanzbehörden ohne gesonderten Antrag."
+      kategorie: "Rentenwert",
+      beschreibung: "Vollzogene gesetzliche Vereinheitlichung des aktuellen Rentenwerts in den neuen und alten Bundesländern (in Kraft seit 1. Juli 2023)."
     },
     {
       id: 25,
-      titel: "Sicherung der Nachhaltigkeitsreserve",
+      titel: "Absicherung der Mindestnachhaltigkeitsreserve",
       status: "gesetz",
       kategorie: "Liquidität",
-      beschreibung: "Gesetzlich vorgeschriebene Mindestreserve von 0,2 Monatsausgaben in der Rentenversicherung."
+      beschreibung: "Gesetzlich vorgeschriebener Mindestpuffer der Nachhaltigkeitsreserve (0,2 Monatsausgaben) zur Sicherung der monatlichen Rentenauszahlungen."
     },
     {
       id: 26,
-      titel: "Erweiterung der Reha-Leistungen für pflegende Angehörige",
+      titel: "Berücksichtigung von Pflegenden im Rentenrecht",
       status: "gesetz",
       kategorie: "Pflege",
-      beschreibung: "Verbesserte Rentenpunkt-Gutschriften bei häuslicher Pflege ab Pflegegrad 2."
+      beschreibung: "Gesetzliche Übernahme von Rentenversicherungsbeiträgen durch die Pflegekasse für Angehörige, die Personen ab Pflegegrad 2 ehrenamtlich pflegen."
     },
     {
       id: 27,
-      titel: "Reform der versicherungsfremden Leistungen",
+      titel: "Digitalisierung und Entbürokratisierung von Verwaltungs- und Antragsverfahren",
       status: "empfehlung",
-      kategorie: "Bundeszuschuss",
-      beschreibung: "Forderung nach vollständiger Erstattung gesamtgesellschaftlicher Aufgaben durch den Bundeshaushalt."
+      kategorie: "Verwaltung",
+      beschreibung: "Vereinfachung von Renten- und Reha-Anträgen durch durchgehende digitale Workflows und barrierefreie Online-Dienste der DRV."
     },
     {
       id: 28,
-      titel: "Vereinfachung des Versorgungsausgleichs bei Scheidung",
-      status: "gesetz",
-      kategorie: "Familienrecht",
-      beschreibung: "Direkte Übertragung von Entgeltpunkten auf das Rentenkonto des ausgleichsberechtigten Ehegatten."
+      titel: "Verpflichtende gesetzliche Kapitalrente mit einem zusätzlichen Beitrag von 2 %",
+      status: "empfehlung",
+      kategorie: "Kapitalrente",
+      beschreibung: "Handlungsempfehlung zur Einführung einer obligatorischen kapitalgedeckten Altersvorsorgekomponente mit 2 % Zusatzbeitrag zur Ergänzung der Umlagedeckung."
     },
     {
       id: 29,
-      titel: "Verstärkte Prävention im betrieblichen Gesundheitsmanagement",
-      status: "empfehlung",
-      kategorie: "Gesundheit",
-      beschreibung: "Kopplung von Präventionsmaßnahmen an DRV-Reha-Angebote zur Erhaltung der Erwerbsfähigkeit."
+      titel: "Vereinfachung des Versorgungsausgleichs bei Ehescheidungen",
+      status: "gesetz",
+      kategorie: "Familienrecht",
+      beschreibung: "Direkte rentenrechtliche Übertragung von Entgeltpunkten auf das Beitragskonto des ausgleichsberechtigten Ehegatten nach § 12 VersAusglG."
     },
     {
       id: 30,
-      titel: "Schutz von Erwerbsminderungsrentnern vor Armut",
+      titel: "Zuschläge für Bestandsbezieher von Erwerbsminderungsrenten",
       status: "gesetz",
-      kategorie: "Sozialschutz",
-      beschreibung: "Gesetzlicher Zuschlag für Bestands-EM-Rentner mit Renteneintritt zwischen 2001 und 2018."
+      kategorie: "EM-Rente",
+      beschreibung: "Gesetzlich umgesetzter pauschaler Zuschlag (4,5 % bis 7,5 %) für Erwerbsminderungsrentner mit Rentenbeginn zwischen 2001 und 2018."
     },
     {
       id: 31,
-      titel: "Verbesserung der Renteninformationen bezüglich Inflation",
+      titel: "Kaufkraftbereinigte Ausweise in der jährlichen Renteninformation",
       status: "empfehlung",
       kategorie: "Transparenz",
-      beschreibung: "Ausweis von kaufkraftbereinigten Hochrechnungen in der jährlichen DRV-Renteninformation."
+      beschreibung: "Vorschlag zur Darstellung von Modellhochrechnungen unter Berücksichtigung einer angenommenen Inflationsrate in den jährlichen DRV-Schreiben."
     },
     {
       id: 32,
-      titel: "Förderung ehrenamtlicher Tätigkeit im Ruhestand",
+      titel: "Anrechnungsfreie Aufwandsentschädigungen bei ehrenamtlicher Tätigkeit",
       status: "gesetz",
       kategorie: "Ehrenamt",
-      beschreibung: "Anrechnungsfreie Aufwandsentschädigungen für Rentner bei ehrenamtlichem Engagement."
+      beschreibung: "Gesetzlicher Schutz von Aufwandsentschädigungen (Ehrenamts- und Übungsleiterpauschale) vor Rentenkürzungen bei Altersrentnern."
     },
     {
       id: 33,
-      titel: "Regelmäßige Vorlegung eines Sozialberichts der Bundesregierung",
+      titel: "Vierjährlicher Sozialbericht der Bundesregierung zur Lage der Alterssicherung",
       status: "gesetz",
-      kategorie: "Transparenz",
-      beschreibung: "Gesetzliche Pflicht zur vierjährigen Vorlage des Berichts über die Lage der Alterssicherung."
+      kategorie: "Berichterstattung",
+      beschreibung: "Gesetzlich verankerte Verpflichtung der Bundesregierung zur regelmäßigen Vorlage eines umfassenden Sozialberichts über alle drei Säulen."
     }
   ];
   const faqs = [
     {
       question: "Sind die Empfehlungen der Rentenkommission bereits geltendes Gesetz?",
-      answer: "Nein. Bei den 33 Reformpunkten der Kommission 'Verlässlicher Generationenvertrag' handelt es sich um wissenschaftliche und politische Handlungsempfehlungen. Gesetzliche Wirkung entfalten sie erst, wenn sie vom Deutschen Bundestag beschlossen und im Bundesgesetzblatt verkündet werden."
+      answer: "Nein. Bei den 33 Reformpunkten der Kommission handelt es sich um wissenschaftliche und politische Handlungsempfehlungen. Gesetzliche Wirkung entfalten sie erst, wenn sie vom Deutschen Bundestag beschlossen und im Bundesgesetzblatt verkündet werden."
     },
     {
       question: "Was bedeutet das Generationenkapital im Vergleich zur empfohlenen Kapitalrente?",
-      answer: "Das gesetzlich beschlossene Generationenkapital ist ein staatlicher Ausgleichsfonds, der durch Bundesmittel am Kapitalmarkt angelegt wird, um ab den 2030er Jahren die Beitragszahler zu entlasten. Es verändert nicht die individuelle Beitragszahlung des Bürgers, im Gegensatz zu privaten Vorsorgeformen."
+      answer: "Das gesetzlich beschlossene Generationenkapital ist ein staatlicher Ausgleichsfonds, der durch Bundesmittel am Kapitalmarkt angelegt wird, um ab den 2030er Jahren die Beitragszahler zu entlasten. Die in Empfehlung 28 vorgeschlagene Kapitalrente sieht hingegen einen individuellen 2 % Zusatzbeitrag vor."
     }
   ];
   const breadcrumbs = [
     { name: "Startseite", item: "/" },
-    { name: "Rentenkommission 2026", item: "/rentenkommission" }
+    { name: "Rentenkommission", item: "/rentenkommission" }
   ];
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
-    /* @__PURE__ */ jsxs("div", { className: "p-4 bg-amber-100/80 border border-amber-300 text-amber-950 rounded-2xl mb-8 flex items-start gap-3 text-xs sm:text-sm", children: [
+    /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
+    /* @__PURE__ */ jsxs("div", { className: "p-4 bg-amber-100/90 border border-amber-300 text-amber-950 rounded-2xl mb-8 flex items-start gap-3 text-xs sm:text-sm shadow-sm", children: [
       /* @__PURE__ */ jsx(ShieldAlert, { className: "w-5 h-5 text-amber-700 shrink-0 mt-0.5" }),
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("strong", { children: "Wichtiger Status-Hinweis:" }),
-        " Die Rentenkommission 2026 hat Handlungsempfehlungen vorgelegt. Diese sind ",
+        " Die Rentenkommission 2026 hat Empfehlungen zur Weiterentwicklung der Alterssicherung vorgelegt. Diese Empfehlungen sind ",
         /* @__PURE__ */ jsx("u", { children: "nicht automatisch geltendes Recht" }),
-        ". Einige Punkte wurden bereits im SGB VI verankert, andere befinden sich in der Gesetzgebung oder sind unverbindliche Vorschläge."
+        "."
       ] })
     ] }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Die 33 Empfehlungen der Rentenkommission verständlich erklärt" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Systematische Aufstellung der Empfehlungen der Regierungskommission „Verlässlicher Generationenvertrag“. Bei allen Punkten unterscheiden wir strikt zwischen bloßen Vorschlägen, politischen Zielsetzungen und bereits geltendem Recht." })
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Die 33 Empfehlungen der Rentenkommission" }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-700 text-base leading-relaxed font-medium", children: "Der Abschlussbericht der Rentenkommission enthält 33 Empfehlungen zur Weiterentwicklung der Alterssicherung." }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-sm leading-relaxed mt-2", children: "Systematische Aufstellung aller 33 Reformpunkte der Regierungskommission „Verlässlicher Generationenvertrag“. Bei allen Punkten unterscheiden wir strikt zwischen bloßen Vorschlägen, politischen Zielsetzungen und bereits geltendem Recht." })
     ] }),
-    /* @__PURE__ */ jsxs("div", { className: "p-5 bg-slate-900 text-white rounded-xl mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4", children: [
+    /* @__PURE__ */ jsxs("div", { className: "p-5 bg-slate-900 text-white rounded-xl mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-md", children: [
       /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
         /* @__PURE__ */ jsx(BookOpen, { className: "w-6 h-6 text-amber-400 shrink-0" }),
         /* @__PURE__ */ jsxs("div", { children: [
@@ -971,7 +977,7 @@ function Rentenkommission() {
           href: "https://www.bmas.de",
           target: "_blank",
           rel: "noopener noreferrer",
-          className: "inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-amber-500 text-slate-950 text-xs font-bold hover:bg-amber-400 transition-colors shrink-0",
+          className: "inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-amber-500 text-slate-950 text-xs font-extrabold hover:bg-amber-400 active:scale-95 transition-all shrink-0",
           children: [
             /* @__PURE__ */ jsx("span", { children: "Zum BMAS-Portal" }),
             /* @__PURE__ */ jsx(ExternalLink, { className: "w-3.5 h-3.5" })
@@ -979,14 +985,14 @@ function Rentenkommission() {
         }
       )
     ] }),
-    /* @__PURE__ */ jsx("div", { className: "space-y-4 mb-12", children: empfehlungen.map((emp) => /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
+    /* @__PURE__ */ jsx("div", { className: "space-y-4 mb-12", children: empfehlungen.map((emp) => /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white rounded-xl border border-slate-200 shadow-sm hover:border-slate-300 transition-colors", children: [
       /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2", children: [
         /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
-          /* @__PURE__ */ jsxs("span", { className: "w-7 h-7 rounded-full bg-slate-100 text-slate-800 font-bold text-xs flex items-center justify-center border border-slate-200", children: [
+          /* @__PURE__ */ jsxs("span", { className: "w-7 h-7 rounded-full bg-slate-100 text-slate-800 font-bold text-xs flex items-center justify-center border border-slate-200 shrink-0", children: [
             "#",
             emp.id
           ] }),
-          /* @__PURE__ */ jsx("h2", { className: "text-base font-bold text-slate-900", children: emp.titel })
+          /* @__PURE__ */ jsx("h2", { className: "text-base font-bold text-slate-900 leading-snug", children: emp.titel })
         ] }),
         /* @__PURE__ */ jsx(StatusBadge, { type: emp.status, dateStr: emp.dateStr })
       ] }),
@@ -1684,7 +1690,7 @@ function RenteMit63() {
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Rente mit 63: Voraussetzungen, Abschläge & Neuregelung 2026" }),
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Rente mit 63: Voraussetzungen, Abschläge & Regelungen" }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Verständliche Erklärung zur Altersrente für besonders langjährig Versicherte (45 Jahre Wartezeit) und langjährig Versicherte (35 Jahre Wartezeit)." })
     ] }),
     /* @__PURE__ */ jsx(AdSense, {}),
@@ -1710,7 +1716,7 @@ function Grundrente() {
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Grundrente 2026: Anspruch, Einkommensprüfung & Zuschlag" }),
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Grundrente: Anspruch, Einkommensprüfung & Zuschlag" }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Alles zur Grundrente als Zuschlag für langjährige Beitragszahler mit unterdurchschnittlichem Einkommen." })
     ] }),
     /* @__PURE__ */ jsx(AdSense, {}),
@@ -1736,7 +1742,7 @@ function Witwenrente() {
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Witwen- & Hinterbliebenenrente 2026: Große vs. Kleine Witwenrente" }),
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Witwen- & Hinterbliebenenrente: Große vs. Kleine Witwenrente" }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Rechtliche Regelungen zur Versorgung von Ehepartnern, Freibeträge bei eigenem Einkommen und Antragsverfahren." })
     ] }),
     /* @__PURE__ */ jsx(AdSense, {}),
@@ -1844,12 +1850,12 @@ function Rentensteuer() {
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Besteuerung von Renten 2026: Rentenfreibetrag & Grundfreibetrag" }),
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Besteuerung von Renten: Rentenfreibetrag & Grundfreibetrag" }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Wann müssen Rentner eine Steuererklärung abgeben? Erklärung der nachgelagerten Besteuerung nach dem Alterseinkünftegesetz." })
     ] }),
     /* @__PURE__ */ jsx(AdSense, {}),
     /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none my-8", children: [
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "Grundfreibetrag 2026" }),
+      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "Grundfreibetrag & Steuerfreibetrag" }),
       /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Wer als Einzelperson ein zu versteuerndes Einkommen unterhalb des steuerlichen Grundfreibetrags erzielt, zahlt keine Einkommensteuer." })
     ] }),
     /* @__PURE__ */ jsx(SourceFootnote, {})

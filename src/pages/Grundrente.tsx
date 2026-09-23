@@ -21,7 +21,7 @@ export default function Grundrente() {
       <SchemaMarkup faqItems={faqs} breadcrumbs={breadcrumbs} />
       <div className="mb-8">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
-          Grundrente 2026: Anspruch, Einkommensprüfung & Zuschlag
+          Grundrente: Anspruch, Einkommensprüfung & Zuschlag
         </h1>
         <p className="text-slate-600 text-base leading-relaxed">
           Alles zur Grundrente als Zuschlag für langjährige Beitragszahler mit unterdurchschnittlichem Einkommen.
