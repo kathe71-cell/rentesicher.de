@@ -648,7 +648,7 @@ function Home() {
         /* @__PURE__ */ jsx("h2", { className: "text-xl font-bold text-slate-900", children: "Rentenkommission: Die 33 Empfehlungen im Überblick" }),
         /* @__PURE__ */ jsx(StatusBadge, { type: "empfehlung" })
       ] }),
-      /* @__PURE__ */ jsx("p", { className: "text-sm text-slate-600 leading-relaxed mb-6", children: "Der Berichterstellungs-Bericht der wissenschaftlichen Kommission beinhaltet 33 Reformpunkte zur Weiterentwicklung des Generationenvertrags." }),
+      /* @__PURE__ */ jsx("p", { className: "text-sm text-slate-600 leading-relaxed mb-6", children: "Der Abschlussbericht der Rentenkommission enthält 33 Empfehlungen zur Weiterentwicklung der Alterssicherung." }),
       /* @__PURE__ */ jsxs(
         Link,
         {

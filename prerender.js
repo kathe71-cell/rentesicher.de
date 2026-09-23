@@ -71,8 +71,8 @@ const routesToPrerender = [
   },
   {
     url: '/witwenrente',
-    title: 'Witwenrente: Hinterbliebenenversorgung im Überblick',
-    description: 'Anspruchsvoraussetzungen, Freibeträge bei eigenem Einkommen und Berechnung der Witwenrente nach SGB VI.'
+    title: 'Witwenrente und Hinterbliebenenrente: Voraussetzungen, Höhe und Anrechnung',
+    description: 'Gesetzliche Voraussetzungen, Unterschied zwischen Kleiner und Großer Witwenrente, Einkommensanrechnung nach § 97 SGB VI, Sterbevierteljahr & Wiederheirat.'
   },
   {
     url: '/erwerbsminderungsrente',

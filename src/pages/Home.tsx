@@ -139,7 +139,7 @@ export default function Home() {
           <StatusBadge type="empfehlung" />
         </div>
         <p className="text-sm text-slate-600 leading-relaxed mb-6">
-          Der Berichterstellungs-Bericht der wissenschaftlichen Kommission beinhaltet 33 Reformpunkte zur Weiterentwicklung des Generationenvertrags.
+          Der Abschlussbericht der Rentenkommission enthält 33 Empfehlungen zur Weiterentwicklung der Alterssicherung.
         </p>
         <Link
           to="/rentenkommission"
