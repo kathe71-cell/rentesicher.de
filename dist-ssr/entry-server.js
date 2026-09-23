@@ -2,7 +2,7 @@ import { jsxs, jsx } from 'react/jsx-runtime';
 import React, { useState, useEffect, useRef } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { useLocation, Link, Routes, Route, MemoryRouter } from 'react-router-dom';
-import { Calculator, ChevronDown, X, Menu, ChevronUp, Check, Share2, AlertTriangle, TrendingUp, Info, ShieldCheck, BookOpen, ExternalLink, ArrowRight, HelpCircle, ShieldAlert, AlertCircle, CheckCircle2, XCircle, Calendar, Clock, ArrowDown } from 'lucide-react';
+import { Calculator, ChevronDown, X, Menu, ChevronUp, Check, Share2, AlertTriangle, TrendingUp, Info, ShieldCheck, BookOpen, ExternalLink, ArrowRight, HelpCircle, ShieldAlert, AlertCircle, CheckCircle2, XCircle, Calendar, Clock, Heart, FileText, Activity, ArrowDown } from 'lucide-react';
 import { Analytics } from '@vercel/analytics/react';
 
 const CURRENT_VALUES = {
@@ -447,56 +447,35 @@ function AffiliateWidget({ type, title }) {
   ] });
 }
 
-function SourceFootnote() {
+function SourceFootnote({ sources }) {
+  const defaultSources = [
+    { title: "Deutsche Rentenversicherung Bund", url: "https://www.deutsche-rentenversicherung.de" },
+    { title: "BMAS (Bundesministerium für Arbeit)", url: "https://www.bmas.de" },
+    { title: "Gesetze im Internet / SGB VI", url: "https://www.gesetze-im-internet.de/sgb_6/" }
+  ];
+  const activeSources = sources && sources.length > 0 ? sources : defaultSources;
   return /* @__PURE__ */ jsxs("div", { className: "mt-12 pt-6 border-t border-slate-200 text-xs text-slate-500 bg-slate-100/70 p-5 rounded-xl space-y-3", children: [
     /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3 font-semibold text-slate-700", children: [
       /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
         /* @__PURE__ */ jsx(BookOpen, { className: "w-4 h-4 text-slate-600 shrink-0" }),
-        /* @__PURE__ */ jsx("span", { children: "Offizielle Primärquellen & Gesetzesgrundlagen (Stand: September 2026)" })
+        /* @__PURE__ */ jsx("span", { children: "Offizielle Primärquellen & Gesetzesgrundlagen" })
       ] }),
-      /* @__PURE__ */ jsx("span", { className: "text-[11px] text-slate-400 font-normal", children: "Fachredaktion rentesicher.de" })
+      /* @__PURE__ */ jsx("span", { className: "text-[11px] text-slate-500 font-medium", children: "Zuletzt fachlich geprüft: September 2026" })
     ] }),
-    /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 sm:grid-cols-3 gap-3 text-[11px]", children: [
-      /* @__PURE__ */ jsxs(
-        "a",
-        {
-          href: "https://www.deutsche-rentenversicherung.de",
-          target: "_blank",
-          rel: "noopener noreferrer",
-          className: "p-2 bg-white rounded-lg border border-slate-200 hover:border-slate-300 transition-colors flex items-center justify-between text-slate-700 hover:text-blue-900",
-          children: [
-            /* @__PURE__ */ jsx("span", { children: "Deutsche Rentenversicherung Bund" }),
-            /* @__PURE__ */ jsx(ExternalLink, { className: "w-3 h-3 text-slate-400" })
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsxs(
-        "a",
-        {
-          href: "https://www.bmas.de",
-          target: "_blank",
-          rel: "noopener noreferrer",
-          className: "p-2 bg-white rounded-lg border border-slate-200 hover:border-slate-300 transition-colors flex items-center justify-between text-slate-700 hover:text-blue-900",
-          children: [
-            /* @__PURE__ */ jsx("span", { children: "BMAS (Bundesministerium für Arbeit)" }),
-            /* @__PURE__ */ jsx(ExternalLink, { className: "w-3 h-3 text-slate-400" })
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsxs(
-        "a",
-        {
-          href: "https://www.gesetze-im-internet.de",
-          target: "_blank",
-          rel: "noopener noreferrer",
-          className: "p-2 bg-white rounded-lg border border-slate-200 hover:border-slate-300 transition-colors flex items-center justify-between text-slate-700 hover:text-blue-900",
-          children: [
-            /* @__PURE__ */ jsx("span", { children: "Bundesgesetzblatt / SGB VI & BetrAVG" }),
-            /* @__PURE__ */ jsx(ExternalLink, { className: "w-3 h-3 text-slate-400" })
-          ]
-        }
-      )
-    ] }),
+    /* @__PURE__ */ jsx("div", { className: "grid grid-cols-1 sm:grid-cols-3 gap-3 text-[11px]", children: activeSources.map((source, i) => /* @__PURE__ */ jsxs(
+      "a",
+      {
+        href: source.url,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        className: "p-2.5 bg-white rounded-lg border border-slate-200 hover:border-slate-300 transition-colors flex items-center justify-between text-slate-700 hover:text-blue-900",
+        children: [
+          /* @__PURE__ */ jsx("span", { className: "font-medium truncate pr-2", children: source.title }),
+          /* @__PURE__ */ jsx(ExternalLink, { className: "w-3.5 h-3.5 text-slate-400 shrink-0" })
+        ]
+      },
+      i
+    )) }),
     /* @__PURE__ */ jsxs("p", { className: "text-[11px] text-slate-500 pt-1 leading-relaxed", children: [
       /* @__PURE__ */ jsx("strong", { children: "Unabhängigkeits- & Haftungshinweis:" }),
       " Diese Website ersetzt keine individuelle Renten-, Steuer-, Rechts- oder Finanzberatung. Für persönliche Empfehlungen wenden Sie sich an die Deutsche Rentenversicherung, einen nach § 10 RDG zugelassenen Rentenberater oder einen Steuerberater."
@@ -1431,23 +1410,85 @@ function RentenEintrittsCalculator() {
 function Rentenalter() {
   const faqs = [
     {
+      question: "Wann erreiche ich meine reguläre Regelaltersgrenze?",
+      answer: "Für alle Geburtsjahrgänge ab 1964 liegt die gesetzliche Regelaltersgrenze bei exakt 67 Jahren (§ 35 SGB VI). Für Jahrgänge von 1947 bis 1963 erfolgte die Anhebung schrittweise pro Jahrgang."
+    },
+    {
       question: "Wann kann ich frühestens in Rente gehen?",
-      answer: "Wer 35 Beitragsjahre nachweist (langjährig Versicherte), kann ab Alter 63 mit Abschlägen (0,3 % pro Monat vorzeitig, max. 14,4 %) in Rente gehen. Wer 45 Beitragsjahre vorweist, kann früher abschlagsfrei in Rente gehen."
+      answer: "Wer 35 Beitragsjahre nachweist (langjährig Versicherte), kann ab Alter 63 mit Abschlägen (0,3 % pro Monat vorzeitig, max. 14,4 %) in Rente gehen. Wer 45 Beitragsjahre vorweist, kann abschlagsfrei (je nach Jahrgang ab 63 bis 65 Jahren) in Rente gehen."
     }
   ];
   const breadcrumbs = [
     { name: "Startseite", item: "/" },
     { name: "Renteneintrittsalter", item: "/rentenalter" }
   ];
+  const primarySources = [
+    { title: "§ 35 SGB VI - Regelaltersrente", url: "https://www.gesetze-im-internet.de/sgb_6/__35.html" },
+    { title: "§ 235 SGB VI - Anhebung der Regelaltersgrenze", url: "https://www.gesetze-im-internet.de/sgb_6/__235.html" },
+    { title: "DRV Ratgeber Regelaltersrente", url: "https://www.deutsche-rentenversicherung.de/DRV/DE/Rente/Allgemeine-Informationen/Rentenarten-und-Leistungen/Regelaltersrente/regelaltersrente_node.html" }
+  ];
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
       /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
       /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Wann kann ich in Rente? Rentenalter einfach erklärt" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Ermittle mit unserem Rechner dein exaktes gesetzliches Reguläres Eintrittsalter sowie die Bedingungen für Frührente und die Rente nach 45 Beitragsjahren." })
+      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base sm:text-lg leading-relaxed", children: "Ermittle mit unserem Rechner dein exaktes gesetzliches Reguläres Eintrittsalter sowie die gesetzlichen Bedingungen für Frührente und die Rente nach 45 Beitragsjahren." })
     ] }),
     /* @__PURE__ */ jsx(RentenEintrittsCalculator, {}),
-    /* @__PURE__ */ jsx(SourceFootnote, {})
+    /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none my-10 space-y-8", children: [
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "Die Anhebung der Regelaltersgrenze auf 67 Jahre (§ 235 SGB VI)" }),
+        /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Seit dem Gesetz zur Anpassung der Regelaltersgrenze wird das gesetzliche Eintrittsalter für die Regelaltersrente für Jahrgänge ab 1947 schrittweise von 65 auf 67 Jahre angehoben:" }),
+        /* @__PURE__ */ jsx("div", { className: "overflow-x-auto my-4", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-xs sm:text-sm border-collapse border border-slate-200", children: [
+          /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "bg-slate-100 text-slate-800 font-bold", children: [
+            /* @__PURE__ */ jsx("th", { className: "p-3 border border-slate-200 text-left", children: "Geburtsjahrgang" }),
+            /* @__PURE__ */ jsx("th", { className: "p-3 border border-slate-200 text-left", children: "Gesetzliche Regelaltersgrenze" })
+          ] }) }),
+          /* @__PURE__ */ jsxs("tbody", { children: [
+            /* @__PURE__ */ jsxs("tr", { children: [
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 font-semibold text-slate-900", children: "Bis 1946" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 text-slate-700", children: "65 Jahre" })
+            ] }),
+            /* @__PURE__ */ jsxs("tr", { className: "bg-slate-50/50", children: [
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 font-semibold text-slate-900", children: "1947 bis 1958" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 text-slate-700", children: "65 Jahre + 1 Monat pro Jahrgang" })
+            ] }),
+            /* @__PURE__ */ jsxs("tr", { children: [
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 font-semibold text-slate-900", children: "1959 bis 1963" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 text-slate-700", children: "66 Jahre + 2 Monate pro Jahrgang" })
+            ] }),
+            /* @__PURE__ */ jsxs("tr", { className: "bg-slate-50/50", children: [
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 font-semibold text-slate-900", children: "Ab Geburtsjahrgang 1964" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 text-blue-900 font-bold", children: "Exakt 67 Jahre" })
+            ] })
+          ] })
+        ] }) })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "Übersicht der Vorruhestandsoptionen" }),
+        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+          /* @__PURE__ */ jsxs("div", { className: "p-4 bg-white border border-slate-200 rounded-xl shadow-sm", children: [
+            /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 text-base mb-1", children: "35 Beitragsjahre (Langjährig)" }),
+            /* @__PURE__ */ jsx("p", { className: "text-xs sm:text-sm text-slate-600", children: "Eintritt ab 63 Jahren möglich. Rentenabschlag: 0,3 % für jeden Monat vorzeitigen Eintritts vor der Regelaltersgrenze (max. 14,4 %)." })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "p-4 bg-white border border-slate-200 rounded-xl shadow-sm", children: [
+            /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 text-base mb-1", children: "45 Beitragsjahre (Besonders langjährig)" }),
+            /* @__PURE__ */ jsx("p", { className: "text-xs sm:text-sm text-slate-600", children: "Abschlagsfreier Eintritt vor Erreichen der Altersgrenze 67 (je nach Jahrgang ab 63 bis 65 Jahren)." })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "my-8", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2", children: [
+          /* @__PURE__ */ jsx(HelpCircle, { className: "w-6 h-6 text-blue-700 shrink-0" }),
+          "Häufige Fragen zum Rentenalter (FAQ)"
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "space-y-4", children: faqs.map((faq, index) => /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
+          /* @__PURE__ */ jsx("h3", { className: "text-base font-bold text-slate-900 mb-2", children: faq.question }),
+          /* @__PURE__ */ jsx("p", { className: "text-xs sm:text-sm text-slate-600 leading-relaxed", children: faq.answer })
+        ] }, index)) })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsx(SourceFootnote, { sources: primarySources })
   ] });
 }
 
@@ -1586,27 +1627,86 @@ function RentenBerechnungCalculator() {
 function Rentenberechnung() {
   const faqs = [
     {
-      question: "Wie wird die gesetzliche Rente berechnet?",
-      answer: "Die Rentenformel lautet nach § 64 SGB VI: Monatliche Rente = Entgeltpunkte × Zugangsfaktor × Aktueller Rentenwert × Rentenartfaktor."
+      question: "Wie lautet die offizielle gesetzliche Rentenformel?",
+      answer: "Nach § 64 SGB VI berechnet sich die monatliche Bruttorente wie folgt: Monatliche Rente = Entgeltpunkte × Zugangsfaktor × Aktueller Rentenwert × Rentenartfaktor."
+    },
+    {
+      question: "Welchen Einfluss hat ein vorzeitiger Renteneintritt auf den Zugangsfaktor?",
+      answer: "Bei vorzeitigem Renteneintritt sinkt der Zugangsfaktor für jeden Monat um 0,003 (entspricht 0,3 % dauerhaftem Abschlag von der Rente)."
+    },
+    {
+      question: "Wie hoch ist der Rentenartfaktor bei der normalen Altersrente?",
+      answer: "Der Rentenartfaktor (§ 67 SGB VI) beträgt für Reguläre Altersrenten und volle Erwerbsminderungsrenten exakt 1,0."
     }
   ];
   const breadcrumbs = [
     { name: "Startseite", item: "/" },
-    { name: "Rentenberechnung", item: "/rentenberechnung" }
+    { name: "Gesetzliche Rentenberechnung", item: "/rentenberechnung" }
+  ];
+  const primarySources = [
+    { title: "§ 64 SGB VI - Rentenformel für Monatsrente", url: "https://www.gesetze-im-internet.de/sgb_6/__64.html" },
+    { title: "§ 67 SGB VI - Rentenartfaktor", url: "https://www.gesetze-im-internet.de/sgb_6/__67.html" },
+    { title: "§ 68 SGB VI - Aktueller Rentenwert", url: "https://www.gesetze-im-internet.de/sgb_6/__68.html" },
+    { title: "DRV Fachportal Rentenberechnung", url: "https://www.deutsche-rentenversicherung.de/DRV/DE/Rente/In-der-Rente/Rentenberechnung/rentenberechnung.html" }
   ];
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
       /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
       /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Gesetzliche Rentenberechnung: Rentenformel & Rentenwert" }),
-      /* @__PURE__ */ jsxs("p", { className: "text-slate-600 text-base leading-relaxed", children: [
-        "Berechne deine voraussichtliche gesetzliche Monatsrente auf Basis deiner Entgeltpunkte (Rentenpunkte) und des aktuellen Rentenwerts von ",
+      /* @__PURE__ */ jsxs("p", { className: "text-slate-600 text-base sm:text-lg leading-relaxed", children: [
+        "Berechne deine voraussichtliche gesetzliche Monatsrente auf Basis deiner Entgeltpunkte (Rentenpunkte) und des aktuellen Bundesrentenwerts von ",
         CURRENT_VALUES.rentenwertFormatted,
         "."
       ] })
     ] }),
     /* @__PURE__ */ jsx(RentenBerechnungCalculator, {}),
-    /* @__PURE__ */ jsx(SourceFootnote, {})
+    /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none my-10 space-y-8", children: [
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "Die gesetzliche Rentenformel nach § 64 SGB VI" }),
+        /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Die Berechnung der monatlichen Bruttorente folgt im deutschen Rentenrecht einer festgelegten mathematischen Formel:" }),
+        /* @__PURE__ */ jsxs("div", { className: "p-6 bg-slate-900 text-white rounded-2xl my-4 space-y-3 shadow-md", children: [
+          /* @__PURE__ */ jsx("div", { className: "font-mono text-amber-400 font-bold text-base sm:text-lg", children: "Monatliche Rente = EP × ZF × RW × RAF" }),
+          /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-300", children: "Jedes Element dieser Formel repräsentiert eine gesetzliche Komponente des Rentenrechts." })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "Die 4 Komponenten der Rentenformel im Detail" }),
+        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4", children: [
+          /* @__PURE__ */ jsxs("div", { className: "p-4 bg-white border border-slate-200 rounded-xl shadow-sm", children: [
+            /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 text-base mb-1", children: "1. Entgeltpunkte (EP)" }),
+            /* @__PURE__ */ jsx("p", { className: "text-xs sm:text-sm text-slate-600", children: "Spiegeln das Verhältnis deines jährlichen Bruttoeinkommens zum Durchschnittseinkommen aller Versicherten wider. 1,0 EP entspricht genau einem Jahr Durchschnittsgehalt." })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "p-4 bg-white border border-slate-200 rounded-xl shadow-sm", children: [
+            /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 text-base mb-1", children: "2. Zugangsfaktor (ZF)" }),
+            /* @__PURE__ */ jsx("p", { className: "text-xs sm:text-sm text-slate-600", children: "Berücksichtigt den Zeitpunkt des Renteneintritts. Bei regulärem Eintritt beträgt der ZF 1,0. Bei vorzeitigem Eintritt sinkt er um 0,003 pro Monat (-0,3 % Abschlag)." })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "p-4 bg-white border border-slate-200 rounded-xl shadow-sm", children: [
+            /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 text-base mb-1", children: "3. Aktueller Rentenwert (RW)" }),
+            /* @__PURE__ */ jsxs("p", { className: "text-xs sm:text-sm text-slate-600", children: [
+              "Entspricht dem monatlichen Euro-Wert eines einzelnen Entgeltpunkts. Aktueller Wert: ",
+              /* @__PURE__ */ jsx("strong", { children: CURRENT_VALUES.rentenwertFormatted }),
+              "."
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "p-4 bg-white border border-slate-200 rounded-xl shadow-sm", children: [
+            /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 text-base mb-1", children: "4. Rentenartfaktor (RAF)" }),
+            /* @__PURE__ */ jsx("p", { className: "text-xs sm:text-sm text-slate-600", children: "Bestimmt das Auszahlungsniveau je nach Rentenart (§ 67 SGB VI). Bei Altersrenten und vollen Erwerbsminderungsrenten beträgt der Faktor 1,0." })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "my-8", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2", children: [
+          /* @__PURE__ */ jsx(HelpCircle, { className: "w-6 h-6 text-blue-700 shrink-0" }),
+          "Häufige Fragen zur Rentenberechnung (FAQ)"
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "space-y-4", children: faqs.map((faq, index) => /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
+          /* @__PURE__ */ jsx("h3", { className: "text-base font-bold text-slate-900 mb-2", children: faq.question }),
+          /* @__PURE__ */ jsx("p", { className: "text-xs sm:text-sm text-slate-600 leading-relaxed", children: faq.answer })
+        ] }, index)) })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsx(SourceFootnote, { sources: primarySources })
   ] });
 }
 
@@ -1672,193 +1772,916 @@ function Rentenanpassung() {
   ] });
 }
 
-function AdSense() {
-  return null;
-}
-
 function RenteMit63() {
   const faqs = [
     {
-      question: "Wer kann noch mit 63 ohne Abschläge in Rente gehen?",
-      answer: "Abschlagsfrei mit 63 konnten nur Jahrgänge vor 1953 in Rente gehen. Für jüngere Jahrgänge verschiebt sich das Alter schrittweise auf 65 Jahre (bei 45 Beitragsjahren)."
+      question: "Kann ich heute noch mit 63 Jahren abschlagsfrei in Rente gehen?",
+      answer: "Nein. Eine abschlagsfreie Rente mit exakt 63 Jahren galt nur für vor 1953 Geborene. Für jüngere Jahrgänge steigt das Eintrittsalter schrittweise an. Ab Geburtsjahrgang 1964 liegt das abschlagsfreie Eintrittsalter bei 45 Beitragsjahren bei exakt 65 Jahren."
+    },
+    {
+      question: "Welche Abschläge fallen an, wenn ich mit 35 Beitragsjahren früher in Rente gehe?",
+      answer: "Bei der Altersrente für langjährig Versicherte (35 Jahre Wartezeit) beträgt der dauerhafte Abschlag 0,3 % für jeden Monat, den Sie vor Ihrer regulären Regelaltersgrenze in Rente gehen (maximal 14,4 % Abschlag)."
+    },
+    {
+      question: "Darf ich als Frührentner unbegrenzt hinzuverdienen?",
+      answer: "Ja. Die Hinzuverdienstgrenzen bei vorgezogenen Altersrenten wurden zum 1. Januar 2023 ersatzlos aufgehoben. Sie können beliebig viel hinzuverdienen, ohne dass die Rente gekürzt wird."
     }
   ];
   const breadcrumbs = [
     { name: "Startseite", item: "/" },
     { name: "Rente mit 63", item: "/rente-mit-63" }
   ];
+  const primarySources = [
+    { title: "§ 36 SGB VI - Altersrente für langjährig Versicherte", url: "https://www.gesetze-im-internet.de/sgb_6/__36.html" },
+    { title: "§ 38 SGB VI - Besonders langjährig Versicherte", url: "https://www.gesetze-im-internet.de/sgb_6/__38.html" },
+    { title: "DRV Altersrenten Übersicht", url: "https://www.deutsche-rentenversicherung.de/DRV/DE/Rente/Allgemeine-Informationen/Rentenarten-und-Leistungen/Altersrente-fuer-langjaehrig-Versicherte/altersrente_fuer_langjaehrig_versicherte_node.html" }
+  ];
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
+      /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
       /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Rente mit 63: Voraussetzungen, Abschläge & Regelungen" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Verständliche Erklärung zur Altersrente für besonders langjährig Versicherte (45 Jahre Wartezeit) und langjährig Versicherte (35 Jahre Wartezeit)." })
+      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base sm:text-lg leading-relaxed", children: "Umfassende rechtliche Einordnung der vorgezogenen Altersrenten nach SGB VI: Unterschiede zwischen der Altersrente für besonders langjährig Versicherte (45 Beitragsjahre) und langjährig Versicherte (35 Beitragsjahre) sowie Wegfall der Hinzuverdienstgrenzen." })
     ] }),
-    /* @__PURE__ */ jsx(AdSense, {}),
-    /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none my-8", children: [
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "Voraussetzungen im Überblick" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Wer 35 Beitragsjahre nachweisen kann, darf ab 63 in Rente gehen, muss jedoch pro Monat vor der Regelaltersgrenze einen Abschlag von 0,3 % hinnehmen (max. 14,4 %)." })
+    /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none space-y-8", children: [
+      /* @__PURE__ */ jsxs("div", { className: "p-6 bg-slate-50 border border-slate-200 rounded-2xl", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "text-xl font-bold text-slate-900 mt-0 mb-3 flex items-center gap-2", children: [
+          /* @__PURE__ */ jsx(Calendar, { className: "w-5 h-5 text-blue-700 shrink-0" }),
+          "Was bedeutet „Rente mit 63“ heute?"
+        ] }),
+        /* @__PURE__ */ jsxs("p", { className: "text-sm text-slate-700 leading-relaxed mb-0", children: [
+          "Der Begriff „Rente mit 63“ ist eine populäre Bezeichnung für zwei unterschiedliche gesetzliche Rentenarten im Sozialgesetzbuch VI: Die ",
+          /* @__PURE__ */ jsx("strong", { children: "Altersrente für besonders langjährig Versicherte (§ 38 SGB VI)" }),
+          " und die ",
+          /* @__PURE__ */ jsx("strong", { children: "Altersrente für langjährig Versicherte (§ 36 SGB VI)" }),
+          "."
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "1. Altersrente für besonders langjährig Versicherte (45 Beitragsjahre)" }),
+        /* @__PURE__ */ jsxs("p", { className: "text-slate-700", children: [
+          "Wer mindestens ",
+          /* @__PURE__ */ jsx("strong", { children: "45 Jahre an Pflichtbeitragszeiten" }),
+          " nachweisen kann, kann ohne finanzielle Abschläge vorzeitig in den Ruhestand treten. Das Eintrittsalter wurde jedoch für jüngere Jahrgänge angehoben:"
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "overflow-x-auto my-4", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-xs sm:text-sm border-collapse border border-slate-200", children: [
+          /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "bg-slate-100 text-slate-800 font-bold", children: [
+            /* @__PURE__ */ jsx("th", { className: "p-3 border border-slate-200 text-left", children: "Geburtsjahrgang" }),
+            /* @__PURE__ */ jsx("th", { className: "p-3 border border-slate-200 text-left", children: "Abschlagsfreies Eintrittsalter" })
+          ] }) }),
+          /* @__PURE__ */ jsxs("tbody", { children: [
+            /* @__PURE__ */ jsxs("tr", { children: [
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 font-semibold text-slate-900", children: "Vor 1953" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 text-emerald-700 font-bold", children: "Exakt 63 Jahre" })
+            ] }),
+            /* @__PURE__ */ jsxs("tr", { className: "bg-slate-50/50", children: [
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 font-semibold text-slate-900", children: "1953 bis 1963" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 text-slate-700", children: "Stufenweise Anhebung um 2 Monate pro Jahrgang" })
+            ] }),
+            /* @__PURE__ */ jsxs("tr", { children: [
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 font-semibold text-slate-900", children: "Ab Geburtsjahrgang 1964" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 text-blue-900 font-bold", children: "Exakt 65 Jahre" })
+            ] })
+          ] })
+        ] }) }),
+        /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-slate-900 mt-4 mb-2", children: "Was zählt zu den 45 Jahren Wartezeit?" }),
+        /* @__PURE__ */ jsxs("ul", { className: "list-disc pl-5 space-y-1.5 text-slate-700 text-sm sm:text-base", children: [
+          /* @__PURE__ */ jsx("li", { children: "Pflichtbeiträge aus Beschäftigung und Selbstständigkeit" }),
+          /* @__PURE__ */ jsx("li", { children: "Kindererziehungszeiten (bis zum 10. Lebensjahr) und Pflegezeiten" }),
+          /* @__PURE__ */ jsx("li", { children: "Bezug von Krankengeld, Übergangsgeld oder Arbeitslosengeld I (Ausnahme: Arbeitslosengeld I in den letzten 2 Jahren vor Rentenbeginn)" })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "2. Altersrente für langjährig Versicherte (35 Beitragsjahre mit Abschlägen)" }),
+        /* @__PURE__ */ jsxs("p", { className: "text-slate-700", children: [
+          "Wer mindestens ",
+          /* @__PURE__ */ jsx("strong", { children: "35 Beitragsjahre" }),
+          " aufweist, kann weiterhin ab dem ",
+          /* @__PURE__ */ jsx("strong", { children: "63. Lebensjahr" }),
+          " in Rente gehen – allerdings nur mit **dauerhaften Rentenabschlägen**:"
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "p-5 bg-amber-50 border border-amber-200 rounded-xl my-4", children: [
+          /* @__PURE__ */ jsx("h3", { className: "font-bold text-amber-950 text-base mt-0 mb-1", children: "Berechnung der Abschläge (§ 77 SGB VI)" }),
+          /* @__PURE__ */ jsxs("p", { className: "text-sm text-amber-900 leading-relaxed mb-0", children: [
+            "Für jeden Monat, den die Rente vor der individuellen Regelaltersgrenze (z. B. 67 Jahre) in Anspruch genommen wird, wird die Rente um ",
+            /* @__PURE__ */ jsx("strong", { children: "0,3 % dauerhaft gekürzt" }),
+            ". Bei einem Renteneintritt 4 Jahre vor der Regelaltersgrenze beläuft sich der Abschlag auf ",
+            /* @__PURE__ */ jsx("strong", { children: "14,4 %" }),
+            "."
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "3. Wegfall der Hinzuverdienstgrenzen seit 2023" }),
+        /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Seit dem 1. Januar 2023 wurden die gesetzlichen Hinzuverdienstgrenzen bei allen vorgezogenen Altersrenten aufgehoben. Frührentner können beliebig viel Arbeitslohn oder Gehalt erzielen, ohne dass die Rente gekürzt wird." })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "my-8", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2", children: [
+          /* @__PURE__ */ jsx(HelpCircle, { className: "w-6 h-6 text-blue-700 shrink-0" }),
+          "Häufige Fragen zur Rente mit 63 (FAQ)"
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "space-y-4", children: faqs.map((faq, index) => /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
+          /* @__PURE__ */ jsx("h3", { className: "text-base font-bold text-slate-900 mb-2", children: faq.question }),
+          /* @__PURE__ */ jsx("p", { className: "text-xs sm:text-sm text-slate-600 leading-relaxed", children: faq.answer })
+        ] }, index)) })
+      ] })
     ] }),
-    /* @__PURE__ */ jsx(SourceFootnote, {})
+    /* @__PURE__ */ jsx(SourceFootnote, { sources: primarySources })
   ] });
 }
 
 function Grundrente() {
   const faqs = [
     {
-      question: "Wer erhält den Grundrentenzuschlag?",
-      answer: "Der Zuschlag steht Rentnern zu, die mindestens 33 Jahre Grundrentenzeiten (Beitragszeiten aus Beschäftigung, Pflege, Erziehung) aufweisen und unter der Einkommensgrenze liegen."
+      question: "Muss ich den Grundrentenzuschlag extra beantragen?",
+      answer: "Nein. Die Deutsche Rentenversicherung prüft den Anspruch auf den Grundrentenzuschlag vollautomatisch. Es ist kein separater Antrag erforderlich."
+    },
+    {
+      question: "Zählen Zeiten der Arbeitslosigkeit als Grundrentenzeiten?",
+      answer: "Nein. Zeiten des Bezugs von Arbeitslosengeld I, Arbeitslosengeld II (Bürgergeld) oder reine Anrechnungszeiten zählen gesetzlich nicht als Grundrentenzeiten."
+    },
+    {
+      question: "Wie hoch ist der maximale Grundrentenzuschlag?",
+      answer: "Der individuelle Zuschlag unterscheidet sich je nach persönlichem Rentenkonto. Der rechnerische Höchstbetrag liegt bei knapp 400 Euro brutto im Monat."
     }
   ];
   const breadcrumbs = [
     { name: "Startseite", item: "/" },
     { name: "Grundrente", item: "/grundrente" }
   ];
+  const primarySources = [
+    { title: "§ 76g SGB VI - Grundrentenzuschlag", url: "https://www.gesetze-im-internet.de/sgb_6/__76g.html" },
+    { title: "§ 97a SGB VI - Einkommensanrechnung Grundrente", url: "https://www.gesetze-im-internet.de/sgb_6/__97a.html" },
+    { title: "DRV Fachportal Grundrente", url: "https://www.deutsche-rentenversicherung.de/DRV/DE/Rente/In-der-Rente/Grundrente/grundrente.html" }
+  ];
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
+      /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
       /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Grundrente: Anspruch, Einkommensprüfung & Zuschlag" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Alles zur Grundrente als Zuschlag für langjährige Beitragszahler mit unterdurchschnittlichem Einkommen." })
+      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base sm:text-lg leading-relaxed", children: "Systematischer Ratgeber zum Grundrentenzuschlag nach § 76g SGB VI: Erforderliche Grundrentenzeiten, automatische Einkommensprüfung beim Finanzamt, Freibeträge und die konkrete Berechnung." })
     ] }),
-    /* @__PURE__ */ jsx(AdSense, {}),
-    /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none my-8", children: [
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "Grundrentenzeiten & Einkommensprüfung" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Die Grundrente muss nicht extra beantragt werden. Die Rentenversicherung prüft automatisch die Einkommensverhältnisse beim Finanzamt." })
+    /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none space-y-8", children: [
+      /* @__PURE__ */ jsxs("div", { className: "p-6 bg-slate-50 border border-slate-200 rounded-2xl", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "text-xl font-bold text-slate-900 mt-0 mb-3 flex items-center gap-2", children: [
+          /* @__PURE__ */ jsx(ShieldCheck, { className: "w-5 h-5 text-blue-700 shrink-0" }),
+          "Was ist der Grundrentenzuschlag?"
+        ] }),
+        /* @__PURE__ */ jsxs("p", { className: "text-sm text-slate-700 leading-relaxed mb-0", children: [
+          "Die sogenannte Grundrente ist keine eigenständige Rentenart, sondern ein gesetzlicher ",
+          /* @__PURE__ */ jsx("strong", { children: "Zuschlag zur bestehenden Alters- oder Erwerbsminderungsrente" }),
+          " (§ 76g SGB VI). Sie kommt Menschen zugute, die viele Jahre erwerbstätig waren, Kinder erzogen oder Angehörige gepflegt haben, dabei jedoch unterdurchschnittlich verdient haben."
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "1. Erforderliche Grundrentenzeiten (Mindestwartezeit)" }),
+        /* @__PURE__ */ jsxs("p", { className: "text-slate-700", children: [
+          "Um einen Anspruch auf den Grundrentenzuschlag zu haben, müssen mindestens ",
+          /* @__PURE__ */ jsx("strong", { children: "33 Jahre an Grundrentenzeiten" }),
+          " nachgewiesen werden. Ab ",
+          /* @__PURE__ */ jsx("strong", { children: "35 Jahren" }),
+          " wird der volle Zuschlag berechnet."
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4 my-6", children: [
+          /* @__PURE__ */ jsxs("div", { className: "p-4 bg-emerald-50 border border-emerald-200 rounded-xl", children: [
+            /* @__PURE__ */ jsx("h3", { className: "font-bold text-emerald-950 text-sm mb-2", children: "Was zählt als Grundrentenzeit?" }),
+            /* @__PURE__ */ jsxs("ul", { className: "text-xs sm:text-sm text-emerald-900 space-y-1.5 pl-4 list-disc", children: [
+              /* @__PURE__ */ jsx("li", { children: "Pflichtbeitragszeiten aus Beschäftigung und Selbstständigkeit" }),
+              /* @__PURE__ */ jsx("li", { children: "Kindererziehungszeiten (bis zum 10. Lebensjahr)" }),
+              /* @__PURE__ */ jsx("li", { children: "Zeiten der häuslichen Pflege von Angehörigen" }),
+              /* @__PURE__ */ jsx("li", { children: "Zeiten des Bezugs von Kranken- oder Übergangsgeld" })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "p-4 bg-rose-50 border border-rose-200 rounded-xl", children: [
+            /* @__PURE__ */ jsx("h3", { className: "font-bold text-rose-950 text-sm mb-2", children: "Was zählt NICHT mit?" }),
+            /* @__PURE__ */ jsxs("ul", { className: "text-xs sm:text-sm text-rose-900 space-y-1.5 pl-4 list-disc", children: [
+              /* @__PURE__ */ jsx("li", { children: "Zeiten von Arbeitslosengeld I und Bürgergeld (ALG II)" }),
+              /* @__PURE__ */ jsx("li", { children: "Freiwillige Beitragszahlungen" }),
+              /* @__PURE__ */ jsx("li", { children: "Schul-, Fachschul- und Hochschulausbildungszeiten" }),
+              /* @__PURE__ */ jsx("li", { children: "Minijobs ohne eigene Beitragsaufstockung" })
+            ] })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "2. Automatische Einkommensprüfung (§ 97a SGB VI)" }),
+        /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Die Gewährung des Grundrentenzuschlags unterliegt einer gesetzlichen Einkommensprüfung. Die Deutsche Rentenversicherung ermittelt das zu versteuernde Einkommen im automatischen Datenabgleich mit den Finanzbehörden:" }),
+        /* @__PURE__ */ jsxs("ul", { className: "list-disc pl-5 space-y-2 text-slate-700 text-sm sm:text-base", children: [
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "Freibetrag für Alleinstehende:" }),
+            " Bis zu einem Einkommen von ca. ",
+            /* @__PURE__ */ jsx("strong", { children: "1.375 € netto" }),
+            " im Monat wird der Zuschlag ungekürzt gezahlt. Einkommen darüber wird zu 60 % angerechnet. Ab ca. 1.750 € entfällt der Zuschlag vollständig."
+          ] }),
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "Freibetrag für Ehepaare/Lebenspartner:" }),
+            " Der volle Freibetrag liegt bei ca. ",
+            /* @__PURE__ */ jsx("strong", { children: "2.145 € netto" }),
+            " pro Monat."
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "3. Berechnung des Grundrentenzuschlags" }),
+        /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Für die Berechnung werden die gesammelten Entgeltpunkte aus den Grundrentenzeiten herangezogen:" }),
+        /* @__PURE__ */ jsxs("div", { className: "p-5 bg-slate-900 text-white rounded-xl space-y-3", children: [
+          /* @__PURE__ */ jsx("h3", { className: "font-bold text-amber-400 text-base mt-0", children: "Berechnungslogik nach § 76g SGB VI" }),
+          /* @__PURE__ */ jsx("p", { className: "text-xs sm:text-sm text-slate-300 leading-relaxed", children: "Die im Schnitt erreichten Entgeltpunkte (mindestens 0,3 EP, maximal 0,8 EP pro Jahr) werden für maximal 35 Jahre verdoppelt, höchstens jedoch auf 0,8 EP aufgestockt. Von diesem errechneten Zuschlag wird ein gesetzlicher Pauschalabzug von 12,5 % vorgenommen." })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "my-8", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2", children: [
+          /* @__PURE__ */ jsx(HelpCircle, { className: "w-6 h-6 text-blue-700 shrink-0" }),
+          "Häufige Fragen zur Grundrente (FAQ)"
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "space-y-4", children: faqs.map((faq, index) => /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
+          /* @__PURE__ */ jsx("h3", { className: "text-base font-bold text-slate-900 mb-2", children: faq.question }),
+          /* @__PURE__ */ jsx("p", { className: "text-xs sm:text-sm text-slate-600 leading-relaxed", children: faq.answer })
+        ] }, index)) })
+      ] })
     ] }),
-    /* @__PURE__ */ jsx(SourceFootnote, {})
+    /* @__PURE__ */ jsx(SourceFootnote, { sources: primarySources })
   ] });
 }
 
 function Witwenrente() {
   const faqs = [
     {
-      question: "Wie unterscheidet sich die kleine von der großen Witwenrente?",
-      answer: "Die kleine Witwenrente beträgt 25 % der Rente des Verstorbenen (max. 2 Jahre), während die große Witwenrente 55 % (oder 60 % nach altem Recht) beträgt und dauerhaft gezahlt wird."
+      question: "Wann wird die Witwenrente ausgezahlt?",
+      answer: "Die Witwenrente beginnt grundsätzlich mit dem Todesmonat, wenn der Verstorbene noch keine Rente bezog. Bezog der Verstorbene bereits eine Altersrente, beginnt die Witwenrente im Folgemonat des Sterbefalls."
+    },
+    {
+      question: "Wie lange wird die kleine Witwenrente gezahlt?",
+      answer: "Nach neuem Recht (Eheschließung ab 2002 oder beide Partner nach 1.1.1962 geboren) wird die kleine Witwenrente für maximal 24 Kalendermonate (2 Jahre) ausgezahlt."
+    },
+    {
+      question: "Wird eigenes Einkommen im Sterbevierteljahr angerechnet?",
+      answer: "Nein. In den ersten 3 Kalendermonaten nach dem Todesfall (Sterbevierteljahr) wird die Witwenrente in voller Höhe der Rente des Verstorbenen gezahlt und es findet keinerlei Einkommensanrechnung statt."
+    },
+    {
+      question: "Was passiert mit der Witwenrente bei einer Wiederheirat?",
+      answer: "Bei einer erneuten Heirat erlischt der Anspruch auf die Witwenrente. Bezieher der großen Witwenrente können jedoch auf Antrag eine Rentenabfindung in Höhe von 24 Monatsrenten (§ 107 SGB VI) erhalten."
     }
   ];
   const breadcrumbs = [
     { name: "Startseite", item: "/" },
-    { name: "Witwenrente", item: "/witwenrente" }
+    { name: "Witwenrente & Hinterbliebenenrente", item: "/witwenrente" }
+  ];
+  const primarySources = [
+    { title: "§ 46 SGB VI - Witwen- und Witwerrente", url: "https://www.gesetze-im-internet.de/sgb_6/__46.html" },
+    { title: "§ 97 SGB VI - Einkommensanrechnung auf Rente", url: "https://www.gesetze-im-internet.de/sgb_6/__97.html" },
+    { title: "§ 107 SGB VI - Abfindung bei Wiederheirat", url: "https://www.gesetze-im-internet.de/sgb_6/__107.html" },
+    { title: "DRV Hinterbliebenenrente Fachportal", url: "https://www.deutsche-rentenversicherung.de/DRV/DE/Rente/In-der-Rente/Hinterbliebenenrente/hinterbliebenenrente_node.html" },
+    { title: "DRV Broschüre Hinterbliebenenversorgung", url: "https://www.deutsche-rentenversicherung.de/SharedDocs/Publikationen/DE/Broschueren/unsere_wissen/hinterbliebener_hinterbliebenenrente.html" }
   ];
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Witwen- & Hinterbliebenenrente: Große vs. Kleine Witwenrente" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Rechtliche Regelungen zur Versorgung von Ehepartnern, Freibeträge bei eigenem Einkommen und Antragsverfahren." })
+      /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Witwenrente und Hinterbliebenenrente: Voraussetzungen, Höhe und Anrechnung" }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base sm:text-lg leading-relaxed", children: "Umfassender Leitfaden zur Witwen- und Witwerrente nach dem SGB VI: Gesetzliche Voraussetzungen, Unterschied zwischen Kleiner und Großer Witwenrente, Einkommensanrechnung nach § 97 SGB VI mit konkretem Rechenbeispiel sowie Regeln zur Wiederheirat." })
     ] }),
-    /* @__PURE__ */ jsx(AdSense, {}),
-    /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none my-8", children: [
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "Freibeträge bei Anrechnung eigenen Einkommens" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Eigenes Einkommen der Witwe / des Witwers wird oberhalb des gesetzlichen Freibetrags zu 40 % auf die Hinterbliebenenrente angerechnet." })
+    /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none space-y-8", children: [
+      /* @__PURE__ */ jsxs("div", { className: "p-6 bg-slate-50 border border-slate-200 rounded-2xl", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "text-xl font-bold text-slate-900 mt-0 mb-3 flex items-center gap-2", children: [
+          /* @__PURE__ */ jsx(Heart, { className: "w-5 h-5 text-rose-600 shrink-0" }),
+          "Was ist die Witwen- und Witwerrente?"
+        ] }),
+        /* @__PURE__ */ jsxs("p", { className: "text-sm text-slate-700 leading-relaxed mb-0", children: [
+          "Die Witwenrente (bzw. Witwerrente) ist eine gesetzliche Hinterbliebenenleistung der Deutschen Rentenversicherung nach ",
+          /* @__PURE__ */ jsx("strong", { children: "§ 46 SGB VI" }),
+          ". Sie dient dazu, den durch den Tod eines Ehepartners oder eingetragenen Lebenspartners wegfallenden Unterhaltsteil teilweise zu ersetzen und den Lebensstandard des überlebenden Partners finanziell abzusichern."
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "1. Gesetzliche Voraussetzungen für den Rentenanspruch" }),
+        /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Damit ein Anspruch auf Witwen- oder Witwerrente entsteht, müssen gemäß § 46 SGB VI folgende rechtliche Bedingungen erfüllt sein:" }),
+        /* @__PURE__ */ jsxs("ul", { className: "list-disc pl-5 space-y-2 text-slate-700 text-sm sm:text-base", children: [
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "Rechtsgültige Ehe oder eingetragene Lebenspartnerschaft:" }),
+            " Die Ehe oder Partnerschaft muss zum Zeitpunkt des Todes bestanden haben."
+          ] }),
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "Mindestehedauer von 1 Jahr:" }),
+            " Die Ehe muss grundsätzlich mindestens ein Jahr gedauert haben. Bei kürzerer Ehedauer wird gesetzlich vermutet, dass es sich um eine „Versorgungsehe“ handelte (Ausnahme: Tod durch unvorhergesehenen Unfall)."
+          ] }),
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "Mindestversicherungszeit (Wartezeit) von 5 Jahren:" }),
+            " Der verstorbene Partner muss bis zum Tod die allgemeine Wartezeit von 5 Jahren im Rentenkonto erfüllt haben (§ 50 SGB VI) oder bereits eine Alters- bzw. Erwerbsminderungsrente bezogen haben."
+          ] }),
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "Keine Wiederheirat:" }),
+            " Der überlebende Partner darf bis zum Leistungsbezug nicht erneut geheiratet haben."
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "2. Kleine vs. Große Witwenrente im Vergleich" }),
+        /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Der Gesetzgeber unterscheidet strikt zwischen zwei Leistungsformen:" }),
+        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6 my-6", children: [
+          /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white border border-slate-200 rounded-xl shadow-sm", children: [
+            /* @__PURE__ */ jsx("span", { className: "text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100 px-2.5 py-1 rounded-md inline-block mb-2", children: "Kleine Witwenrente" }),
+            /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-slate-900 mb-2", children: "25 % der Rente des Verstorbenen" }),
+            /* @__PURE__ */ jsxs("ul", { className: "text-xs sm:text-sm text-slate-600 space-y-2 pl-4 list-disc", children: [
+              /* @__PURE__ */ jsx("li", { children: "Gilt, wenn der Hinterbliebene jünger als die Altersgrenze (47 Jahre) ist." }),
+              /* @__PURE__ */ jsx("li", { children: "Keine Erwerbsminderung vorliegt." }),
+              /* @__PURE__ */ jsx("li", { children: "Kein minderjähriges Kind erzogen wird." }),
+              /* @__PURE__ */ jsxs("li", { children: [
+                /* @__PURE__ */ jsx("strong", { children: "Dauer:" }),
+                " Nach neuem Recht auf ",
+                /* @__PURE__ */ jsx("strong", { children: "maximal 24 Kalendermonate" }),
+                " (2 Jahre) begrenzt."
+              ] })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white border border-blue-200 rounded-xl shadow-sm bg-blue-50/30", children: [
+            /* @__PURE__ */ jsx("span", { className: "text-xs font-bold uppercase tracking-wider text-blue-800 bg-blue-100 px-2.5 py-1 rounded-md inline-block mb-2", children: "Große Witwenrente" }),
+            /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-slate-900 mb-2", children: "55 % (bzw. 60 %) der Rente" }),
+            /* @__PURE__ */ jsxs("ul", { className: "text-xs sm:text-sm text-slate-600 space-y-2 pl-4 list-disc", children: [
+              /* @__PURE__ */ jsx("li", { children: "Voraussetzung: Alter von mindestens 47 Jahren (schrittweise angehoben)." }),
+              /* @__PURE__ */ jsx("li", { children: "ODER eigene Erwerbsminderung." }),
+              /* @__PURE__ */ jsx("li", { children: "ODER Erziehung eines eigenen oder des verstorbenen Partners Kindes unter 18 Jahren." }),
+              /* @__PURE__ */ jsxs("li", { children: [
+                /* @__PURE__ */ jsx("strong", { children: "Dauer:" }),
+                " ",
+                /* @__PURE__ */ jsx("strong", { children: "Unbefristet (lebenslang)" }),
+                ", solange keine Wiederheirat erfolgt."
+              ] })
+            ] })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "3. Alte vs. Neue Rechtslage (Vertrauensschutz)" }),
+        /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Ob altes oder neues Hinterbliebenenrecht gilt, richtet sich nach dem Hochzeitsdatum und den Geburtsdaten der Partner:" }),
+        /* @__PURE__ */ jsx("div", { className: "overflow-x-auto my-4", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-xs sm:text-sm border-collapse border border-slate-200", children: [
+          /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "bg-slate-100 text-slate-800 font-bold", children: [
+            /* @__PURE__ */ jsx("th", { className: "p-3 border border-slate-200 text-left", children: "Kriterium" }),
+            /* @__PURE__ */ jsx("th", { className: "p-3 border border-slate-200 text-left", children: "Altes Recht" }),
+            /* @__PURE__ */ jsx("th", { className: "p-3 border border-slate-200 text-left", children: "Neues Recht" })
+          ] }) }),
+          /* @__PURE__ */ jsxs("tbody", { children: [
+            /* @__PURE__ */ jsxs("tr", { children: [
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 font-semibold text-slate-900", children: "Voraussetzung" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 text-slate-700", children: "Heirat vor dem 1.1.2002 UND mind. ein Partner vor dem 2.1.1962 geboren" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 text-slate-700", children: "Heirat ab 1.1.2002 ODER beide Partner nach dem 1.1.1962 geboren" })
+            ] }),
+            /* @__PURE__ */ jsxs("tr", { className: "bg-slate-50/50", children: [
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 font-semibold text-slate-900", children: "Große Witwenrente" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 font-bold text-slate-900", children: "60 % der Stammrente" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 font-bold text-blue-900", children: "55 % der Stammrente + Kinderzuschlag" })
+            ] }),
+            /* @__PURE__ */ jsxs("tr", { children: [
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 font-semibold text-slate-900", children: "Kleine Witwenrente" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 text-slate-700", children: "Unbegrenzt gezahlt" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 text-slate-700", children: "Begrenzt auf max. 24 Monate" })
+            ] })
+          ] })
+        ] }) })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "4. Das Sterbevierteljahr (100 % Rentenzahlung ohne Anrechnung)" }),
+        /* @__PURE__ */ jsx("div", { className: "p-5 bg-amber-50 border border-amber-200 rounded-xl my-4", children: /* @__PURE__ */ jsxs("p", { className: "text-sm text-amber-950 leading-relaxed mb-0", children: [
+          "In den ersten ",
+          /* @__PURE__ */ jsx("strong", { children: "drei Kalendermonaten nach dem Sterbemonat" }),
+          " (dem sogenannten ",
+          /* @__PURE__ */ jsx("em", { children: "Sterbevierteljahr" }),
+          ") wird die Witwenrente in ",
+          /* @__PURE__ */ jsx("strong", { children: "voller Höhe (100 %)" }),
+          " der dem Verstorbenen zustehenden Rente gezahlt. In diesem Zeitraum findet ",
+          /* @__PURE__ */ jsx("strong", { children: "keine Einkommensanrechnung" }),
+          " statt, um den sofortigen finanziellen Schock abzufedern."
+        ] }) })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsxs("h2", { className: "text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2", children: [
+          /* @__PURE__ */ jsx(Calculator, { className: "w-6 h-6 text-blue-700 shrink-0" }),
+          "5. Einkommensanrechnung nach § 97 SGB VI & Freibeträge"
+        ] }),
+        /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Nach Ablauf des Sterbevierteljahres wird eigenes Einkommen des Hinterbliebenen (z. B. Erwerbseinkommen, eigene Altersrente, Betriebsrente) auf die Witwenrente angerechnet." }),
+        /* @__PURE__ */ jsx("h3", { className: "text-xl font-bold text-slate-900 mt-6 mb-3", children: "Gesetzliche Netto-Freibeträge:" }),
+        /* @__PURE__ */ jsxs("p", { className: "text-slate-700 text-sm sm:text-base", children: [
+          "Der Freibetrag ist gesetzlich an das 26,4-fache des aktuellen Rentenwerts gekoppelt. Mit dem aktuellen Bundesrentenwert von ",
+          CURRENT_VALUES.rentenwertFormatted,
+          " ergeben sich folgende Monatsfreibeträge:"
+        ] }),
+        /* @__PURE__ */ jsxs("ul", { className: "list-disc pl-5 space-y-1.5 text-slate-700 text-sm sm:text-base mb-6", children: [
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "Freibetrag für Hinterbliebene:" }),
+            " ca. ",
+            /* @__PURE__ */ jsx("strong", { children: "1.122,53 € Netto" }),
+            " pro Monat."
+          ] }),
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "Zuschlag pro waisengeldberechtigtem Kind:" }),
+            " ca. ",
+            /* @__PURE__ */ jsx("strong", { children: "238,11 € Netto" }),
+            " pro Monat."
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "p-6 bg-slate-900 text-white rounded-2xl shadow-md space-y-4", children: [
+          /* @__PURE__ */ jsx("h4", { className: "text-lg font-bold text-amber-400 mt-0", children: "Konkretes Rechenbeispiel zur 40-%-Anrechnung" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-xs sm:text-sm text-slate-300 space-y-2 leading-relaxed", children: [
+            /* @__PURE__ */ jsxs("p", { children: [
+              /* @__PURE__ */ jsx("strong", { children: "Ausgangslage:" }),
+              " Frau M. erhält eine Große Witwenrente von 800 € brutto. Sie arbeitet angestellt und erzielt ein monatliches Bruttogehalt von 2.200 €."
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "p-3 bg-slate-800 rounded-lg space-y-1 border border-slate-700 font-mono text-xs", children: [
+              /* @__PURE__ */ jsx("div", { children: "1. Bruttogehalt: 2.200,00 €" }),
+              /* @__PURE__ */ jsx("div", { children: "2. Pauschaler Abzug für Erwerbseinkommen (40 %): - 880,00 €" }),
+              /* @__PURE__ */ jsx("div", { className: "text-amber-300 font-bold", children: "➔ Anrechenbares Nettoeinkommen: 1.320,00 €" }),
+              /* @__PURE__ */ jsx("div", { className: "pt-2", children: "3. Gesetzlicher Freibetrag: - 1.122,53 €" }),
+              /* @__PURE__ */ jsx("div", { className: "text-amber-300 font-bold", children: "➔ Übersteigender Betrag: 197,47 €" }),
+              /* @__PURE__ */ jsx("div", { className: "pt-2", children: "4. Anrechnung (40 % von 197,47 €): - 78,99 € Kürzung" })
+            ] }),
+            /* @__PURE__ */ jsx("p", { className: "text-emerald-400 font-bold text-sm pt-2", children: "Ergebnis: Ausgezahlte Witwenrente = 800,00 € - 78,99 € = 721,01 € netto/monatlich." })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "6. Wiederheirat & Rentenabfindung nach § 107 SGB VI" }),
+        /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Heiratet der Bezieher einer Witwenrente erneut, fällt der Rentenanspruch mit Ablauf des Monats der Eheschließung weg. Auf Antrag zahlt die Rentenversicherung jedoch eine **Rentenabfindung**:" }),
+        /* @__PURE__ */ jsxs("ul", { className: "list-disc pl-5 space-y-2 text-slate-700 text-sm sm:text-base", children: [
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "Große Witwenrente:" }),
+            " Abfindung in Höhe des **24-fachen durchschnittlichen Monatsbetrags** (2 Jahresrenten) der letzten 12 Monate."
+          ] }),
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "Kleine Witwenrente:" }),
+            " Abfindung in Höhe des verbleibenden Restbetrags bis zum Ablauf der 24-Monate-Frist."
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "7. Antragstellung und benötigte Unterlagen" }),
+        /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Die Witwenrente wird nicht automatisch gewährt, sondern muss bei der Deutschen Rentenversicherung beantragt werden. Folgende Dokumente werden benötigt:" }),
+        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-3 my-4", children: [
+          /* @__PURE__ */ jsxs("div", { className: "p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-medium text-slate-800 flex items-center gap-2", children: [
+            /* @__PURE__ */ jsx(FileText, { className: "w-4 h-4 text-blue-700 shrink-0" }),
+            /* @__PURE__ */ jsx("span", { children: "Sterbeurkunde des verstorbenen Partners" })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-medium text-slate-800 flex items-center gap-2", children: [
+            /* @__PURE__ */ jsx(FileText, { className: "w-4 h-4 text-blue-700 shrink-0" }),
+            /* @__PURE__ */ jsx("span", { children: "Heiratsurkunde bzw. Partnerschaftsurkunde" })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-medium text-slate-800 flex items-center gap-2", children: [
+            /* @__PURE__ */ jsx(FileText, { className: "w-4 h-4 text-blue-700 shrink-0" }),
+            /* @__PURE__ */ jsx("span", { children: "Rentenversicherungsnummern beider Ehepartner" })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-medium text-slate-800 flex items-center gap-2", children: [
+            /* @__PURE__ */ jsx(FileText, { className: "w-4 h-4 text-blue-700 shrink-0" }),
+            /* @__PURE__ */ jsx("span", { children: "Nachweise über eigenes Einkommen (Gehalt/Rente)" })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "my-10", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2", children: [
+          /* @__PURE__ */ jsx(HelpCircle, { className: "w-6 h-6 text-blue-700 shrink-0" }),
+          "Häufige Fragen zur Witwenrente (FAQ)"
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "space-y-4", children: faqs.map((faq, index) => /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
+          /* @__PURE__ */ jsx("h3", { className: "text-base font-bold text-slate-900 mb-2", children: faq.question }),
+          /* @__PURE__ */ jsx("p", { className: "text-xs sm:text-sm text-slate-600 leading-relaxed", children: faq.answer })
+        ] }, index)) })
+      ] })
     ] }),
-    /* @__PURE__ */ jsx(SourceFootnote, {})
+    /* @__PURE__ */ jsx(SourceFootnote, { sources: primarySources })
   ] });
 }
 
 function Erwerbsminderungsrente() {
   const faqs = [
     {
-      question: "Wann liegt eine volle Erwerbsminderung vor?",
-      answer: "Eine volle Erwerbsminderung liegt vor, wenn der Versicherte wegen Krankheit oder Behinderung auf absehbare Zeit weniger als 3 Stunden täglich auf dem allgemeinen Arbeitsmarkt tätig sein kann."
+      question: "Was ist der Unterschied zwischen teilweiser und voller Erwerbsminderung?",
+      answer: "Bei voller Erwerbsminderung können Sie gesundheitsbedingt weniger als 3 Stunden täglich arbeiten. Bei teilweiser Erwerbsminderung liegt Ihr Leistungsvermögen zwischen 3 und unter 6 Stunden pro Tag."
+    },
+    {
+      question: "Gilt bei der Erwerbsminderungsrente Berufsschutz?",
+      answer: "Nein, für nach dem 1.1.1961 Geborene gibt es keinen Berufsschutz mehr. Die Erwerbsfähigkeit wird auf dem allgemeinen Arbeitsmarkt geprüft."
+    },
+    {
+      question: "Wie lange wird eine Erwerbsminderungsrente gezahlt?",
+      answer: "Die EM-Rente wird grundsätzlich auf maximal 3 Jahre befristet gewährt. Eine unbefristete Rente wird vergeben, wenn eine Besserung des Gesundheitszustands unwahrscheinlich ist."
     }
   ];
   const breadcrumbs = [
     { name: "Startseite", item: "/" },
     { name: "Erwerbsminderungsrente", item: "/erwerbsminderungsrente" }
   ];
+  const primarySources = [
+    { title: "§ 43 SGB VI - Rente wegen Erwerbsminderung", url: "https://www.gesetze-im-internet.de/sgb_6/__43.html" },
+    { title: "§ 59 SGB VI - Zurechnungszeit", url: "https://www.gesetze-im-internet.de/sgb_6/__59.html" },
+    { title: "DRV Fachportal Erwerbsminderungsrente", url: "https://www.deutsche-rentenversicherung.de/DRV/DE/Rente/In-der-Rente/Erwerbsminderungsrente/erwerbsminderungsrente.html" }
+  ];
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Erwerbsminderungsrente (EM-Rente): Voraussetzungen & Zurechnungszeit" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Absicherung bei teilweisem oder vollständigem Verlust der Erwerbsfähigkeit." })
+      /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Erwerbsminderungsrente: Voraussetzungen, Reha & Zurechnungszeit" }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base sm:text-lg leading-relaxed", children: "Systematischer Leitfaden zur Erwerbsminderungsrente nach § 43 SGB VI: Rechtliche Abgrenzung zwischen teilweiser und voller Erwerbsminderung, Grundsatz „Reha vor Rente“, versicherungsrechtliche Voraussetzungen und Zurechnungszeiten." })
     ] }),
-    /* @__PURE__ */ jsx(AdSense, {}),
-    /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none my-8", children: [
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "Verbesserte Zurechnungszeiten" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Durch die jüngsten Gesetzesreformen werden EM-Rentner so gestellt, als hätten sie mit ihrem bisherigen Durchschnittseinkommen bis zur Regelaltersgrenze weitergearbeitet." })
+    /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none space-y-8", children: [
+      /* @__PURE__ */ jsxs("div", { className: "p-6 bg-slate-50 border border-slate-200 rounded-2xl", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "text-xl font-bold text-slate-900 mt-0 mb-3 flex items-center gap-2", children: [
+          /* @__PURE__ */ jsx(Activity, { className: "w-5 h-5 text-blue-700 shrink-0" }),
+          "Was ist die Erwerbsminderungsrente?"
+        ] }),
+        /* @__PURE__ */ jsxs("p", { className: "text-sm text-slate-700 leading-relaxed mb-0", children: [
+          "Die Erwerbsminderungsrente (EM-Rente) schützt Versicherte der Deutschen Rentenversicherung, die aufgrund einer schweren Krankheit oder Behinderung nicht mehr oder nur noch eingeschränkt am Erwerbsleben teilnehmen können (",
+          /* @__PURE__ */ jsx("strong", { children: "§ 43 SGB VI" }),
+          ")."
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "1. Abgrenzung: Volle vs. Teilweise Erwerbsminderung" }),
+        /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Die medizinische Begutachtung durch den Sozialmedizinischen Dienst der DRV ermittelt das verbliebene Leistungsvermögen auf dem allgemeinen Arbeitsmarkt:" }),
+        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6 my-6", children: [
+          /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white border border-slate-200 rounded-xl shadow-sm", children: [
+            /* @__PURE__ */ jsx("span", { className: "text-xs font-bold uppercase tracking-wider text-blue-800 bg-blue-100 px-2.5 py-1 rounded-md inline-block mb-2", children: "Volle Erwerbsminderung" }),
+            /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-slate-900 mb-2", children: "Unter 3 Stunden täglich" }),
+            /* @__PURE__ */ jsxs("p", { className: "text-xs sm:text-sm text-slate-600 leading-relaxed", children: [
+              "Der Versicherte kann gesundheitsbedingt auf absehbare Zeit unter den üblichen Bedingungen des allgemeinen Arbeitsmarktes ",
+              /* @__PURE__ */ jsx("strong", { children: "weniger als 3 Stunden täglich" }),
+              " erwerbstätig sein. Auszahlungsanspruch: ",
+              /* @__PURE__ */ jsx("strong", { children: "100 % der berechneten EM-Rente" }),
+              "."
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white border border-slate-200 rounded-xl shadow-sm", children: [
+            /* @__PURE__ */ jsx("span", { className: "text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-100 px-2.5 py-1 rounded-md inline-block mb-2", children: "Teilweise Erwerbsminderung" }),
+            /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-slate-900 mb-2", children: "3 bis unter 6 Stunden täglich" }),
+            /* @__PURE__ */ jsxs("p", { className: "text-xs sm:text-sm text-slate-600 leading-relaxed", children: [
+              "Der Versicherte kann noch ",
+              /* @__PURE__ */ jsx("strong", { children: "mindestens 3, aber unter 6 Stunden täglich" }),
+              " arbeiten. Auszahlungsanspruch: ",
+              /* @__PURE__ */ jsx("strong", { children: "50 % der vollen EM-Rente" }),
+              ". Die Rente ist als Ergänzung zu einer Teilzeittätigkeit gedacht."
+            ] })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "2. Versicherungsrechtliche Voraussetzungen" }),
+        /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Neben den medizinischen Kriterien müssen folgende versicherungsrechtliche Hürden erfüllt sein:" }),
+        /* @__PURE__ */ jsxs("ul", { className: "list-disc pl-5 space-y-2 text-slate-700 text-sm sm:text-base", children: [
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "Allgemeine Wartezeit:" }),
+            " Mindestens 5 Jahre Vorversicherungszeit in der gesetzlichen Rentenversicherung (§ 50 SGB VI)."
+          ] }),
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "3-in-5-Regel:" }),
+            " In den letzten 5 Jahren vor Eintreten der Erwerbsminderung müssen mindestens ",
+            /* @__PURE__ */ jsx("strong", { children: "3 Jahre (36 Monate) Pflichtbeiträge" }),
+            " für eine versicherungspflichtige Beschäftigung vorliegen."
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "3. Grundsatz „Reha vor Rente“ & Zurechnungszeit (§ 59 SGB VI)" }),
+        /* @__PURE__ */ jsxs("p", { className: "text-slate-700", children: [
+          "Vor Bewilligung einer Rente prüft die Rentenversicherung stets, ob die Erwerbsfähigkeit durch medizinische oder berufliche Rehabilitation wiederhergestellt werden kann (",
+          /* @__PURE__ */ jsx("strong", { children: "„Reha vor Rente“ nach § 9 SGB VI" }),
+          ")."
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "p-5 bg-slate-900 text-white rounded-xl my-4", children: [
+          /* @__PURE__ */ jsx("h3", { className: "font-bold text-amber-400 text-base mt-0 mb-2", children: "Die Zurechnungszeit (§ 59 SGB VI)" }),
+          /* @__PURE__ */ jsx("p", { className: "text-xs sm:text-sm text-slate-300 leading-relaxed", children: "Da Erwerbsminderung meist in jüngeren Jahren eintritt, schützt die Zurechnungszeit vor Armut: Das Rentenkonto wird so bewertet, als hätte der Betroffene bis zum regulären Renteneintrittsalter mit seinem bisherigen Durchschnittseinkommen weitergearbeitet." })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "my-8", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2", children: [
+          /* @__PURE__ */ jsx(HelpCircle, { className: "w-6 h-6 text-blue-700 shrink-0" }),
+          "Häufige Fragen zur Erwerbsminderungsrente (FAQ)"
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "space-y-4", children: faqs.map((faq, index) => /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
+          /* @__PURE__ */ jsx("h3", { className: "text-base font-bold text-slate-900 mb-2", children: faq.question }),
+          /* @__PURE__ */ jsx("p", { className: "text-xs sm:text-sm text-slate-600 leading-relaxed", children: faq.answer })
+        ] }, index)) })
+      ] })
     ] }),
-    /* @__PURE__ */ jsx(SourceFootnote, {})
+    /* @__PURE__ */ jsx(SourceFootnote, { sources: primarySources })
   ] });
 }
 
 function Rentenpunkte() {
   const faqs = [
     {
-      question: "Wie viel Euro ist 1 Rentenpunkt (Entgeltpunkt) wert?",
-      answer: `Ein Entgeltpunkt (Rentenpunkt) entspricht aktuell genau ${CURRENT_VALUES.rentenwertFormatted} Brutto-Monatsrente.`
+      question: "Wie viel Bruttoeinkommen brauche ich für 1 Rentenpunkt?",
+      answer: "Um exakt 1,0 Entgeltpunkt zu erhalten, müssen Sie in einem Kalenderjahr genau das vorläufige Durchschnittsentgelt aller versicherten Arbeitnehmer erzielen."
+    },
+    {
+      question: "Wie viel Euro ist 1 Rentenpunkt monatlich wert?",
+      answer: `Der monatliche Wert eines Entgeltpunkts entspricht dem aktuellen Rentenwert von derzeit ${CURRENT_VALUES.rentenwertFormatted} (gemäß § 68 SGB VI).`
+    },
+    {
+      question: "Wie viele Rentenpunkte bekommt man für die Kindererziehung?",
+      answer: "Für Kindererziehungszeiten (Mütterrente) wird pro Kind für bis zu 36 Kalendermonate jeweils ca. 1,0 Entgeltpunkt pro Jahr (insgesamt bis zu 3,0 EP) im Rentenkonto gutgeschrieben."
     }
   ];
   const breadcrumbs = [
     { name: "Startseite", item: "/" },
-    { name: "Entgeltpunkte / Rentenpunkte", item: "/rentenpunkte" }
+    { name: "Entgeltpunkte (Rentenpunkte)", item: "/rentenpunkte" }
+  ];
+  const primarySources = [
+    { title: "§ 63 SGB VI - Grundsätze der Rentenberechnung", url: "https://www.gesetze-im-internet.de/sgb_6/__63.html" },
+    { title: "§ 68 SGB VI - Aktueller Rentenwert", url: "https://www.gesetze-im-internet.de/sgb_6/__68.html" },
+    { title: "DRV Ratgeber Entgeltpunkte", url: "https://www.deutsche-rentenversicherung.de/DRV/DE/Rente/In-der-Rente/Rentenberechnung/rentenberechnung.html" }
   ];
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
       /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Entgeltpunkte (Rentenpunkte): Wert & Berechnung" }),
-      /* @__PURE__ */ jsxs("p", { className: "text-slate-600 text-base leading-relaxed", children: [
-        "Wie sammelt man Rentenpunkte? Erklärung des Durchschnittsentgelts und Punktegutschrift für Erziehung und Pflege. Aktueller Gegenwert: ",
-        CURRENT_VALUES.rentenwertFormatted,
-        " pro Punkt."
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Entgeltpunkte (Rentenpunkte): Berechnung, Wert & Beispiele" }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base sm:text-lg leading-relaxed", children: "Fachlicher Ratgeber zu Entgeltpunkten nach § 63 SGB VI: Funktionsweise der Währung der Rentenversicherung, Berechnungsformel auf Basis des Durchschnittseinkommens, Höchstgrenzen und Gutschriften für Kinder und Pflege." })
+    ] }),
+    /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none space-y-8", children: [
+      /* @__PURE__ */ jsxs("div", { className: "p-6 bg-slate-50 border border-slate-200 rounded-2xl", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "text-xl font-bold text-slate-900 mt-0 mb-3 flex items-center gap-2", children: [
+          /* @__PURE__ */ jsx(Calculator, { className: "w-5 h-5 text-blue-700 shrink-0" }),
+          "Was sind Entgeltpunkte?"
+        ] }),
+        /* @__PURE__ */ jsxs("p", { className: "text-sm text-slate-700 leading-relaxed mb-0", children: [
+          "Entgeltpunkte (umgangssprachlich ",
+          /* @__PURE__ */ jsx("em", { children: "Rentenpunkte" }),
+          ") bilden gemäß ",
+          /* @__PURE__ */ jsx("strong", { children: "§ 63 SGB VI" }),
+          " die zentrale Berechnungseinheit der gesetzlichen Rentenversicherung. Sie drücken das Verhältnis des individuellen Jahreseinkommens eines Arbeitnehmers zum Durchschnittseinkommen aller Versicherten im selben Kalenderjahr aus."
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "1. Die Berechnungsformel der Entgeltpunkte" }),
+        /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Die Ermittlung der jährlichen Entgeltpunkte erfolgt nach einer einfachen mathematischen Formel:" }),
+        /* @__PURE__ */ jsxs("div", { className: "p-5 bg-slate-900 text-white rounded-xl my-4 space-y-2", children: [
+          /* @__PURE__ */ jsx("div", { className: "font-mono text-amber-400 font-bold text-sm sm:text-base", children: "Entgeltpunkte (EP) = Individueller Bruttojahresarbeitsverdienst / Vorläufiges Durchschnittsentgelt" }),
+          /* @__PURE__ */ jsxs("p", { className: "text-xs text-slate-300", children: [
+            "Verdient ein Arbeitnehmer in einem Jahr exakt so viel wie der Durchschnitt aller Versicherten, erhält er genau ",
+            /* @__PURE__ */ jsx("strong", { children: "1,0000 Entgeltpunkt" }),
+            "."
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "2. Monatsmonetarisierung: Was ist 1 Rentenpunkt wert?" }),
+        /* @__PURE__ */ jsxs("p", { className: "text-slate-700", children: [
+          "Der Monatsrentenwert eines Entgeltpunkts ist im ",
+          /* @__PURE__ */ jsx("strong", { children: "Aktuellen Rentenwert (§ 68 SGB VI)" }),
+          " geregelt. Jeder gesammelte Entgeltpunkt bringt zum Renteneintritt monatlich genau diesen Euro-Betrag an Bruttorente:"
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "p-5 bg-blue-50 border border-blue-200 rounded-xl my-4", children: [
+          /* @__PURE__ */ jsxs("div", { className: "text-lg font-bold text-blue-950", children: [
+            "Aktueller Rentenwert: ",
+            CURRENT_VALUES.rentenwertFormatted,
+            " monatlich pro EP"
+          ] }),
+          /* @__PURE__ */ jsxs("p", { className: "text-xs text-blue-900 mt-1", children: [
+            "Ein Standard-Eckrentner mit 45 Beitragsjahren und jeweils 1,0 EP kommt somit auf eine monatliche Brutto-Standardrente von ",
+            /* @__PURE__ */ jsx("strong", { children: CURRENT_VALUES.standardrenteFormatted }),
+            "."
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "3. Beitragsfreie Entgeltpunkte: Kindererziehung & Pflege" }),
+        /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Entgeltpunkte werden nicht nur durch eigene Beitragszahlung aus Erwerbseinkommen erworben, sondern auch durch staatlich anerkannte Sozialzeiten:" }),
+        /* @__PURE__ */ jsxs("ul", { className: "list-disc pl-5 space-y-2 text-slate-700 text-sm sm:text-base", children: [
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "Kindererziehungszeiten (Mütterrente):" }),
+            " Bis zu 36 Monate pro Kind. Pro Jahr wird ca. 1,0 EP im Versicherungskonto gutgeschrieben (insgesamt bis zu 3,0 EP pro Kind)."
+          ] }),
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "Häusliche Pflege von Angehörigen:" }),
+            " Wer Angehörige ab Pflegegrad 2 ehrenamtlich pflegt, erhält je nach Pflegegrad und Aufwand Entgeltpunkte direkt von der Pflegekasse eingezahlt."
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "my-8", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2", children: [
+          /* @__PURE__ */ jsx(HelpCircle, { className: "w-6 h-6 text-blue-700 shrink-0" }),
+          "Häufige Fragen zu Entgeltpunkten (FAQ)"
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "space-y-4", children: faqs.map((faq, index) => /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
+          /* @__PURE__ */ jsx("h3", { className: "text-base font-bold text-slate-900 mb-2", children: faq.question }),
+          /* @__PURE__ */ jsx("p", { className: "text-xs sm:text-sm text-slate-600 leading-relaxed", children: faq.answer })
+        ] }, index)) })
       ] })
     ] }),
-    /* @__PURE__ */ jsx(SourceFootnote, {})
+    /* @__PURE__ */ jsx(SourceFootnote, { sources: primarySources })
   ] });
 }
 
 function Rentenbescheid() {
   const faqs = [
     {
-      question: "Warum sollte man den Rentenbescheid prüfen?",
-      answer: "Fehlerhafte Ausbildungszeiten, fehlende Kindererziehungszeiten oder unvollständige Versicherungsverläufe können die Monatsrente erheblich mindern."
+      question: "Wie lange habe ich Zeit, um Einspruch gegen einen Rentenbescheid einzulegen?",
+      answer: "Die gesetzliche Widerspruchsfrist nach § 84 SGG beträgt exakt einen Monat nach Zustellung des Rentenbescheids."
+    },
+    {
+      question: "Kann ein Rentenbescheid nach Ablauf der Monatsfrist noch korrigiert werden?",
+      answer: "Ja. Über einen Überprüfungsantrag nach § 44 SGB X kann ein fehlerhafter Bescheid auch nachträglich für bis zu 4 Jahre rückwirkend korrigiert werden."
+    },
+    {
+      question: "Wo finde ich die detaillierte Aufstellung meiner Beitragszeiten im Bescheid?",
+      answer: "Die detaillierte chronologische Aufschlüsselung aller gemeldeten Beitrags- und Anrechnungszeiten befindet sich in der Anlage 'Versicherungsverlauf' Ihres Rentenbescheids."
     }
   ];
   const breadcrumbs = [
     { name: "Startseite", item: "/" },
-    { name: "Rentenbescheid prüfen", item: "/rentenbescheid" }
+    { name: "Rentenbescheid", item: "/rentenbescheid" }
+  ];
+  const primarySources = [
+    { title: "§ 115 SGB VI - Rentenbescheid & Auszahlung", url: "https://www.gesetze-im-internet.de/sgb_6/__115.html" },
+    { title: "§ 84 SGG - Widerspruchsfrist", url: "https://www.gesetze-im-internet.de/sgg/__84.html" },
+    { title: "§ 44 SGB X - Rückwirkender Überprüfungsantrag", url: "https://www.gesetze-im-internet.de/sgb_10/__44.html" },
+    { title: "DRV Ratgeber Rentenbescheid verstehen", url: "https://www.deutsche-rentenversicherung.de/DRV/DE/Rente/In-der-Rente/Rentenbescheid/rentenbescheid_node.html" }
   ];
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Rentenbescheid prüfen & Renteninformation verstehen" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Checkliste für deinen jährlichen DRV-Versicherungsverlauf und Einspruchsfristen." })
+      /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Rentenbescheid prüfen: Aufbau, Widerspruch & Prüfpunkte" }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base sm:text-lg leading-relaxed", children: "Systematische Anleitung zur Überprüfung des Rentenbescheids nach SGB VI: Aufbau des Bescheids, typische Lücken im Versicherungsverlauf, Widerspruchsfristen (§ 84 SGG) und Überprüfungsanträge (§ 44 SGB X)." })
     ] }),
-    /* @__PURE__ */ jsx(AdSense, {}),
-    /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none my-8", children: [
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "Wichtige Prüfpunkte im Rentenbescheid" }),
-      /* @__PURE__ */ jsxs("ul", { className: "list-disc pl-5 space-y-2 text-slate-700", children: [
-        /* @__PURE__ */ jsx("li", { children: "Vollständigkeit der Beitragszeiten (Lehre, Studium, Zivildienst)" }),
-        /* @__PURE__ */ jsx("li", { children: "Korrekt erfasste Kindererziehungszeiten (Mütterrente)" }),
-        /* @__PURE__ */ jsx("li", { children: "Zeiten der Pflege von Angehörigen" })
+    /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none space-y-8", children: [
+      /* @__PURE__ */ jsxs("div", { className: "p-6 bg-slate-50 border border-slate-200 rounded-2xl", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "text-xl font-bold text-slate-900 mt-0 mb-3 flex items-center gap-2", children: [
+          /* @__PURE__ */ jsx(FileText, { className: "w-5 h-5 text-blue-700 shrink-0" }),
+          "Was ist der Rentenbescheid?"
+        ] }),
+        /* @__PURE__ */ jsxs("p", { className: "text-sm text-slate-700 leading-relaxed mb-0", children: [
+          "Der Rentenbescheid ist ein offizieller Verwaltungsakt der Deutschen Rentenversicherung nach ",
+          /* @__PURE__ */ jsx("strong", { children: "§ 115 SGB VI" }),
+          ". Er regelt verbindlich die Bewilligung einer Rente, das Renteneintrittsdatum, die Brutto- und Netto-Rentenhöhe sowie den zugrunde liegenden Versicherungsverlauf."
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "1. Der Aufbau des Rentenbescheids im Überblick" }),
+        /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Ein vollständiger Rentenbescheid gliedert sich in folgende Kernabschnitte:" }),
+        /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4 my-4", children: [
+          /* @__PURE__ */ jsxs("div", { className: "p-4 bg-white border border-slate-200 rounded-xl shadow-sm", children: [
+            /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 text-sm mb-1", children: "1. Tenor / Hauptteil" }),
+            /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600", children: "Enthält die Rentenart, das Rentenbeginndatum und den monatlichen Auszahlungsbetrag." })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "p-4 bg-white border border-slate-200 rounded-xl shadow-sm", children: [
+            /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 text-sm mb-1", children: "2. Rentenberechnung" }),
+            /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600", children: "Berechnung nach der Rentenformel: Entgeltpunkte × Zugangsfaktor × Aktueller Rentenwert." })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "p-4 bg-white border border-slate-200 rounded-xl shadow-sm", children: [
+            /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 text-sm mb-1", children: "3. Anlage Versicherungsverlauf" }),
+            /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600", children: "Chronologische Aufstellung aller vom Arbeitgeber oder Träger gemeldeten Beitrags- und Anrechnungszeiten." })
+          ] }),
+          /* @__PURE__ */ jsxs("div", { className: "p-4 bg-white border border-slate-200 rounded-xl shadow-sm", children: [
+            /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 text-sm mb-1", children: "4. Rechtsbehelfsbelehrung" }),
+            /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600", children: "Information über die Möglichkeit und die gesetzliche Frist zur Einlegung eines Widerspruchs." })
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "2. Die 4 häufigsten Fehlerstellen im Rentenbescheid" }),
+        /* @__PURE__ */ jsxs("ul", { className: "list-disc pl-5 space-y-2 text-slate-700 text-sm sm:text-base", children: [
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "Fehlende Ausbildungszeiten:" }),
+            " Zeiten der Schul-, Fachschul- oder Hochschulausbildung fehlen oder sind nicht als Anrechnungszeiten anerkannt (§ 58 SGB VI)."
+          ] }),
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "Unvollständige Kindererziehungszeiten:" }),
+            " Mütter oder Väter haben nicht für alle Kinder die vollen Kindererziehungs- oder Berücksichtigungszeiten im Konto."
+          ] }),
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "Nicht erfasste Pflegezeiten:" }),
+            " Zeiten der häuslichen Pflege von Angehörigen wurden von der Pflegekasse nicht korrekt an die Rentenversicherung gemeldet."
+          ] }),
+          /* @__PURE__ */ jsxs("li", { children: [
+            /* @__PURE__ */ jsx("strong", { children: "Falsche Jahresarbeitsverdienste:" }),
+            " Verdienstdaten vergangener Arbeitgeber wurden fehlerhaft oder unvollständig übermittelt."
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "3. Widerspruch (§ 84 SGG) & Überprüfungsantrag (§ 44 SGB X)" }),
+        /* @__PURE__ */ jsxs("div", { className: "p-5 bg-amber-50 border border-amber-200 rounded-xl space-y-3", children: [
+          /* @__PURE__ */ jsx("h3", { className: "font-bold text-amber-950 text-base mt-0", children: "Gesetzliche Fristen und Rechtsmittel" }),
+          /* @__PURE__ */ jsxs("p", { className: "text-xs sm:text-sm text-amber-900 leading-relaxed", children: [
+            "Gegen einen fehlerhaften Rentenbescheid kann innerhalb von ",
+            /* @__PURE__ */ jsx("strong", { children: "einem Monat nach Bekanntgabe" }),
+            " schriftlich Widerspruch bei der DRV eingelegt werden (§ 84 SGG)."
+          ] }),
+          /* @__PURE__ */ jsxs("p", { className: "text-xs sm:text-sm text-amber-900 leading-relaxed font-semibold", children: [
+            "Wichtig: Ist die Monatsfrist bereits verstrichen, kann gemäß ",
+            /* @__PURE__ */ jsx("strong", { children: "§ 44 SGB X ein Überprüfungsantrag" }),
+            " gestellt werden. Fehlerhafte Nachzahlungen können dadurch rückwirkend für bis zu 4 Kalenderjahre eingefordert werden."
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "my-8", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2", children: [
+          /* @__PURE__ */ jsx(HelpCircle, { className: "w-6 h-6 text-blue-700 shrink-0" }),
+          "Häufige Fragen zum Rentenbescheid (FAQ)"
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "space-y-4", children: faqs.map((faq, index) => /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
+          /* @__PURE__ */ jsx("h3", { className: "text-base font-bold text-slate-900 mb-2", children: faq.question }),
+          /* @__PURE__ */ jsx("p", { className: "text-xs sm:text-sm text-slate-600 leading-relaxed", children: faq.answer })
+        ] }, index)) })
       ] })
     ] }),
-    /* @__PURE__ */ jsx(SourceFootnote, {})
+    /* @__PURE__ */ jsx(SourceFootnote, { sources: primarySources })
   ] });
 }
 
 function Rentensteuer() {
   const faqs = [
     {
-      question: "Wie viel Prozent meiner Rente muss ich versteuern?",
-      answer: "Der steuerpflichtige Rentenanteil richtet sich nach dem Jahr des Renteneintritts. Für Neurentner im Jahr 2026 beträgt der Besteuerungsanteil ca. 84 % (mit schrittweisem Übergang zur Vollbesteuerung)."
+      question: "Wie wird der persönliche Rentenfreibetrag berechnet?",
+      answer: "Im Jahr nach dem Renteneintritt wird der steuerfreie Teil der Rente einmalig als fester Euro-Betrag ermittelt. Dieser Euro-Betrag bleibt für die gesamte Restlaufzeit der Rente unverändert."
+    },
+    {
+      question: "Werden künftige Rentenerhöhungen voll versteuert?",
+      answer: "Ja. Alle künftigen Rentenanpassungen (Rentenerhöhungen) fließen zu 100 % in das zu versteuernde Einkommen ein, da der Rentenfreibetrag als fester Euro-Betrag fixiert bleibt."
+    },
+    {
+      question: "Wann muss ich als Rentner eine Steuererklärung abgeben?",
+      answer: "Eine Steuererklärung ist einzureichen, wenn das zu versteuernde Gesamteinkommen (abzüglich Kranken-/Pflegeversicherungsbeiträge und Sonderausgaben) den steuerlichen Grundfreibetrag des jeweiligen Jahres übersteigt."
     }
   ];
   const breadcrumbs = [
     { name: "Startseite", item: "/" },
     { name: "Besteuerung von Renten", item: "/rentensteuer" }
   ];
+  const primarySources = [
+    { title: "§ 22 EStG - Besteuerung von Leibrenten", url: "https://www.gesetze-im-internet.de/estg/__22.html" },
+    { title: "BMF BMF-Schreiben zur Rentenbesteuerung", url: "https://www.bundesfinanzministerium.de" },
+    { title: "DRV Ratgeber Steuern & Rente", url: "https://www.deutsche-rentenversicherung.de/DRV/DE/Rente/In-der-Rente/Steuern-und-Rente/steuern-und-rente.html" }
+  ];
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
     /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
+      /* @__PURE__ */ jsx("div", { className: "mb-3", children: /* @__PURE__ */ jsx(LastUpdated, {}) }),
       /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Besteuerung von Renten: Rentenfreibetrag & Grundfreibetrag" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Wann müssen Rentner eine Steuererklärung abgeben? Erklärung der nachgelagerten Besteuerung nach dem Alterseinkünftegesetz." })
+      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base sm:text-lg leading-relaxed", children: "Fachlicher Ratgeber zur nachgelagerten Besteuerung von Altersrenten nach § 22 EStG: Stufenweiser Anstieg des steuerpflichtigen Rentenanteils, Fixierung des Rentenfreibetrags und Grundfreibetrag." })
     ] }),
-    /* @__PURE__ */ jsx(AdSense, {}),
-    /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none my-8", children: [
-      /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "Grundfreibetrag & Steuerfreibetrag" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Wer als Einzelperson ein zu versteuerndes Einkommen unterhalb des steuerlichen Grundfreibetrags erzielt, zahlt keine Einkommensteuer." })
+    /* @__PURE__ */ jsxs("section", { className: "prose prose-slate max-w-none space-y-8", children: [
+      /* @__PURE__ */ jsxs("div", { className: "p-6 bg-slate-50 border border-slate-200 rounded-2xl", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "text-xl font-bold text-slate-900 mt-0 mb-3 flex items-center gap-2", children: [
+          /* @__PURE__ */ jsx(FileText, { className: "w-5 h-5 text-blue-700 shrink-0" }),
+          "Das Prinzip der nachgelagerten Besteuerung"
+        ] }),
+        /* @__PURE__ */ jsx("p", { className: "text-sm text-slate-700 leading-relaxed mb-0", children: "Seit dem Alterseinkünftegesetz 2005 werden Gesetzliche Renten in Deutschland **nachgelagert versteuert** (§ 22 Nr. 1 Satz 3 EStG). Das bedeutet: Vorsorgebeiträge während des Erwerbslebens können schrittweise als Sonderausgaben von der Steuer abgesetzt werden, während die späteren Rentenauszahlungen im Alter der Einkommensteuer unterliegen." })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "1. Der Besteuerungsanteil nach Renteneintrittsjahr" }),
+        /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Der Prozentsatz der Rente, der versteuert werden muss, hängt exakt vom Jahr des individuellen Renteneintritts ab. Nach den Regelungen zur Abmilderung der Vollbesteuerung steigt der Besteuerungsanteil schrittweise an:" }),
+        /* @__PURE__ */ jsx("div", { className: "overflow-x-auto my-4", children: /* @__PURE__ */ jsxs("table", { className: "w-full text-xs sm:text-sm border-collapse border border-slate-200", children: [
+          /* @__PURE__ */ jsx("thead", { children: /* @__PURE__ */ jsxs("tr", { className: "bg-slate-100 text-slate-800 font-bold", children: [
+            /* @__PURE__ */ jsx("th", { className: "p-3 border border-slate-200 text-left", children: "Renteneintrittsjahr" }),
+            /* @__PURE__ */ jsx("th", { className: "p-3 border border-slate-200 text-left", children: "Steuerpflichtiger Anteil" }),
+            /* @__PURE__ */ jsx("th", { className: "p-3 border border-slate-200 text-left", children: "Steuerfreier Anteil (Rentenfreibetrag)" })
+          ] }) }),
+          /* @__PURE__ */ jsxs("tbody", { children: [
+            /* @__PURE__ */ jsxs("tr", { children: [
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 font-semibold text-slate-900", children: "Bis 2005" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 text-slate-700", children: "50 %" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 text-emerald-700 font-bold", children: "50 %" })
+            ] }),
+            /* @__PURE__ */ jsxs("tr", { className: "bg-slate-50/50", children: [
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 font-semibold text-slate-900", children: "2020" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 text-slate-700", children: "80 %" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 text-slate-700", children: "20 %" })
+            ] }),
+            /* @__PURE__ */ jsxs("tr", { children: [
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 font-semibold text-slate-900", children: "2024" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 text-slate-700", children: "83 %" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 text-slate-700", children: "17 %" })
+            ] }),
+            /* @__PURE__ */ jsxs("tr", { className: "bg-slate-50/50", children: [
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 font-semibold text-slate-900", children: "2026" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 font-bold text-blue-900", children: "ca. 84 %" }),
+              /* @__PURE__ */ jsx("td", { className: "p-3 border border-slate-200 text-slate-700", children: "ca. 16 %" })
+            ] })
+          ] })
+        ] }) })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "2. Fixierung des Rentenfreibetrags als Euro-Betrag" }),
+        /* @__PURE__ */ jsxs("div", { className: "p-5 bg-amber-50 border border-amber-200 rounded-xl my-4", children: [
+          /* @__PURE__ */ jsx("h3", { className: "font-bold text-amber-950 text-base mt-0 mb-1", children: "Dauerhafter Festbetrag" }),
+          /* @__PURE__ */ jsx("p", { className: "text-sm text-amber-900 leading-relaxed mb-0", children: "Der ermittelte steuerfreie Prozentanteil wird im zweiten Jahr des Rentenbezugs als **fester Euro-Betrag** für die gesamte Dauer des Rentenbezugs eingefroren. Alle künftigen gesetzlichen Rentenerhöhungen sind folglich zu 100 % steuerpflichtig." })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { children: [
+        /* @__PURE__ */ jsx("h2", { className: "text-2xl font-bold text-slate-900 mb-4", children: "3. Grundfreibetrag & Pflicht zur Steuererklärung" }),
+        /* @__PURE__ */ jsx("p", { className: "text-slate-700", children: "Rentner müssen nur dann Einkommensteuer zahlen, wenn ihr zu versteuerndes Gesamteinkommen (Bruttorente abzüglich Rentenfreibetrag, Kranken-/Pflegeversicherungsbeiträge und Werbungskosten) den gesetzlichen **Grundfreibetrag** übersteigt." })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "my-8", children: [
+        /* @__PURE__ */ jsxs("h2", { className: "text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2", children: [
+          /* @__PURE__ */ jsx(HelpCircle, { className: "w-6 h-6 text-blue-700 shrink-0" }),
+          "Häufige Fragen zur Rentenbesteuerung (FAQ)"
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "space-y-4", children: faqs.map((faq, index) => /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
+          /* @__PURE__ */ jsx("h3", { className: "text-base font-bold text-slate-900 mb-2", children: faq.question }),
+          /* @__PURE__ */ jsx("p", { className: "text-xs sm:text-sm text-slate-600 leading-relaxed", children: faq.answer })
+        ] }, index)) })
+      ] })
     ] }),
-    /* @__PURE__ */ jsx(SourceFootnote, {})
+    /* @__PURE__ */ jsx(SourceFootnote, { sources: primarySources })
   ] });
 }
 
