@@ -2,7 +2,7 @@ import { jsxs, jsx } from 'react/jsx-runtime';
 import React, { useState, useEffect } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { useLocation, Link, Routes, Route, MemoryRouter } from 'react-router-dom';
-import { Calculator, ChevronDown, X, Menu, ChevronUp, Check, Share2, AlertTriangle, TrendingUp, Info, ShieldCheck, BookOpen, ExternalLink, ArrowRight, HelpCircle, ShieldAlert, AlertCircle, CheckCircle2, XCircle, Calendar, Clock } from 'lucide-react';
+import { Calculator, ChevronDown, X, Menu, ChevronUp, Check, Share2, AlertTriangle, TrendingUp, Info, ShieldCheck, BookOpen, ExternalLink, ArrowRight, HelpCircle, ShieldAlert, AlertCircle, CheckCircle2, XCircle, Calendar, Clock, ArrowDown } from 'lucide-react';
 import { Analytics } from '@vercel/analytics/react';
 
 function Header() {
@@ -257,74 +257,77 @@ function RentenLueckeCalculator() {
     setCopied(true);
     setTimeout(() => setCopied(false), 2e3);
   };
-  return /* @__PURE__ */ jsxs("div", { className: "my-8 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-md", children: [
-    /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100", children: [
+  return /* @__PURE__ */ jsxs("div", { id: "rechner-luecke", className: "my-6 sm:my-8 bg-white p-4 sm:p-8 rounded-2xl border border-slate-200 shadow-md", children: [
+    /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-100", children: [
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
-          /* @__PURE__ */ jsx(Calculator, { className: "w-6 h-6 text-amber-600" }),
-          /* @__PURE__ */ jsx("h3", { className: "text-xl font-bold text-slate-900", children: "Interaktiver Rentenlücken-Rechner 2026" })
+          /* @__PURE__ */ jsx(Calculator, { className: "w-6 h-6 text-amber-600 shrink-0" }),
+          /* @__PURE__ */ jsx("h3", { className: "text-lg sm:text-xl font-bold text-slate-900", children: "Interaktiver Rentenlücken-Rechner 2026" })
         ] }),
-        /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-500 mt-1", children: "Modellrechnung zur Orientierung bezüglich deiner monatlichen Versorgungslücke." })
+        /* @__PURE__ */ jsx("p", { className: "text-xs sm:text-sm text-slate-500 mt-1", children: "Ermittle deine monatliche Vorsorgelücke und das erforderliche Gesamtsparziel." })
       ] }),
       /* @__PURE__ */ jsxs(
         "button",
         {
           onClick: handleShare,
-          className: "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors",
+          className: "inline-flex items-center justify-center gap-2 h-11 px-4 rounded-xl text-xs font-bold bg-slate-100 text-slate-800 hover:bg-slate-200 active:scale-95 transition-all w-full sm:w-auto",
           children: [
-            copied ? /* @__PURE__ */ jsx(Check, { className: "w-3.5 h-3.5 text-emerald-600" }) : /* @__PURE__ */ jsx(Share2, { className: "w-3.5 h-3.5" }),
+            copied ? /* @__PURE__ */ jsx(Check, { className: "w-4 h-4 text-emerald-600" }) : /* @__PURE__ */ jsx(Share2, { className: "w-4 h-4" }),
             copied ? "Link kopiert!" : "Berechnung teilen"
           ]
         }
       )
     ] }),
-    /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6 mb-6", children: [
+    /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-5 mb-6", children: [
       /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("label", { className: "block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2", children: "Aktuelles Nettoeinkommen (€)" }),
+        /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2", children: "Aktuelles Nettoeinkommen (€)" }),
         /* @__PURE__ */ jsx(
           "input",
           {
             type: "number",
-            value: gehalt,
+            inputMode: "numeric",
+            value: gehalt || "",
             onChange: (e) => setGehalt(Number(e.target.value)),
-            className: "w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-slate-900 font-semibold"
+            className: "w-full h-12 px-4 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-base sm:text-lg font-bold text-slate-900 shadow-sm"
           }
         ),
         /* @__PURE__ */ jsx("span", { className: "text-[11px] text-slate-400 mt-1 block", children: "Monatliches Auszahlungsgehalt heute" })
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("label", { className: "block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2", children: "Erwartete Gesetzliche Rente (€)" }),
+        /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2", children: "Erwartete Gesetzliche Rente (€)" }),
         /* @__PURE__ */ jsx(
           "input",
           {
             type: "number",
-            value: gesetzlicheRente,
+            inputMode: "numeric",
+            value: gesetzlicheRente || "",
             onChange: (e) => setGesetzlicheRente(Number(e.target.value)),
-            className: "w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-slate-900 font-semibold"
+            className: "w-full h-12 px-4 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-base sm:text-lg font-bold text-slate-900 shadow-sm"
           }
         ),
         /* @__PURE__ */ jsx("span", { className: "text-[11px] text-slate-400 mt-1 block", children: "Laut offizieller DRV-Renteninformation" })
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("label", { className: "block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2", children: "Wunsch-Einkommen im Alter (€)" }),
+        /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2", children: "Wunsch-Einkommen im Alter (€)" }),
         /* @__PURE__ */ jsx(
           "input",
           {
             type: "number",
-            value: wunschEinkommen,
+            inputMode: "numeric",
+            value: wunschEinkommen || "",
             onChange: (e) => setWunschEinkommen(Number(e.target.value)),
-            className: "w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-slate-900 font-semibold"
+            className: "w-full h-12 px-4 rounded-xl border border-slate-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-base sm:text-lg font-bold text-slate-900 shadow-sm"
           }
         ),
         /* @__PURE__ */ jsx("span", { className: "text-[11px] text-slate-400 mt-1 block", children: "Richtwert: ca. 80% des heutigen Netto" })
       ] })
     ] }),
-    /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4 p-6 bg-slate-900 text-white rounded-xl mb-4", children: [
-      /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-4", children: [
-        /* @__PURE__ */ jsx("div", { className: "p-3 bg-amber-500/20 text-amber-400 rounded-lg shrink-0", children: /* @__PURE__ */ jsx(AlertTriangle, { className: "w-6 h-6" }) }),
+    /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4 p-5 sm:p-6 bg-slate-900 text-white rounded-xl mb-4 shadow-inner", children: [
+      /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-3.5", children: [
+        /* @__PURE__ */ jsx("div", { className: "p-3 bg-amber-500/20 text-amber-400 rounded-xl shrink-0 mt-1", children: /* @__PURE__ */ jsx(AlertTriangle, { className: "w-6 h-6" }) }),
         /* @__PURE__ */ jsxs("div", { children: [
-          /* @__PURE__ */ jsx("span", { className: "text-xs uppercase tracking-wider text-slate-400 font-semibold", children: "Monatliche Rentenlücke" }),
-          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-extrabold text-amber-400 mt-1", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs uppercase tracking-wider text-slate-400 font-semibold block", children: "Monatliche Rentenlücke" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-2xl sm:text-3xl font-extrabold text-amber-400 mt-1", children: [
             rentenluecke.toLocaleString("de-DE"),
             " € ",
             /* @__PURE__ */ jsx("span", { className: "text-xs font-normal text-slate-300", children: "/ Monat" })
@@ -332,11 +335,11 @@ function RentenLueckeCalculator() {
           /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-400 mt-1", children: "Differenz zwischen Wunscheinkommen und gesetzlicher Rente." })
         ] })
       ] }),
-      /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-4 border-t md:border-t-0 md:border-l border-slate-800 pt-4 md:pt-0 md:pl-6", children: [
-        /* @__PURE__ */ jsx("div", { className: "p-3 bg-blue-500/20 text-blue-400 rounded-lg shrink-0", children: /* @__PURE__ */ jsx(TrendingUp, { className: "w-6 h-6" }) }),
+      /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-3.5 border-t md:border-t-0 md:border-l border-slate-800 pt-4 md:pt-0 md:pl-6", children: [
+        /* @__PURE__ */ jsx("div", { className: "p-3 bg-blue-500/20 text-blue-400 rounded-xl shrink-0 mt-1", children: /* @__PURE__ */ jsx(TrendingUp, { className: "w-6 h-6" }) }),
         /* @__PURE__ */ jsxs("div", { children: [
-          /* @__PURE__ */ jsx("span", { className: "text-xs uppercase tracking-wider text-slate-400 font-semibold", children: "Geschätzter Kapitalbedarf (25 Jahre)" }),
-          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-extrabold text-white mt-1", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs uppercase tracking-wider text-slate-400 font-semibold block", children: "Geschätzter Kapitalbedarf (25 Jahre)" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-2xl sm:text-3xl font-extrabold text-white mt-1", children: [
             kapitalBedarf.toLocaleString("de-DE"),
             " €"
           ] }),
@@ -344,7 +347,7 @@ function RentenLueckeCalculator() {
         ] })
       ] })
     ] }),
-    /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-2 text-xs text-slate-500 bg-slate-50 p-3 rounded-lg border border-slate-200/60", children: [
+    /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-2 text-xs text-slate-500 bg-slate-50 p-3 rounded-lg border border-slate-200/60 leading-relaxed", children: [
       /* @__PURE__ */ jsx(Info, { className: "w-4 h-4 text-slate-400 shrink-0 mt-0.5" }),
       /* @__PURE__ */ jsxs("span", { children: [
         /* @__PURE__ */ jsx("strong", { children: "* Hinweis zur Berechnung:" }),
@@ -386,29 +389,8 @@ function AffiliateWidget({ type, title }) {
   ] });
 }
 
-function AdSense({ slot = "1234567890", format = "auto", responsive = true }) {
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      try {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-      } catch (e) {
-      }
-    }
-  }, []);
-  return /* @__PURE__ */ jsxs("div", { className: "my-8 text-center bg-slate-100/50 p-3 rounded-xl border border-slate-200/60 overflow-hidden min-h-[90px] flex flex-col items-center justify-center", children: [
-    /* @__PURE__ */ jsx("span", { className: "text-[10px] uppercase tracking-wider text-slate-400 font-medium mb-1", children: "Anzeige / Werbeplatzierung" }),
-    /* @__PURE__ */ jsx(
-      "ins",
-      {
-        className: "adsbygoogle",
-        style: { display: "block", width: "100%" },
-        "data-ad-client": "ca-pub-7078147966379221",
-        "data-ad-slot": slot,
-        "data-ad-format": format,
-        "data-full-width-responsive": responsive ? "true" : "false"
-      }
-    )
-  ] });
+function AdSense() {
+  return null;
 }
 
 function SourceFootnote() {
@@ -1424,61 +1406,63 @@ function RentenEintrittsCalculator() {
     setCopied(true);
     setTimeout(() => setCopied(false), 2e3);
   };
-  return /* @__PURE__ */ jsxs("div", { className: "my-8 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-md", children: [
-    /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100", children: [
+  return /* @__PURE__ */ jsxs("div", { id: "rechner-eintritt", className: "my-6 sm:my-8 bg-white p-4 sm:p-8 rounded-2xl border border-slate-200 shadow-md", children: [
+    /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-100", children: [
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
-          /* @__PURE__ */ jsx(Calendar, { className: "w-6 h-6 text-emerald-600" }),
-          /* @__PURE__ */ jsx("h3", { className: "text-xl font-bold text-slate-900", children: '„Wann kann ich in Rente?"-Rechner 2026' })
+          /* @__PURE__ */ jsx(Calendar, { className: "w-6 h-6 text-emerald-600 shrink-0" }),
+          /* @__PURE__ */ jsx("h3", { className: "text-lg sm:text-xl font-bold text-slate-900", children: '„Wann kann ich in Rente?"-Rechner 2026' })
         ] }),
-        /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-500 mt-1", children: "Ermittle dein gesetzliches Reguläres Eintrittsalter und Frühestmögliche Optionen." })
+        /* @__PURE__ */ jsx("p", { className: "text-xs sm:text-sm text-slate-500 mt-1", children: "Ermittle dein gesetzliches Reguläres Eintrittsalter und Frühestmögliche Optionen." })
       ] }),
       /* @__PURE__ */ jsxs(
         "button",
         {
           onClick: handleShare,
-          className: "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors",
+          className: "inline-flex items-center justify-center gap-2 h-11 px-4 rounded-xl text-xs font-bold bg-slate-100 text-slate-800 hover:bg-slate-200 active:scale-95 transition-all w-full sm:w-auto",
           children: [
-            copied ? /* @__PURE__ */ jsx(Check, { className: "w-3.5 h-3.5 text-emerald-600" }) : /* @__PURE__ */ jsx(Share2, { className: "w-3.5 h-3.5" }),
+            copied ? /* @__PURE__ */ jsx(Check, { className: "w-4 h-4 text-emerald-600" }) : /* @__PURE__ */ jsx(Share2, { className: "w-4 h-4" }),
             copied ? "Link kopiert!" : "Ergebnis teilen"
           ]
         }
       )
     ] }),
-    /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6 mb-8", children: [
+    /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-5 mb-6", children: [
       /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("label", { className: "block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2", children: "Dein Geburtsjahr" }),
+        /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2", children: "Dein Geburtsjahr" }),
         /* @__PURE__ */ jsx(
           "input",
           {
             type: "number",
-            value: geburtsjahr,
+            inputMode: "numeric",
+            value: geburtsjahr || "",
             onChange: (e) => setGeburtsjahr(Number(e.target.value)),
-            className: "w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 text-slate-900 font-semibold"
+            className: "w-full h-12 px-4 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 text-base sm:text-lg font-bold text-slate-900 shadow-sm"
           }
         ),
         /* @__PURE__ */ jsx("span", { className: "text-[11px] text-slate-400 mt-1 block", children: "Z. B. 1965 (Jahrgang für Regelaltersgrenze 67)" })
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("label", { className: "block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2", children: "Voraussichtliche Beitragsjahre (Wartezeit)" }),
+        /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2", children: "Voraussichtliche Beitragsjahre (Wartezeit)" }),
         /* @__PURE__ */ jsx(
           "input",
           {
             type: "number",
-            value: beitragsjahre,
+            inputMode: "numeric",
+            value: beitragsjahre || "",
             onChange: (e) => setBeitragsjahre(Number(e.target.value)),
-            className: "w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 text-slate-900 font-semibold"
+            className: "w-full h-12 px-4 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 text-base sm:text-lg font-bold text-slate-900 shadow-sm"
           }
         ),
         /* @__PURE__ */ jsx("span", { className: "text-[11px] text-slate-400 mt-1 block", children: "Inkl. Ausbildung, Kindererziehung & Arbeitslosigkeit" })
       ] })
     ] }),
-    /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-slate-900 text-white rounded-xl", children: [
-      /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-4", children: [
-        /* @__PURE__ */ jsx("div", { className: "p-3 bg-emerald-500/20 text-emerald-400 rounded-lg shrink-0", children: /* @__PURE__ */ jsx(CheckCircle2, { className: "w-6 h-6" }) }),
+    /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-5 p-5 sm:p-6 bg-slate-900 text-white rounded-xl shadow-inner", children: [
+      /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-3.5", children: [
+        /* @__PURE__ */ jsx("div", { className: "p-3 bg-emerald-500/20 text-emerald-400 rounded-xl shrink-0 mt-1", children: /* @__PURE__ */ jsx(CheckCircle2, { className: "w-6 h-6" }) }),
         /* @__PURE__ */ jsxs("div", { children: [
-          /* @__PURE__ */ jsx("span", { className: "text-xs uppercase tracking-wider text-slate-400 font-semibold", children: "Regulärer Renteneintritt" }),
-          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-extrabold text-white mt-1", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs uppercase tracking-wider text-slate-400 font-semibold block", children: "Regulärer Renteneintritt" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-2xl sm:text-3xl font-extrabold text-white mt-1", children: [
             "Alter ",
             Math.floor(regAge),
             " ",
@@ -1491,11 +1475,11 @@ function RentenEintrittsCalculator() {
           /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-300 mt-1", children: "Reguläre Regelaltersgrenze. Abschlagsfrei nach gesetzlicher Vorgabe." })
         ] })
       ] }),
-      /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-4 border-t md:border-t-0 md:border-l border-slate-800 pt-4 md:pt-0 md:pl-6", children: [
-        /* @__PURE__ */ jsx("div", { className: "p-3 bg-amber-500/20 text-amber-400 rounded-lg shrink-0", children: /* @__PURE__ */ jsx(Clock, { className: "w-6 h-6" }) }),
+      /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-3.5 border-t md:border-t-0 md:border-l border-slate-800 pt-4 md:pt-0 md:pl-6", children: [
+        /* @__PURE__ */ jsx("div", { className: "p-3 bg-amber-500/20 text-amber-400 rounded-xl shrink-0 mt-1", children: /* @__PURE__ */ jsx(Clock, { className: "w-6 h-6" }) }),
         /* @__PURE__ */ jsxs("div", { children: [
-          /* @__PURE__ */ jsx("span", { className: "text-xs uppercase tracking-wider text-slate-400 font-semibold", children: "Frühestmöglicher Eintritt" }),
-          /* @__PURE__ */ jsxs("div", { className: "text-3xl font-extrabold text-amber-400 mt-1", children: [
+          /* @__PURE__ */ jsx("span", { className: "text-xs uppercase tracking-wider text-slate-400 font-semibold block", children: "Frühestmöglicher Eintritt" }),
+          /* @__PURE__ */ jsxs("div", { className: "text-2xl sm:text-3xl font-extrabold text-amber-400 mt-1", children: [
             "Alter ",
             Math.floor(earAge),
             " ",
@@ -1586,14 +1570,14 @@ function RentenBerechnungCalculator() {
     setCopied(true);
     setTimeout(() => setCopied(false), 2e3);
   };
-  return /* @__PURE__ */ jsxs("div", { className: "my-8 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-md", children: [
-    /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100", children: [
+  return /* @__PURE__ */ jsxs("div", { id: "rechner-berechnung", className: "my-6 sm:my-8 bg-white p-4 sm:p-8 rounded-2xl border border-slate-200 shadow-md", children: [
+    /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-100", children: [
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
-          /* @__PURE__ */ jsx(Calculator, { className: "w-6 h-6 text-blue-700" }),
-          /* @__PURE__ */ jsx("h3", { className: "text-xl font-bold text-slate-900", children: "Gesetzlicher Rentenrechner 2026" })
+          /* @__PURE__ */ jsx(Calculator, { className: "w-6 h-6 text-blue-700 shrink-0" }),
+          /* @__PURE__ */ jsx("h3", { className: "text-lg sm:text-xl font-bold text-slate-900", children: "Gesetzlicher Rentenrechner 2026" })
         ] }),
-        /* @__PURE__ */ jsxs("p", { className: "text-xs text-slate-500 mt-1", children: [
+        /* @__PURE__ */ jsxs("p", { className: "text-xs sm:text-sm text-slate-500 mt-1", children: [
           "Formel nach § 64 SGB VI: ",
           /* @__PURE__ */ jsx("em", { children: "Rente = EP × ZF × RW × RAF" })
         ] })
@@ -1602,39 +1586,41 @@ function RentenBerechnungCalculator() {
         "button",
         {
           onClick: handleShare,
-          className: "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors",
+          className: "inline-flex items-center justify-center gap-2 h-11 px-4 rounded-xl text-xs font-bold bg-slate-100 text-slate-800 hover:bg-slate-200 active:scale-95 transition-all w-full sm:w-auto",
           children: [
-            copied ? /* @__PURE__ */ jsx(Check, { className: "w-3.5 h-3.5 text-emerald-600" }) : /* @__PURE__ */ jsx(Share2, { className: "w-3.5 h-3.5" }),
+            copied ? /* @__PURE__ */ jsx(Check, { className: "w-4 h-4 text-emerald-600" }) : /* @__PURE__ */ jsx(Share2, { className: "w-4 h-4" }),
             copied ? "Link kopiert!" : "Ergebnis teilen"
           ]
         }
       )
     ] }),
-    /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-6 mb-6", children: [
+    /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-5 mb-6", children: [
       /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("label", { className: "block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2", children: "Gesammelte Entgeltpunkte (EP)" }),
+        /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2", children: "Gesammelte Entgeltpunkte (EP)" }),
         /* @__PURE__ */ jsx(
           "input",
           {
             type: "number",
             step: "0.1",
-            value: entgeltpunkte,
+            inputMode: "decimal",
+            value: entgeltpunkte || "",
             onChange: (e) => setEntgeltpunkte(Number(e.target.value)),
-            className: "w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 focus:border-blue-600 text-slate-900 font-semibold"
+            className: "w-full h-12 px-4 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 focus:border-blue-600 text-base sm:text-lg font-bold text-slate-900 shadow-sm"
           }
         ),
         /* @__PURE__ */ jsx("span", { className: "text-[11px] text-slate-400 mt-1 block", children: "45 EP = Standard-Eckrentner" })
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("label", { className: "block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2", children: "Aktueller Rentenwert 2026 (€)" }),
+        /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2", children: "Aktueller Rentenwert 2026 (€)" }),
         /* @__PURE__ */ jsx(
           "input",
           {
             type: "number",
             step: "0.01",
-            value: rentenwert,
+            inputMode: "decimal",
+            value: rentenwert || "",
             onChange: (e) => setRentenwert(Number(e.target.value)),
-            className: "w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 focus:border-blue-600 text-slate-900 font-semibold"
+            className: "w-full h-12 px-4 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 focus:border-blue-600 text-base sm:text-lg font-bold text-slate-900 shadow-sm"
           }
         ),
         /* @__PURE__ */ jsxs("span", { className: "text-[11px] text-slate-400 mt-1 block", children: [
@@ -1644,13 +1630,13 @@ function RentenBerechnungCalculator() {
         ] })
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("label", { className: "block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-2", children: "Zugangsfaktor (Abschläge / Zuschläge)" }),
+        /* @__PURE__ */ jsx("label", { className: "block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2", children: "Zugangsfaktor (Abschläge / Zuschläge)" }),
         /* @__PURE__ */ jsxs(
           "select",
           {
             value: zugangsfaktor,
             onChange: (e) => setZugangsfaktor(Number(e.target.value)),
-            className: "w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 focus:border-blue-600 text-slate-900 font-semibold",
+            className: "w-full h-12 px-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 focus:border-blue-600 text-xs sm:text-sm font-semibold text-slate-900 shadow-sm bg-white",
             children: [
               /* @__PURE__ */ jsx("option", { value: 1, children: "1,00 (Regulärer Renteneintritt)" }),
               /* @__PURE__ */ jsx("option", { value: 0.856, children: "0,856 (Vorzeitiger Eintritt: 4 Jahre früher = -14,4 %)" }),
@@ -1662,10 +1648,10 @@ function RentenBerechnungCalculator() {
         /* @__PURE__ */ jsx("span", { className: "text-[11px] text-slate-400 mt-1 block", children: "0,3 % Abschlag pro Monat vorzeitig" })
       ] })
     ] }),
-    /* @__PURE__ */ jsxs("div", { className: "p-6 bg-slate-900 text-white rounded-xl grid grid-cols-1 md:grid-cols-3 gap-6 mb-4", children: [
+    /* @__PURE__ */ jsxs("div", { className: "p-5 sm:p-6 bg-slate-900 text-white rounded-xl grid grid-cols-1 sm:grid-cols-3 gap-5 mb-4 shadow-inner", children: [
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("span", { className: "text-xs uppercase tracking-wider text-slate-400 font-semibold block mb-1", children: "Brutto-Monatsrente" }),
-        /* @__PURE__ */ jsxs("div", { className: "text-3xl font-extrabold text-white", children: [
+        /* @__PURE__ */ jsxs("div", { className: "text-2xl sm:text-3xl font-extrabold text-white", children: [
           bruttoRente.toFixed(2).replace(".", ","),
           " €"
         ] }),
@@ -1673,7 +1659,7 @@ function RentenBerechnungCalculator() {
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("span", { className: "text-xs uppercase tracking-wider text-slate-400 font-semibold block mb-1", children: "Pauschale Abzüge (KV/PV ~12.4%)" }),
-        /* @__PURE__ */ jsxs("div", { className: "text-3xl font-extrabold text-amber-400", children: [
+        /* @__PURE__ */ jsxs("div", { className: "text-2xl sm:text-3xl font-extrabold text-amber-400", children: [
           "- ",
           abzuege.toFixed(2).replace(".", ","),
           " €"
@@ -1682,14 +1668,14 @@ function RentenBerechnungCalculator() {
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("span", { className: "text-xs uppercase tracking-wider text-slate-400 font-semibold block mb-1", children: "Geschätzte Rente nach KV/PV" }),
-        /* @__PURE__ */ jsxs("div", { className: "text-3xl font-extrabold text-emerald-400", children: [
+        /* @__PURE__ */ jsxs("div", { className: "text-2xl sm:text-3xl font-extrabold text-emerald-400", children: [
           nettoRenteEst.toFixed(2).replace(".", ","),
           " €"
         ] }),
         /* @__PURE__ */ jsx("span", { className: "text-xs text-slate-400 mt-1 block", children: "Vor individueller Einkommensteuer" })
       ] })
     ] }),
-    /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-2 text-xs text-slate-500 bg-slate-50 p-3 rounded-lg border border-slate-200/60", children: [
+    /* @__PURE__ */ jsxs("div", { className: "flex items-start gap-2 text-xs text-slate-500 bg-slate-50 p-3 rounded-lg border border-slate-200/60 leading-relaxed", children: [
       /* @__PURE__ */ jsx(Info, { className: "w-4 h-4 text-slate-400 shrink-0 mt-0.5" }),
       /* @__PURE__ */ jsxs("span", { children: [
         /* @__PURE__ */ jsx("strong", { children: "* Hinweis zu Steuern & Abzügen:" }),
@@ -2033,11 +2019,14 @@ function Altersvorsorge() {
 }
 
 function RentenrechnerPage() {
-  const [activeTab, setActiveTab] = useState("luecke");
   const faqs = [
     {
       question: "Sind die Rechner auf rentesicher.de kostenlos?",
       answer: "Ja, alle 3 interaktiven Rechner stehen vollständig kostenlos, ohne Registrierung und ohne Weitergabe persönlicher Daten zur freien Nutzung bereit."
+    },
+    {
+      question: "Werden meine eingegebenen Daten auf einem Server gespeichert?",
+      answer: "Nein. Alle Berechnungen erfolgen ausschließlich lokal und datenschutzkonform im Webbrowser des Nutzers."
     }
   ];
   const breadcrumbs = [
@@ -2046,62 +2035,58 @@ function RentenrechnerPage() {
   ];
   return /* @__PURE__ */ jsxs("div", { className: "max-w-4xl mx-auto px-4 sm:px-6 py-8 leading-relaxed", children: [
     /* @__PURE__ */ jsx(SchemaMarkup, { faqItems: faqs, breadcrumbs }),
-    /* @__PURE__ */ jsxs("div", { className: "mb-8 text-center sm:text-left", children: [
-      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Die 3 Rentenrechner 2026: Rentenlücke, Rente & Renteneintritt" }),
-      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Wähle das gewünschte Berechnungstool aus, um deine monatliche Versorgungslücke, deine gesetzliche Brutto- und Nettorente oder dein reguläres Eintrittsalter zu berechnen." })
+    /* @__PURE__ */ jsxs("div", { className: "mb-6 text-center sm:text-left", children: [
+      /* @__PURE__ */ jsx("h1", { className: "text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4", children: "Die 3 Rentenrechner 2026: Rentenlücke, Gesetzliche Rente & Rentenalter" }),
+      /* @__PURE__ */ jsx("p", { className: "text-slate-600 text-base leading-relaxed", children: "Kostenlose Modellrechnungen für deine persönliche Vorsorgeplanung. Springe direkt zum gewünschten Rechner:" })
     ] }),
-    /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row items-center gap-2 p-1.5 bg-slate-200/80 rounded-2xl mb-8", children: [
+    /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 sm:grid-cols-3 gap-3 mb-10", children: [
       /* @__PURE__ */ jsxs(
-        "button",
+        "a",
         {
-          onClick: () => setActiveTab("luecke"),
-          className: `w-full sm:w-1/3 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all ${activeTab === "luecke" ? "bg-white text-slate-900 shadow-sm" : "text-slate-600 hover:text-slate-900"}`,
+          href: "#rechner-luecke",
+          className: "p-3.5 bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md flex items-center justify-between font-bold text-xs text-slate-800 hover:text-amber-700 transition-all active:scale-95",
           children: [
-            /* @__PURE__ */ jsx(TrendingUp, { className: "w-4 h-4 text-amber-600" }),
-            /* @__PURE__ */ jsx("span", { children: "1. Rentenlücke" })
+            /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
+              /* @__PURE__ */ jsx(TrendingUp, { className: "w-4 h-4 text-amber-600 shrink-0" }),
+              /* @__PURE__ */ jsx("span", { children: "1. Rentenlücke" })
+            ] }),
+            /* @__PURE__ */ jsx(ArrowDown, { className: "w-4 h-4 text-slate-400" })
           ]
         }
       ),
       /* @__PURE__ */ jsxs(
-        "button",
+        "a",
         {
-          onClick: () => setActiveTab("berechnung"),
-          className: `w-full sm:w-1/3 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all ${activeTab === "berechnung" ? "bg-white text-slate-900 shadow-sm" : "text-slate-600 hover:text-slate-900"}`,
+          href: "#rechner-berechnung",
+          className: "p-3.5 bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md flex items-center justify-between font-bold text-xs text-slate-800 hover:text-blue-900 transition-all active:scale-95",
           children: [
-            /* @__PURE__ */ jsx(Calculator, { className: "w-4 h-4 text-blue-700" }),
-            /* @__PURE__ */ jsx("span", { children: "2. Gesetzliche Rente" })
+            /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
+              /* @__PURE__ */ jsx(Calculator, { className: "w-4 h-4 text-blue-700 shrink-0" }),
+              /* @__PURE__ */ jsx("span", { children: "2. Gesetzliche Rente" })
+            ] }),
+            /* @__PURE__ */ jsx(ArrowDown, { className: "w-4 h-4 text-slate-400" })
           ]
         }
       ),
       /* @__PURE__ */ jsxs(
-        "button",
+        "a",
         {
-          onClick: () => setActiveTab("eintritt"),
-          className: `w-full sm:w-1/3 py-3 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all ${activeTab === "eintritt" ? "bg-white text-slate-900 shadow-sm" : "text-slate-600 hover:text-slate-900"}`,
+          href: "#rechner-eintritt",
+          className: "p-3.5 bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md flex items-center justify-between font-bold text-xs text-slate-800 hover:text-emerald-700 transition-all active:scale-95",
           children: [
-            /* @__PURE__ */ jsx(Calendar, { className: "w-4 h-4 text-emerald-600" }),
-            /* @__PURE__ */ jsx("span", { children: "3. Rentenalter" })
+            /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
+              /* @__PURE__ */ jsx(Calendar, { className: "w-4 h-4 text-emerald-600 shrink-0" }),
+              /* @__PURE__ */ jsx("span", { children: "3. Rentenalter" })
+            ] }),
+            /* @__PURE__ */ jsx(ArrowDown, { className: "w-4 h-4 text-slate-400" })
           ]
         }
       )
     ] }),
-    activeTab === "luecke" && /* @__PURE__ */ jsx(RentenLueckeCalculator, {}),
-    activeTab === "berechnung" && /* @__PURE__ */ jsx(RentenBerechnungCalculator, {}),
-    activeTab === "eintritt" && /* @__PURE__ */ jsx(RentenEintrittsCalculator, {}),
-    /* @__PURE__ */ jsx(AdSense, {}),
-    /* @__PURE__ */ jsxs("div", { className: "my-12 grid grid-cols-1 md:grid-cols-3 gap-6", children: [
-      /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
-        /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 mb-1", children: "Rentenlücken-Rechner" }),
-        /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600", children: "Eingabe: Einkommen & Rente → Ausgabe: Monatliche Lücke & Kapitalbedarf." })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
-        /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 mb-1", children: "Gesetzlicher Rentenrechner" }),
-        /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600", children: "Eingabe: Entgeltpunkte & Rentenwert (42,52 €) → Ausgabe: Brutto- & Nettorente." })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { className: "p-5 bg-white rounded-xl border border-slate-200 shadow-sm", children: [
-        /* @__PURE__ */ jsx("h3", { className: "font-bold text-slate-900 mb-1", children: "Renteneintritts-Rechner" }),
-        /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600", children: "Eingabe: Geburtsjahr & Beitragsjahre → Ausgabe: Regulärer & frühestmöglicher Eintritt." })
-      ] })
+    /* @__PURE__ */ jsxs("div", { className: "space-y-12", children: [
+      /* @__PURE__ */ jsx("section", { children: /* @__PURE__ */ jsx(RentenLueckeCalculator, {}) }),
+      /* @__PURE__ */ jsx("section", { children: /* @__PURE__ */ jsx(RentenBerechnungCalculator, {}) }),
+      /* @__PURE__ */ jsx("section", { children: /* @__PURE__ */ jsx(RentenEintrittsCalculator, {}) })
     ] }),
     /* @__PURE__ */ jsx(SourceFootnote, {})
   ] });
