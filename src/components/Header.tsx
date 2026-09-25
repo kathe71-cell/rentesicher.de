@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, Calculator } from 'lucide-react';
+import { Menu, X, ChevronDown, Calculator, Search } from 'lucide-react';
 import { CURRENT_VALUES } from '../data/current-values';
+import SearchModal from './SearchModal';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const location = useLocation();
 
   const isActive = (path: string) => location.pathname === path;
@@ -108,50 +110,60 @@ export default function Header() {
               </div>
             )}
           </div>
+
+          <button
+            onClick={() => setSearchOpen(true)}
+            className="px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors flex items-center gap-1.5 border border-slate-700/60 ml-1"
+            title="Suche öffnen (⌘K)"
+          >
+            <Search className="w-4 h-4 text-amber-400" />
+            <span className="text-xs bg-slate-800 border border-slate-700 text-slate-300 px-1.5 py-0.5 rounded font-mono">⌘K</span>
+          </button>
         </nav>
 
-        {/* Mobile menu toggle */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden p-2 text-slate-300 hover:text-white rounded-lg focus:outline-none"
-          aria-label="Menü öffnen"
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        {/* Mobile menu toggle & Search */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <button
+            onClick={() => setSearchOpen(true)}
+            className="p-2 text-amber-400 hover:text-amber-300 rounded-lg focus:outline-none"
+            aria-label="Suche öffnen"
+          >
+            <Search className="w-5 h-5" />
+          </button>
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="p-2 text-slate-300 hover:text-white rounded-lg focus:outline-none"
+            aria-label="Menü öffnen"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="lg:hidden bg-slate-900 border-t border-slate-800 px-4 py-6 max-h-[85vh] overflow-y-auto">
           <div className="flex flex-col gap-2 font-medium">
+            <button
+              onClick={() => { setMobileMenuOpen(false); setSearchOpen(true); }}
+              className="px-3 py-2 rounded-lg bg-slate-800 text-amber-400 font-semibold flex items-center justify-between"
+            >
+              <span className="flex items-center gap-2"><Search className="w-4 h-4" /> Thema oder Rechner suchen</span>
+              <span className="text-xs bg-slate-700 text-slate-300 px-1.5 py-0.5 rounded font-mono">⌘K</span>
+            </button>
             <Link to="/" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800">Startseite</Link>
             <Link to="/rentenkommission" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800">Rentenkommission</Link>
             <Link to="/rentenrechner" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-lg bg-amber-500 text-slate-950 font-bold flex items-center gap-2">
-              <Calculator className="w-4 h-4" /> Rechner-Hub (Alle 3 Rechner)
+              <Calculator className="w-4 h-4" />
+              <span>Rechner-Hub</span>
             </Link>
-            <Link to="/rentenluecke" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800">Rentenlücken-Rechner</Link>
-            <Link to="/rentenberechnung" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800">Gesetzlicher Rentenrechner</Link>
-            <Link to="/rentenalter" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800">Renteneintritts-Rechner</Link>
-
-            <div className="text-[11px] uppercase tracking-wider text-amber-400 font-bold pt-3 pb-1">Vorsorge & Vergleiche</div>
-            <Link to="/private-rente" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Private Rentenversicherung</Link>
-            <Link to="/riester-rente" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Riester-Rente Förderung</Link>
-            <Link to="/betriebliche-altersvorsorge" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Betriebliche Altersvorsorge (bAV)</Link>
-            <Link to="/etf-rente" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">ETF-Sparplan für Rente</Link>
-            <Link to="/altersvorsorge" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Altersvorsorge Übersicht</Link>
-
-            <div className="text-[11px] uppercase tracking-wider text-amber-400 font-bold pt-3 pb-1">Rentenwissen & Begriffe</div>
-            <Link to="/rentenanpassung" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Rentenanpassung</Link>
-            <Link to="/rente-mit-63" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Rente mit 63</Link>
-            <Link to="/grundrente" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Grundrente</Link>
-            <Link to="/witwenrente" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Witwenrente</Link>
-            <Link to="/erwerbsminderungsrente" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Erwerbsminderungsrente</Link>
-            <Link to="/rentenpunkte" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Entgeltpunkte</Link>
-            <Link to="/rentenbescheid" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Rentenbescheid</Link>
-            <Link to="/rentensteuer" onClick={() => setMobileMenuOpen(false)} className="px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg">Rentenbesteuerung</Link>
+            <Link to="/rentenluecke" onClick={() => setMobileMenuOpen(false)} className="px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800">Rentenlücke</Link>
           </div>
         </div>
       )}
+
+      {/* Search Modal */}
+      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   );
 }

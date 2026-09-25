@@ -1,8 +1,8 @@
-import { jsxs, jsx } from 'react/jsx-runtime';
-import React, { useState, useEffect, useRef } from 'react';
+import { jsx, jsxs } from 'react/jsx-runtime';
+import React, { useState, useRef, useEffect } from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { useLocation, Link, Routes, Route, MemoryRouter } from 'react-router-dom';
-import { Calculator, ChevronDown, X, Menu, ChevronUp, Check, Share2, AlertTriangle, TrendingUp, Info, ShieldCheck, BookOpen, ExternalLink, ArrowRight, HelpCircle, ShieldAlert, AlertCircle, CheckCircle2, XCircle, Calendar, Clock, Heart, FileText, Activity, ArrowDown } from 'lucide-react';
+import { useNavigate, useLocation, Link, Routes, Route, MemoryRouter } from 'react-router-dom';
+import { Search, X, ChevronRight, BookOpen, Calculator, ChevronDown, Menu, ChevronUp, Check, Share2, AlertTriangle, TrendingUp, Info, ShieldCheck, ExternalLink, ArrowRight, HelpCircle, ShieldAlert, AlertCircle, CheckCircle2, XCircle, Calendar, Clock, Heart, FileText, Activity, ArrowDown } from 'lucide-react';
 import { Analytics } from '@vercel/analytics/react';
 
 const CURRENT_VALUES = {
@@ -19,9 +19,264 @@ const CURRENT_VALUES = {
   lastCheckedText: "Zuletzt fachlich geprüft: September 2026"
 };
 
+const SEARCH_ITEMS = [
+  {
+    id: "rentenrechner",
+    title: "Gesamter Rentenrechner Hub",
+    category: "Rechner & Tools",
+    description: "Berechne deine monatliche Brutto- und Nettorente inkl. Abzügen und Steuer.",
+    path: "/rentenrechner",
+    tags: ["rechner", "berechnung", "brutto", "netto", "formel", "entgeltpunkte"]
+  },
+  {
+    id: "rentenluecke",
+    title: "Rentenlücken-Rechner",
+    category: "Rechner & Tools",
+    description: "Ermittle deine Versorgungslücke im Alter unter Berücksichtigung von Inflation.",
+    path: "/rentenluecke",
+    tags: ["rentenlücke", "versorgungslücke", "rechner", "inflation", "kaufkraft"]
+  },
+  {
+    id: "rentenberechnung",
+    title: "Gesetzliche Rentenberechnung",
+    category: "Gesetzliche Rente & Begrifflichkeiten",
+    description: "Erklärung der offiziellen Rentenformel: Entgeltpunkte x Zugangsfaktor x Rentenwert x Rentenartfaktor.",
+    path: "/rentenberechnung",
+    tags: ["formel", "rentenformel", "entgeltpunkte", "zugangsfaktor", "rentenwert"]
+  },
+  {
+    id: "rentenpunkte",
+    title: "Rentenpunkte & Entgeltpunkte",
+    category: "Gesetzliche Rente & Begrifflichkeiten",
+    description: "Wie Entgeltpunkte gesammelt werden, wie viel 1 Punkt wert ist und wie Durchschnittseinkommen berechnet wird.",
+    path: "/rentenpunkte",
+    tags: ["entgeltpunkte", "rentenpunkte", "durchschnittseinkommen", "bewertung"]
+  },
+  {
+    id: "rentenalter",
+    title: "Rentenalter & Eintrittszeitpunkt",
+    category: "Gesetzliche Rente & Begrifflichkeiten",
+    description: "Regelaltersgrenze, Rente mit 63/65/67 und Abschläge bei vorzeitigem Renteneintritt.",
+    path: "/rentenalter",
+    tags: ["rentenalter", "altersgrenze", "rente mit 63", "rente mit 67", "abschläge"]
+  },
+  {
+    id: "rente-mit-63",
+    title: "Rente mit 63 / Altersrente für langjährig Versicherte",
+    category: "Gesetzliche Rente & Begrifflichkeiten",
+    description: "Voraussetzungen für den vorzeitigen Ruhestand nach 35 oder 45 Beitragsjahren.",
+    path: "/rente-mit-63",
+    tags: ["rente mit 63", "45 beitragsjahre", "35 jahre", "abschlagfrei", "vorruhestand"]
+  },
+  {
+    id: "rentenanpassung",
+    title: "Rentenanpassung & Historie",
+    category: "Gesetzliche Rente & Begrifflichkeiten",
+    description: "Aktuelle Rentenerhöhungen, Entwicklung des Rentenwerts in Ost und West.",
+    path: "/rentenanpassung",
+    tags: ["rentenerhöhung", "rentenanpassung", "rentenwert", "inflation", "prozent"]
+  },
+  {
+    id: "rentensteuer",
+    title: "Rentenbesteuerung & Besteuerungsanteil",
+    category: "Gesetzliche Rente & Begrifflichkeiten",
+    description: "Wie Renten versteuert werden, Grundfreibetrag, Rentenfreibetrag und Steuererklärung im Alter.",
+    path: "/rentensteuer",
+    tags: ["steuer", "besteuerung", "rentenfreibetrag", "finanzamt", "steuererklärung"]
+  },
+  {
+    id: "rentenbescheid",
+    title: "Rentenbescheid prüfen & verstehen",
+    category: "Gesetzliche Rente & Begrifflichkeiten",
+    description: "Aufbau der jährlichen Renteninformation, Fehlerquellen im Versicherungsverlauf.",
+    path: "/rentenbescheid",
+    tags: ["rentenbescheid", "renteninformation", "versicherungsverlauf", "kontenklärung"]
+  },
+  {
+    id: "grundrente",
+    title: "Grundrente & Zuschlag",
+    category: "Gesetzliche Rente & Begrifflichkeiten",
+    description: "Zuschlag für langjährige Versicherung bei geringem Einkommen ohne Antragstellung.",
+    path: "/grundrente",
+    tags: ["grundrente", "zuschlag", "mindestrente", "einkommensprüfung", "33 jahre"]
+  },
+  {
+    id: "erwerbsminderungsrente",
+    title: "Erwerbsminderungsrente (EM-Rente)",
+    category: "Gesetzliche Rente & Begrifflichkeiten",
+    description: "Voraussetzungen bei voller oder teilweiser Erwerbsminderung und medizinischer Begutachtung.",
+    path: "/erwerbsminderungsrente",
+    tags: ["erwerbsminderung", "em-rente", "krankheit", "berufsunfähigkeit", "zurechnungszeit"]
+  },
+  {
+    id: "witwenrente",
+    title: "Witwenrente & Hinterbliebenenversorgung",
+    category: "Gesetzliche Rente & Begrifflichkeiten",
+    description: "Kleine und große Witwenrente, Sterbevierteljahr und Einkommensanrechnung.",
+    path: "/witwenrente",
+    tags: ["witwenrente", "hinterbliebene", "sterbevierteljahr", "waisenrente", "ehepartner"]
+  },
+  {
+    id: "altersvorsorge",
+    title: "Altersvorsorge Übersicht (Drei Säulen)",
+    category: "Vorsorge & Säulen",
+    description: "Systematischer Vergleich der 3 Säulen: Gesetzlich, betrieblich und privat.",
+    path: "/altersvorsorge",
+    tags: ["drei säulen", "vorsorge", "übersicht", "sparen", "vergleich"]
+  },
+  {
+    id: "private-rente",
+    title: "Private Rentenversicherung",
+    category: "Vorsorge & Säulen",
+    description: "Klassische und fondsgebundene Rentenversicherung, Ertragsanteilbesteuerung ab 62 Jahre.",
+    path: "/private-rente",
+    tags: ["private rente", "ertragsanteil", "fondsgebunden", "lebenslange rente"]
+  },
+  {
+    id: "riester-rente",
+    title: "Riester-Rente Förderung & Zulagen",
+    category: "Vorsorge & Säulen",
+    description: "Staatliche Zulagen, Kinderzulagen und Sonderausgabenabzug beim Riester-Sparen.",
+    path: "/riester-rente",
+    tags: ["riester", "zulagen", "kinderzulage", "förderung", "staatlich"]
+  },
+  {
+    id: "betriebliche-altersvorsorge",
+    title: "Betriebliche Altersvorsorge (bAV)",
+    category: "Vorsorge & Säulen",
+    description: "Entgeltumwandlung, Arbeitgeberzuschuss (15%) und Direktversicherung im Betrieb.",
+    path: "/betriebliche-altersvorsorge",
+    tags: ["bav", "betrieblich", "entgeltumwandlung", "arbeitgeberzuschuss", "direktversicherung"]
+  },
+  {
+    id: "etf-rente",
+    title: "ETF-Sparplan für die Rente",
+    category: "Vorsorge & Säulen",
+    description: "Langfristiger Vermögensaufbau mit MSCI World, Sparraten, Rendite und Entnahmestrategien.",
+    path: "/etf-rente",
+    tags: ["etf", "msci world", "aktien", "sparplan", "entnahmeplan", "zinseszins"]
+  },
+  {
+    id: "rentenkommission",
+    title: "Rentenkommission & Rentenpaket II",
+    category: "Ratgeber & Reformen",
+    description: "Aktuelle Gesetzesreformen, Haltelinien (48%), Generationenkapital und Zukunftsfähigkeit.",
+    path: "/rentenkommission",
+    tags: ["rentenkommission", "rentenpaket", "haltelinie", "generationenkapital", "politik", "reform"]
+  }
+];
+function SearchModal({ isOpen, onClose }) {
+  const [query, setQuery] = useState("");
+  const inputRef = useRef(null);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => inputRef.current?.focus(), 50);
+    } else {
+      setQuery("");
+    }
+  }, [isOpen]);
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        if (isOpen) onClose();
+      }
+      if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+  if (!isOpen) return null;
+  const filteredItems = query.trim() === "" ? SEARCH_ITEMS.slice(0, 6) : SEARCH_ITEMS.filter((item) => {
+    const q = query.toLowerCase();
+    return item.title.toLowerCase().includes(q) || item.description.toLowerCase().includes(q) || item.category.toLowerCase().includes(q) || item.tags.some((tag) => tag.toLowerCase().includes(q));
+  });
+  const handleSelect = (path) => {
+    navigate(path);
+    onClose();
+  };
+  return /* @__PURE__ */ jsx("div", { className: "fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-slate-950/70 backdrop-blur-sm transition-opacity", children: /* @__PURE__ */ jsxs(
+    "div",
+    {
+      className: "bg-white text-slate-900 w-full max-w-2xl rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[80vh] animate-in fade-in zoom-in-95 duration-150",
+      onClick: (e) => e.stopPropagation(),
+      children: [
+        /* @__PURE__ */ jsxs("div", { className: "p-4 border-b border-slate-200 flex items-center gap-3 bg-slate-50", children: [
+          /* @__PURE__ */ jsx(Search, { className: "w-5 h-5 text-amber-600 shrink-0" }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              ref: inputRef,
+              type: "text",
+              placeholder: "Nach Rechner, Fachbegriff (z.B. Entgeltpunkte, EM-Rente, Riester)...",
+              value: query,
+              onChange: (e) => setQuery(e.target.value),
+              className: "w-full bg-transparent text-slate-900 placeholder-slate-400 focus:outline-none text-base font-medium"
+            }
+          ),
+          query && /* @__PURE__ */ jsx(
+            "button",
+            {
+              onClick: () => setQuery(""),
+              className: "text-xs bg-slate-200 hover:bg-slate-300 text-slate-700 px-2 py-1 rounded font-semibold transition-colors",
+              children: "Löschen"
+            }
+          ),
+          /* @__PURE__ */ jsx(
+            "button",
+            {
+              onClick: onClose,
+              className: "p-1 rounded-lg hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition-colors",
+              "aria-label": "Schließen",
+              children: /* @__PURE__ */ jsx(X, { className: "w-5 h-5" })
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsx("div", { className: "p-4 overflow-y-auto divide-y divide-slate-100 flex-1", children: filteredItems.length > 0 ? filteredItems.map((item) => /* @__PURE__ */ jsxs(
+          "div",
+          {
+            onClick: () => handleSelect(item.path),
+            className: "py-3 px-3 hover:bg-amber-50/70 rounded-xl cursor-pointer transition-colors group flex items-center justify-between gap-4",
+            children: [
+              /* @__PURE__ */ jsxs("div", { className: "space-y-1", children: [
+                /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
+                  /* @__PURE__ */ jsx("span", { className: "text-[11px] font-bold px-2 py-0.5 bg-slate-100 text-slate-700 rounded-md uppercase tracking-wider group-hover:bg-amber-200 group-hover:text-amber-900 transition-colors", children: item.category }),
+                  /* @__PURE__ */ jsx("h4", { className: "text-sm font-bold text-slate-900 group-hover:text-amber-700 transition-colors", children: item.title })
+                ] }),
+                /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-600 line-clamp-2", children: item.description })
+              ] }),
+              /* @__PURE__ */ jsx(ChevronRight, { className: "w-4 h-4 text-slate-400 group-hover:text-amber-600 group-hover:translate-x-0.5 transition-all shrink-0" })
+            ]
+          },
+          item.id
+        )) : /* @__PURE__ */ jsxs("div", { className: "py-12 text-center text-slate-500", children: [
+          /* @__PURE__ */ jsx(BookOpen, { className: "w-8 h-8 text-slate-300 mx-auto mb-2" }),
+          /* @__PURE__ */ jsxs("p", { className: "text-sm font-semibold", children: [
+            'Keine Rententhemen oder Rechner zu "',
+            query,
+            '" gefunden.'
+          ] }),
+          /* @__PURE__ */ jsx("p", { className: "text-xs text-slate-400 mt-1", children: "Versuche Begriffe wie „Entgeltpunkte“, „Rentenlücke“, „Riester“ oder „bAV“." })
+        ] }) }),
+        /* @__PURE__ */ jsxs("div", { className: "px-4 py-3 bg-slate-900 text-slate-400 text-xs flex justify-between items-center border-t border-slate-800", children: [
+          /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
+            /* @__PURE__ */ jsx("span", { className: "bg-slate-800 text-amber-400 border border-slate-700 px-1.5 py-0.5 rounded text-[10px] font-mono", children: "⌘K" }),
+            /* @__PURE__ */ jsx("span", { children: "Öffnen / Schließen" })
+          ] }),
+          /* @__PURE__ */ jsx("div", { className: "text-[11px]", children: "* Echtzeit-Index • Keine Tracking-Daten" })
+        ] })
+      ]
+    }
+  ) });
+}
+
 function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
   return /* @__PURE__ */ jsxs("header", { className: "bg-slate-900 text-white sticky top-0 z-50 shadow-md border-b border-slate-800", children: [
@@ -117,44 +372,68 @@ function Header() {
               ]
             }
           )
-        ] })
+        ] }),
+        /* @__PURE__ */ jsxs(
+          "button",
+          {
+            onClick: () => setSearchOpen(true),
+            className: "px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors flex items-center gap-1.5 border border-slate-700/60 ml-1",
+            title: "Suche öffnen (⌘K)",
+            children: [
+              /* @__PURE__ */ jsx(Search, { className: "w-4 h-4 text-amber-400" }),
+              /* @__PURE__ */ jsx("span", { className: "text-xs bg-slate-800 border border-slate-700 text-slate-300 px-1.5 py-0.5 rounded font-mono", children: "⌘K" })
+            ]
+          }
+        )
       ] }),
-      /* @__PURE__ */ jsx(
-        "button",
-        {
-          onClick: () => setMobileMenuOpen(!mobileMenuOpen),
-          className: "lg:hidden p-2 text-slate-300 hover:text-white rounded-lg focus:outline-none",
-          "aria-label": "Menü öffnen",
-          children: mobileMenuOpen ? /* @__PURE__ */ jsx(X, { className: "w-6 h-6" }) : /* @__PURE__ */ jsx(Menu, { className: "w-6 h-6" })
-        }
-      )
+      /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2 lg:hidden", children: [
+        /* @__PURE__ */ jsx(
+          "button",
+          {
+            onClick: () => setSearchOpen(true),
+            className: "p-2 text-amber-400 hover:text-amber-300 rounded-lg focus:outline-none",
+            "aria-label": "Suche öffnen",
+            children: /* @__PURE__ */ jsx(Search, { className: "w-5 h-5" })
+          }
+        ),
+        /* @__PURE__ */ jsx(
+          "button",
+          {
+            onClick: () => setMobileMenuOpen(!mobileMenuOpen),
+            className: "p-2 text-slate-300 hover:text-white rounded-lg focus:outline-none",
+            "aria-label": "Menü öffnen",
+            children: mobileMenuOpen ? /* @__PURE__ */ jsx(X, { className: "w-6 h-6" }) : /* @__PURE__ */ jsx(Menu, { className: "w-6 h-6" })
+          }
+        )
+      ] })
     ] }),
     mobileMenuOpen && /* @__PURE__ */ jsx("div", { className: "lg:hidden bg-slate-900 border-t border-slate-800 px-4 py-6 max-h-[85vh] overflow-y-auto", children: /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-2 font-medium", children: [
+      /* @__PURE__ */ jsxs(
+        "button",
+        {
+          onClick: () => {
+            setMobileMenuOpen(false);
+            setSearchOpen(true);
+          },
+          className: "px-3 py-2 rounded-lg bg-slate-800 text-amber-400 font-semibold flex items-center justify-between",
+          children: [
+            /* @__PURE__ */ jsxs("span", { className: "flex items-center gap-2", children: [
+              /* @__PURE__ */ jsx(Search, { className: "w-4 h-4" }),
+              " Thema oder Rechner suchen"
+            ] }),
+            /* @__PURE__ */ jsx("span", { className: "text-xs bg-slate-700 text-slate-300 px-1.5 py-0.5 rounded font-mono", children: "⌘K" })
+          ]
+        }
+      ),
       /* @__PURE__ */ jsx(Link, { to: "/", onClick: () => setMobileMenuOpen(false), className: "px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800", children: "Startseite" }),
       /* @__PURE__ */ jsx(Link, { to: "/rentenkommission", onClick: () => setMobileMenuOpen(false), className: "px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800", children: "Rentenkommission" }),
       /* @__PURE__ */ jsxs(Link, { to: "/rentenrechner", onClick: () => setMobileMenuOpen(false), className: "px-3 py-2 rounded-lg bg-amber-500 text-slate-950 font-bold flex items-center gap-2", children: [
         /* @__PURE__ */ jsx(Calculator, { className: "w-4 h-4" }),
-        " Rechner-Hub (Alle 3 Rechner)"
+        /* @__PURE__ */ jsx("span", { children: "Rechner-Hub" })
       ] }),
-      /* @__PURE__ */ jsx(Link, { to: "/rentenluecke", onClick: () => setMobileMenuOpen(false), className: "px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800", children: "Rentenlücken-Rechner" }),
-      /* @__PURE__ */ jsx(Link, { to: "/rentenberechnung", onClick: () => setMobileMenuOpen(false), className: "px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800", children: "Gesetzlicher Rentenrechner" }),
-      /* @__PURE__ */ jsx(Link, { to: "/rentenalter", onClick: () => setMobileMenuOpen(false), className: "px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800", children: "Renteneintritts-Rechner" }),
-      /* @__PURE__ */ jsx("div", { className: "text-[11px] uppercase tracking-wider text-amber-400 font-bold pt-3 pb-1", children: "Vorsorge & Vergleiche" }),
-      /* @__PURE__ */ jsx(Link, { to: "/private-rente", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Private Rentenversicherung" }),
-      /* @__PURE__ */ jsx(Link, { to: "/riester-rente", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Riester-Rente Förderung" }),
-      /* @__PURE__ */ jsx(Link, { to: "/betriebliche-altersvorsorge", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Betriebliche Altersvorsorge (bAV)" }),
-      /* @__PURE__ */ jsx(Link, { to: "/etf-rente", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "ETF-Sparplan für Rente" }),
-      /* @__PURE__ */ jsx(Link, { to: "/altersvorsorge", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Altersvorsorge Übersicht" }),
-      /* @__PURE__ */ jsx("div", { className: "text-[11px] uppercase tracking-wider text-amber-400 font-bold pt-3 pb-1", children: "Rentenwissen & Begriffe" }),
-      /* @__PURE__ */ jsx(Link, { to: "/rentenanpassung", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Rentenanpassung" }),
-      /* @__PURE__ */ jsx(Link, { to: "/rente-mit-63", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Rente mit 63" }),
-      /* @__PURE__ */ jsx(Link, { to: "/grundrente", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Grundrente" }),
-      /* @__PURE__ */ jsx(Link, { to: "/witwenrente", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Witwenrente" }),
-      /* @__PURE__ */ jsx(Link, { to: "/erwerbsminderungsrente", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Erwerbsminderungsrente" }),
-      /* @__PURE__ */ jsx(Link, { to: "/rentenpunkte", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Entgeltpunkte" }),
-      /* @__PURE__ */ jsx(Link, { to: "/rentenbescheid", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Rentenbescheid" }),
-      /* @__PURE__ */ jsx(Link, { to: "/rentensteuer", onClick: () => setMobileMenuOpen(false), className: "px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-800 rounded-lg", children: "Rentenbesteuerung" })
-    ] }) })
+      /* @__PURE__ */ jsx(Link, { to: "/rentenluecke", onClick: () => setMobileMenuOpen(false), className: "px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800", children: "Rentenlücke" })
+    ] }) }),
+    /* @__PURE__ */ jsx(SearchModal, { isOpen: searchOpen, onClose: () => setSearchOpen(false) })
   ] });
 }
 
@@ -2831,10 +3110,6 @@ function Impressum() {
           "Telefon: ",
           /* @__PURE__ */ jsx("a", { href: "tel:+491786652623", className: "text-blue-700 font-semibold underline", children: "+49 178 6652623" })
         ] })
-      ] }),
-      /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-bold text-slate-900 text-base mb-2", children: "Umsatzsteuer-ID" }),
-        /* @__PURE__ */ jsx("p", { children: "Kleinunternehmer gemäß § 19 UStG. Es wird keine Umsatzsteuer berechnet." })
       ] }),
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("h2", { className: "font-bold text-slate-900 text-base mb-2", children: "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV" }),

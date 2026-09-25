@@ -36,13 +36,6 @@ export default function Impressum() {
         </div>
 
         <div>
-          <h2 className="font-bold text-slate-900 text-base mb-2">Umsatzsteuer-ID</h2>
-          <p>
-            Kleinunternehmer gemäß § 19 UStG. Es wird keine Umsatzsteuer berechnet.
-          </p>
-        </div>
-
-        <div>
           <h2 className="font-bold text-slate-900 text-base mb-2">Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
           <p>
             Jens Kathe<br />
