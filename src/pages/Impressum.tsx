@@ -29,10 +29,6 @@ export default function Impressum() {
 
         <div>
           <h2 className="font-bold text-slate-900 text-base mb-2">Kontakt</h2>
-          <p>
-            E-Mail: <a href="mailto:jens@kathe.org" className="text-blue-700 font-semibold underline">jens@kathe.org</a><br />
-            Telefon: <a href="tel:+491786652623" className="text-blue-700 font-semibold underline">+49 178 6652623</a>
-          </p>
         </div>
 
         <div>
