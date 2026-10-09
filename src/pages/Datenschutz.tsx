@@ -33,9 +33,7 @@ export default function Datenschutz() {
         </div>
 
         <div>
-          <h2 className="font-bold text-slate-900 text-base mb-2">3. Google AdSense & Cookies</h2>
           <p>
-            Diese Website verwendet Google AdSense, einen Dienst zum Einbinden von Werbeanzeigen der Google Ireland Limited („Google“). AdSense verwendet Cookies und Web Beacons, um die Ausspielung relevanter Anzeigen zu ermöglichen. Weitere Informationen zur Datenverarbeitung durch Google findest du in den Datenschutzhinweisen von Google.
           </p>
         </div>
 

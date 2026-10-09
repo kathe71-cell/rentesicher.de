@@ -3101,16 +3101,7 @@ function Impressum() {
           "Deutschland"
         ] })
       ] }),
-      /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-bold text-slate-900 text-base mb-2", children: "Kontakt" }),
-        /* @__PURE__ */ jsxs("p", { children: [
-          "E-Mail: ",
-          /* @__PURE__ */ jsx("a", { href: "mailto:jens@kathe.org", className: "text-blue-700 font-semibold underline", children: "jens@kathe.org" }),
-          /* @__PURE__ */ jsx("br", {}),
-          "Telefon: ",
-          /* @__PURE__ */ jsx("a", { href: "tel:+491786652623", className: "text-blue-700 font-semibold underline", children: "+49 178 6652623" })
-        ] })
-      ] }),
+      /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("h2", { className: "font-bold text-slate-900 text-base mb-2", children: "Kontakt" }) }),
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("h2", { className: "font-bold text-slate-900 text-base mb-2", children: "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV" }),
         /* @__PURE__ */ jsxs("p", { children: [
@@ -3155,10 +3146,7 @@ function Datenschutz() {
         /* @__PURE__ */ jsx("h2", { className: "font-bold text-slate-900 text-base mb-2", children: "2. Vercel Web Analytics (Cookielose Webanalyse)" }),
         /* @__PURE__ */ jsx("p", { children: "Diese Website nutzt Vercel Web Analytics, einen Analysedienst der Vercel Inc. Der Dienst arbeitet vollständig cookielos und ohne Speicherung von IP-Adressen oder personenbezogenen Daten. Die statistische Auswertung erfolgt anonymisiert auf Servern in der EU." })
       ] }),
-      /* @__PURE__ */ jsxs("div", { children: [
-        /* @__PURE__ */ jsx("h2", { className: "font-bold text-slate-900 text-base mb-2", children: "3. Google AdSense & Cookies" }),
-        /* @__PURE__ */ jsx("p", { children: "Diese Website verwendet Google AdSense, einen Dienst zum Einbinden von Werbeanzeigen der Google Ireland Limited („Google“). AdSense verwendet Cookies und Web Beacons, um die Ausspielung relevanter Anzeigen zu ermöglichen. Weitere Informationen zur Datenverarbeitung durch Google findest du in den Datenschutzhinweisen von Google." })
-      ] }),
+      /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("p", {}) }),
       /* @__PURE__ */ jsxs("div", { children: [
         /* @__PURE__ */ jsx("h2", { className: "font-bold text-slate-900 text-base mb-2", children: "4. Affiliate-Formulare & iFrames (partner-versicherung.de)" }),
         /* @__PURE__ */ jsx("p", { children: "Auf einzelnen Seiten sind Formular-Widgets der partner-versicherung.de integriert. Beim Interagieren mit diesen Widgets werden Daten direkt an die Server des Anbieters übermittelt, um Vergleichsangebote zu berechnen." })

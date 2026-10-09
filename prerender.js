@@ -128,7 +128,10 @@ const routesToPrerender = [
       .replace(/<meta name="description" content=".*?" \/>/, `<meta name="description" content="${route.description}" />`)
       .replace(/<meta property="og:title" content=".*?" \/>/, `<meta property="og:title" content="${route.title}" />`)
       .replace(/<meta property="og:description" content=".*?" \/>/, `<meta property="og:description" content="${route.description}" />`)
-      .replace(/<link rel="canonical" href=".*?" \/>/, `<link rel="canonical" href="https://www.rentesicher.de${route.url === '/' ? '' : route.url}" />`);
+      .replace(/<meta property="og:url" content=".*?" \/>/, `<meta property="og:url" content="https://rentesicher.de${route.url === '/' ? '' : route.url}" />`)
+      .replace(/<meta name="twitter:title" content=".*?" \/>/, `<meta name="twitter:title" content="${route.title}" />`)
+      .replace(/<meta name="twitter:description" content=".*?" \/>/, `<meta name="twitter:description" content="${route.description}" />`)
+      .replace(/<link rel="canonical" href=".*?" \/>/, `<link rel="canonical" href="https://rentesicher.de${route.url === '/' ? '' : route.url}" />`);
 
     const filePath = route.url === '/' ? 'dist/index.html' : `dist${route.url}/index.html`;
     const dirPath = path.dirname(toAbsolute(filePath));
@@ -143,3 +146,32 @@ const routesToPrerender = [
 
   console.log('🎉 SSG Pre-Rendering aller 21 Evergreen-Routen erfolgreich abgeschlossen!');
 })();
+
+
+// --- Auto-injected Dynamic Sitemap ---
+try {
+  let routeKeys = [];
+  if (Array.isArray(routesToPrerender)) {
+    routeKeys = routesToPrerender.map(r => r.url || r.path);
+  } else {
+    routeKeys = Object.keys(routesToPrerender);
+  }
+
+  const sitemapUrlset = routeKeys
+    .filter(url => url && !url.includes('404') && !url.includes('embed'))
+    .map(url => {
+      let loc = `https://rentesicher.de${url === '/' ? '' : url}`;
+      let priority = url === '/' ? '1.0' : '0.8';
+      const today = new Date().toISOString().split('T')[0];
+      return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
+    }).join('\n');
+
+  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrlset}\n</urlset>`;
+
+  fs.writeFileSync(toAbsolute('dist/sitemap.xml'), sitemapXml);
+  fs.writeFileSync(toAbsolute('public/sitemap.xml'), sitemapXml);
+  console.log('  - Generated dynamic sitemap.xml for ' + 'rentesicher.de');
+} catch (e) {
+  console.error('Error generating sitemap:', e.message);
+}
+// -----------------------------------

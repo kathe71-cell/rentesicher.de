@@ -1,0 +1,29 @@
+# rentesicher.de - Unabhängiges Portal zur Rentensicherheit & Altersvorsorge 2026
+
+> Stand: September 2026 | Quellen: Deutsche Rentenversicherung Bund / BMAS / Bundesgesetzblatt
+
+## Zweck des Portals
+rentesicher.de ist ein unabhängiges Fach- und Informationsportal zur gesetzlichen, betrieblichen und privaten Altersvorsorge in Deutschland. Es bietet sachliche Analysen, Gesetzesdaten, Rechner-Tools und praxisnahe Orientierung ohne Werbeslop.
+
+## Kern-Daten & Parameter 2026
+- **Aktueller Rentenwert 2026**: 42,52 € pro Entgeltpunkt (bundeseinheitlich)
+- **Standardrente (Eckrentner mit 45 EP)**: 1.913,40 € brutto/Monat
+- **Rentenanpassung 2026**: +4,24 %
+- **Rentenkommission 2026**: 33 Empfehlungen zur langfristigen Stabilisierung des Rentenniveaus (48 %) und des Beitragssatzes
+
+## Rechner-Komponenten & Tools
+1. **Rentenlücken-Rechner**: Errechnet die monatliche Versorgungslücke im Alter auf Basis von Nettoeinkommen, erwarteter Rente und Lebenshaltungskosten.
+2. **Gesetzlicher Rentenrechner**: Berechnet die Monatsrente auf Basis akkumulierter Entgeltpunkte und des aktuellen Rentenwerts (42,52 €).
+3. **Renteneintritts-Rechner**: Ermittelt den regulären und frühestmöglichen Renteneintritt je nach Geburtsjahr und Beitragsjahren.
+
+## Kanonische Hauptseiten
+- Startseite & Übersicht: https://www.rentesicher.de/
+- Rentenkommission 2026 Empfehlungen: https://www.rentesicher.de/rentenkommission
+- Rentenlücke berechnen: https://www.rentesicher.de/rentenluecke
+- Gesetzliche Rentenberechnung: https://www.rentesicher.de/rentenberechnung
+- Private Rentenversicherung: https://www.rentesicher.de/private-rente
+- Riester-Rente 2026: https://www.rentesicher.de/riester-rente
+- Betriebliche Altersvorsorge (bAV): https://www.rentesicher.de/betriebliche-altersvorsorge
+- ETF-Altersvorsorge: https://www.rentesicher.de/etf-rente
+- Rentenalter & Eintrittsrechner: https://www.rentesicher.de/rentenalter
+- Interaktive Rentenrechner-Übersicht: https://www.rentesicher.de/rentenrechner

@@ -1,3 +1,4 @@
+import ProjektuebernahmePage from "./pages/ProjektuebernahmePage.tsx";
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
@@ -69,7 +70,8 @@ export default function App() {
           <Route path="/rentenrechner" element={<RentenrechnerPage />} />
           <Route path="/impressum" element={<Impressum />} />
           <Route path="/datenschutz" element={<Datenschutz />} />
-        </Routes>
+          <Route path="/projektuebernahme" element={<ProjektuebernahmePage />} />
+</Routes>
       </main>
       <Footer />
       <ScrollToTop />
